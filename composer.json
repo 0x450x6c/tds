@@ -1,0 +1,52 @@
+{
+    "name": "0x450x6c/tds",
+    "type": "library",
+    "description": "Typed data structures.",
+    "license": "LGPL",
+    "require": {},
+    "require-dev": {
+        "phpunit/phpunit": ">=9.1",
+        "vimeo/psalm": ">=3.10",
+        "phpstan/phpstan": ">=0.12",
+        "phpstan/phpstan-strict-rules": ">=0.12",
+        "friendsofphp/php-cs-fixer": ">=2.16",
+        "psalm/plugin-phpunit": "dev-master",
+        "phan/phan": ">=2.7",
+        "brainmaestro/composer-git-hooks": ">=2.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "TDS\\": "src/"
+        },
+        "files": [
+            "src/Listt/listt-functions.php",
+            "src/Maybe/maybe-functions.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TDS\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "yarn install --frozen-lockfile",
+            "php vendor/bin/cghooks add --ignore-lock"
+        ],
+        "post-update-cmd": [
+            "yarn install",
+            "yarn upgrade",
+            "php vendor/bin/cghooks update"
+        ]
+    },
+    "extra": {
+        "hooks": {
+            "pre-commit": [
+                "bash tools/bin/pre-commit"
+            ],
+            "pre-push": [
+                "bash tools/bin/pre-push"
+            ]
+        }
+    }
+}

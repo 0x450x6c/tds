@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -xe
+
+php vendor/bin/php-cs-fixer fix --dry-run
+php vendor/bin/psalm
+php vendor/bin/phpstan analyse
+php vendor/bin/phan
+php vendor/bin/phpunit

@@ -1,0 +1,5 @@
+#!/usr/bin/env fish
+
+$projectRoot/tools/bin/php -dmemory_limit=-1 \
+	 $php_composer/libexec/composer/composer.phar \
+	 $argv

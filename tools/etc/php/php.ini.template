@@ -1,0 +1,10 @@
+; Local Variables:
+; mode: ini
+; End:
+extension=${php_ast}/lib/php/extensions/ast.so
+
+memory_limit=2048M
+max_execution_time=120
+
+[date]
+date.timezone = "UTC"

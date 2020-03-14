@@ -1,0 +1,6 @@
+/.direnv
+/vendor
+/node_modules
+/tools/etc/php/php.ini
+/.php_cs.cache
+cghooks.lock

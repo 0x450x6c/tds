@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -xe
+
+npx lint-staged --shell --relative
+
+php vendor/bin/phpunit

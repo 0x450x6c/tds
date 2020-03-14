@@ -1,0 +1,12 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Only booleans are allowed in a negated boolean, mixed given\\.$#"
+			count: 1
+			path: src/Listt/Listt.php
+
+		-
+			message: "#^Strict comparison using \\!\\=\\= between null and int\\|string will always evaluate to true\\.$#"
+			count: 1
+			path: src/Listt/Listt.php
+

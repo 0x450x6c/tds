@@ -588,7 +588,7 @@ final class ListtTest extends TestCase
 }
 
 /**
- * @implements Ord<_Orderable>
+ * @template-implements Ord<_Orderable>
  */
 class _Orderable implements Ord
 {

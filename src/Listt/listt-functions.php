@@ -11,11 +11,21 @@ use TDS\Maybe\Maybe;
  *
  * @psalm-pure
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
  *
- * @template XKey
- * @template XValue
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
+ *
+ * @psalm-template XKey
+ * @phpstan-template XKey
+ * @phan-template XKey
+ *
+ * @psalm-template XValue
+ * @phpstan-template XValue
+ * @phan-template XValue
  *
  * @psalm-param iterable<TKey, TValue> $listA
  * @phpstan-param iterable<TKey, TValue> $listA
@@ -44,7 +54,9 @@ function concat(
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -68,8 +80,13 @@ function head(iterable $list)
 /**
  * Extract the first element of a list.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -96,7 +113,10 @@ function headMaybe(iterable $list): Maybe
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -120,8 +140,13 @@ function last(iterable $list)
 /**
  * Extract the last element of a list.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -150,7 +175,10 @@ function lastMaybe(iterable $list)
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -171,8 +199,13 @@ function tail(iterable $list, bool $preserveNumericKeys = false): Listt
  * Return all the elements of a list except the last one.
  * The list must be non-empty.
  *
- * @template TValue
- * @template TKey
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -199,8 +232,13 @@ function init(iterable $list): Listt
  * If the list is non-empty, returns `Just (x, xs)`,
  *     where `x` is the head of the list and `xs` its tail.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -242,8 +280,13 @@ function length(iterable $list): int
 /**
  * Creates a list from function that returns a generator.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
  * @psalm-param null|int|\Closure():int $count
@@ -274,7 +317,9 @@ function fromGenerator(\Closure $makeGeneratorFn, $count = null): Listt
 /**
  * Creates a list from single element.
  *
- * @template TValue
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param TValue $value
  * @phpstan-param TValue $value
@@ -298,8 +343,13 @@ function from($value): Listt
 /**
  * Creates a list from any iterable except generators.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @param null|\Closure|int $count
  *
@@ -358,7 +408,10 @@ function emptyList(): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -385,8 +438,13 @@ function nth(iterable $list, int $n)
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -414,7 +472,10 @@ function select(iterable $list, \Closure $predicate): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -443,7 +504,10 @@ function minimum(iterable $list)
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -470,8 +534,13 @@ function maximum(iterable $list)
 /**
  * Applies passed function to each element of list.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -504,14 +573,21 @@ function tap(iterable $list, \Closure $predicate): Listt
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  * @phan-param iterable<TKey, TValue> $list
  *
- * @template X
+ * @psalm-template X
+ * @phpstan-template X
+ * @phan-template X
  *
  * @psalm-param \Closure(TValue=, TKey=):X $predicate
  * @phpstan-param (\Closure(TValue):X)&(\Closure(TValue, TKey):X) $predicate
@@ -580,8 +656,13 @@ function isEmpty(iterable $list): bool
  *
  * @psalm-pure
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -601,8 +682,13 @@ function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
 /**
  * @psalm-pure
  *
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -622,7 +708,10 @@ function toGenerator(iterable $list): \Generator
 /**
  * @psalm-template TKey
  * @phpstan-template TKey
- * @template TValue
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list

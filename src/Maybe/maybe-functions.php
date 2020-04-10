@@ -15,7 +15,9 @@ function nothing(): Nothing
 }
 
 /**
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
  * @psalm-param T $value
  * @phpstan-param T $value
@@ -42,9 +44,17 @@ function just($value): Just
  * Otherwise, it applies the function
  *    to the value inside the Just and returns the result.
  *
- * @template T
- * @template X
- * @template Y
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
+ *
+ * @psalm-template X
+ * @phpstan-template X
+ * @phan-template X
+ *
+ * @psalm-template Y
+ * @phpstan-template Y
+ * @phan-template Y
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
@@ -75,7 +85,9 @@ function maybe(Maybe $maybe, $defaultValue, \Closure $predicate)
 }
 
 /**
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
  * @param Maybe<T> $maybe
  * @psalm-assert-if-true Just<T> $maybe
@@ -91,7 +103,9 @@ function isJust(Maybe $maybe): bool
 }
 
 /**
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
  * @param Maybe<T> $maybe
  * @psalm-assert-if-true Nothing<T> $maybe
@@ -107,7 +121,9 @@ function isNothing(Maybe $maybe): bool
 }
 
 /**
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
@@ -127,8 +143,13 @@ function fromJust(Maybe $maybe)
 }
 
 /**
- * @template X
- * @template T
+ * @psalm-template X
+ * @phpstan-template X
+ * @phan-template X
+ *
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
@@ -154,8 +175,13 @@ function fromMaybe(Maybe $maybe, $defaultValue)
 }
 
 /**
- * @template TKey
- * @template TValue
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
@@ -175,7 +201,9 @@ function listToMaybe(iterable $list): Maybe
 }
 
 /**
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
@@ -197,7 +225,10 @@ function maybeToList(Maybe $maybe): Listt
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
- * @template TKey
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
  * @psalm-template TValue
  * @phpstan-template TValue
  * @phan-template T
@@ -232,9 +263,17 @@ function catMaybes(iterable $maybes): Listt
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
- * @template TKey
- * @template TValue
- * @template X
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
+ *
+ * @psalm-template X
+ * @phpstan-template X
+ * @phan-template X
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list

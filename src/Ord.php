@@ -3,7 +3,9 @@
 namespace TDS;
 
 /**
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  */
 interface Ord
 {

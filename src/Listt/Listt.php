@@ -11,9 +11,15 @@ use TDS\Ord;
 /**
  * Clone of https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html.
  *
- * @template TKey
- * @template TValue
- * @implements \Iterator<TKey, TValue>
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
+ *
+ * @template-implements \Iterator<TKey, TValue>
  * @psalm-immutable
  */
 class Listt implements \Iterator, \Countable
@@ -125,8 +131,13 @@ class Listt implements \Iterator, \Countable
 	 *
 	 * @psalm-pure
 	 *
-	 * @template XKey
-	 * @template XValue
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 * @phan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 * @phan-template XValue
 	 *
 	 * @psalm-param iterable<XKey, XValue> $list
 	 * @phpstan-param iterable<XKey, XValue> $list
@@ -467,8 +478,13 @@ class Listt implements \Iterator, \Countable
 	/**
 	 * Creates an empty list.
 	 *
-	 * @template XKey
-	 * @template XValue
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 * @phan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 * @phan-template XValue
 	 *
 	 * @psalm-pure
 	 *
@@ -494,8 +510,13 @@ class Listt implements \Iterator, \Countable
 	/**
 	 * Creates a list from function that returns a generator.
 	 *
-	 * @template XKey
-	 * @template XValue
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 * @phan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 * @phan-template XValue
 	 *
 	 * @psalm-param \Closure():\Generator<XKey, XValue> $makeGeneratorFn
 	 * @phpstan-param \Closure():\Generator<XKey, XValue> $makeGeneratorFn
@@ -527,7 +548,9 @@ class Listt implements \Iterator, \Countable
 	/**
 	 * Creates a list from single element.
 	 *
-	 * @template XValue
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 * @phan-template XValue
 	 *
 	 * @psalm-param XValue $value
 	 * @phpstan-param XValue $value
@@ -551,8 +574,13 @@ class Listt implements \Iterator, \Countable
 	/**
 	 * Creates a list from any iterable except generators.
 	 *
-	 * @template XKey
-	 * @template XValue
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 * @phan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 * @phan-template XValue
 	 *
 	 * @param null|\Closure|int $count
 	 *
@@ -878,7 +906,9 @@ class Listt implements \Iterator, \Countable
 	 * This is lazy function,
 	 *     will be applied only when you are reading data from list.
 	 *
-	 * @template X
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
 	 *
 	 * @psalm-param \Closure(TValue, TKey=):X $predicate
 	 * @phpstan-param (\Closure(TValue):X)&(\Closure(TValue, TKey):X) $predicate
@@ -921,7 +951,9 @@ class Listt implements \Iterator, \Countable
 	 * This is lazy function,
 	 *     will be applied only when you are reading data from list.
 	 *
-	 * @template X
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
 	 *
 	 * @psalm-param \Closure(TValue=, TKey=):Maybe<X> $predicate
 	 * @phpstan-param \Closure(TValue=, TKey=):Maybe<X> $predicate
@@ -1147,8 +1179,13 @@ class Listt implements \Iterator, \Countable
 	}
 
 	/**
-	 * @template XKey
-	 * @template XValue
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 * @phan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 * @phan-template XValue
 	 *
 	 * @psalm-param iterable<XKey, XValue> $value
 	 * @phpstan-param iterable<XKey, XValue> $value

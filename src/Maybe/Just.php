@@ -5,8 +5,11 @@ namespace TDS\Maybe;
 use TDS\Listt\Listt;
 
 /**
- * @template T
- * @extends Maybe<T>
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
+ *
+ * @template-extends Maybe<T>
  *
  * @psalm-immutable
  */
@@ -15,7 +18,7 @@ final class Just extends Maybe
 	/**
 	 * @var T
 	 *
-	 * @readonly
+	 * @psalm-readonly
 	 */
 	private $value;
 
@@ -55,7 +58,9 @@ final class Just extends Maybe
 	}
 
 	/**
-	 * @template X
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
 	 *
 	 * @psalm-param X $value
 	 * @phpstan-param X $value
@@ -82,8 +87,13 @@ final class Just extends Maybe
 	 * Otherwise, it applies the function
 	 *    to the value inside the Just and returns the result.
 	 *
-	 * @template X
-	 * @template Y
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
+	 *
+	 * @psalm-template Y
+	 * @phpstan-template Y
+	 * @phan-template Y
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
@@ -139,7 +149,9 @@ final class Just extends Maybe
 	}
 
 	/**
-	 * @template X
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue

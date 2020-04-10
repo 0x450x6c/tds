@@ -15,9 +15,11 @@ use TDS\Listt\Listt;
  * Using Maybe is a good way to deal with errors or exceptional cases
  *     without resorting to drastic measures such as error.
  *
- * @template T
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
  *
- * @implements \Iterator<int, T>
+ * @template-implements \Iterator<int, T>
  *
  * @psalm-immutable
  */
@@ -42,8 +44,13 @@ abstract class Maybe implements \Iterator, \Countable
 	 * Otherwise, it applies the function
 	 *    to the value inside the Just and returns the result.
 	 *
-	 * @template X
-	 * @template Y
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
+	 *
+	 * @psalm-template Y
+	 * @phpstan-template Y
+	 * @phan-template Y
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
@@ -85,7 +92,9 @@ abstract class Maybe implements \Iterator, \Countable
 	abstract public function fromJust();
 
 	/**
-	 * @template X
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue

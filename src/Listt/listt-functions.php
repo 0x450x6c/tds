@@ -39,7 +39,7 @@ use TDS\Maybe\Maybe;
  * @phpstan-return Listt<TKey|XKey, TValue|XValue>
  * @phan-return Listt<TKey|XKey, TValue|XValue>
  *
- * @complexity O(N) Lazy.
+ * @Complexity O(N) Lazy.
  */
 function concat(
 	iterable $listA,
@@ -70,7 +70,7 @@ function concat(
  * @phpstan-return TValue
  * @phan-return TValue
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function head(iterable $list)
 {
@@ -101,7 +101,7 @@ function head(iterable $list)
  * @phan-suppress PhanCommentParamOutOfOrder
  * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function headMaybe(iterable $list): Maybe
 {
@@ -130,7 +130,7 @@ function headMaybe(iterable $list): Maybe
  * @phpstan-return TValue
  * @phan-return TValue
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function last(iterable $list)
 {
@@ -161,7 +161,7 @@ function last(iterable $list)
  * @phan-suppress PhanCommentParamOutOfOrder
  * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function lastMaybe(iterable $list)
 {
@@ -188,7 +188,7 @@ function lastMaybe(iterable $list)
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(N)
+ * @Complexity O(N)
  */
 function tail(iterable $list, bool $preserveNumericKeys = false): Listt
 {
@@ -217,7 +217,7 @@ function tail(iterable $list, bool $preserveNumericKeys = false): Listt
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(N)
+ * @Complexity O(N)
  */
 function init(iterable $list): Listt
 {
@@ -268,7 +268,7 @@ function uncons(iterable $list): Maybe
  *
  * @psalm-pure
  *
- * @complexity when source is array
+ * @Complexity when source is array
  *     or count is specified while creating a list,
  *     then O(1), otherwise O(N).
  */
@@ -307,7 +307,7 @@ function length(iterable $list): int
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(1) just creates a list, but not iterates by.
+ * @Complexity O(1) just creates a list, but not iterates by.
  */
 function fromGenerator(\Closure $makeGeneratorFn, $count = null): Listt
 {
@@ -333,7 +333,7 @@ function fromGenerator(\Closure $makeGeneratorFn, $count = null): Listt
  *
  * @param mixed $value
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function from($value): Listt
 {
@@ -370,7 +370,7 @@ function from($value): Listt
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(N) just creates a list, but not iterates by.
+ * @Complexity O(N) just creates a list, but not iterates by.
  */
 function fromIter(iterable $value, $count = null): Listt
 {
@@ -391,7 +391,7 @@ function fromIter(iterable $value, $count = null): Listt
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function emptyList(): Listt
 {
@@ -425,7 +425,7 @@ function emptyList(): Listt
  * @phpstan-return TValue
  * @phan-return TValue
  *
- * @complexity O(N) where N = $n.
+ * @Complexity O(N) where N = $n.
  */
 function nth(iterable $list, int $n)
 {
@@ -460,7 +460,7 @@ function nth(iterable $list, int $n)
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(N) Lazy.
+ * @Complexity O(N) Lazy.
  */
 function select(iterable $list, \Closure $predicate): Listt
 {
@@ -492,7 +492,7 @@ function select(iterable $list, \Closure $predicate): Listt
  * @phpstan-return TValue
  * @phan-return TValue
  *
- * @complexity O(N)
+ * @Complexity O(N)
  */
 function minimum(iterable $list)
 {
@@ -524,7 +524,7 @@ function minimum(iterable $list)
  * @phpstan-return TValue
  * @phan-return TValue
  *
- * @complexity O(N)
+ * @Complexity O(N)
  */
 function maximum(iterable $list)
 {
@@ -559,7 +559,7 @@ function maximum(iterable $list)
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(N) Lazy.
+ * @Complexity O(N) Lazy.
  */
 function tap(iterable $list, \Closure $predicate): Listt
 {
@@ -599,7 +599,7 @@ function tap(iterable $list, \Closure $predicate): Listt
  * @phpstan-return Listt<TKey, X>
  * @phan-return Listt<TKey, X>
  *
- * @complexity O(N) Lazy.
+ * @Complexity O(N) Lazy.
  *
  * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  */
@@ -621,7 +621,7 @@ function map(iterable $list, \Closure $predicate): Listt
  * @phpstan-param iterable<TKey, TValue> $list
  * @phan-param iterable<mixed, mixed> $list
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function null(iterable $list): bool
 {
@@ -641,7 +641,7 @@ function null(iterable $list): bool
  * @phpstan-param iterable<TKey, TValue> $list
  * @phan-param iterable<mixed, mixed> $list
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function isEmpty(iterable $list): bool
 {
@@ -672,7 +672,7 @@ function isEmpty(iterable $list): bool
  * @phpstan-return Listt<TKey, TValue>
  * @phan-return Listt<TKey, TValue>
  *
- * @complexity O(2N) Creates one array, and reverse iterate.
+ * @Complexity O(2N) Creates one array, and reverse iterate.
  */
 function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
 {
@@ -698,7 +698,7 @@ function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
  * @phpstan-return \Generator<TKey, TValue>
  * @phan-return \Generator<TKey, TValue>
  *
- * @complexity O(1)
+ * @Complexity O(1)
  */
 function toGenerator(iterable $list): \Generator
 {
@@ -723,7 +723,7 @@ function toGenerator(iterable $list): \Generator
  * @phpstan-return array<array-key, TValue>
  * @phan-return array<string|int, TValue>
  *
- * @complexity O(N)
+ * @Complexity O(N)
  */
 function toArray(iterable $list): array
 {
@@ -749,7 +749,7 @@ function toArray(iterable $list): array
  *
  * @psalm-pure
  *
- * @complexity O(N)
+ * @Complexity O(N)
  */
 function apply(iterable $list, ?\Closure $predicate = null): void
 {

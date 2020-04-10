@@ -299,3 +299,31 @@ function mapMaybe(iterable $list, \Closure $predicate): Listt
 {
 	return Listt::fromIter($list)->mapMaybe($predicate);
 }
+
+/**
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
+ *
+ * @psalm-param Maybe<T|null>|Maybe<T> $maybe
+ * @phpstan-param Maybe<T|null>|Maybe<T> $maybe
+ * @phan-param Maybe<T|null> $maybe
+ *
+ * @psalm-return Maybe<T>
+ * @phpstan-return Maybe<T>
+ * @phan-return Maybe<T>
+ *
+ * @psalm-pure
+ */
+function maybeSelectNotNull(Maybe $maybe): Maybe
+{
+	if ($maybe->isJust() && null === $maybe->fromJust()) {
+		return nothing();
+	}
+
+	/**
+	 * @phpstan-var Maybe<T>
+	 * @phan-var Maybe<T>
+	 */
+	return $maybe;
+}

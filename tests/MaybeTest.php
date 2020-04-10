@@ -13,6 +13,7 @@ use function TDS\Maybe\just;
 use function TDS\Maybe\listToMaybe;
 use function TDS\Maybe\mapMaybe;
 use function TDS\Maybe\maybe;
+use function TDS\Maybe\maybeSelectNotNull;
 use function TDS\Maybe\maybeToList;
 use TDS\Maybe\Nothing;
 use function TDS\Maybe\nothing;
@@ -225,5 +226,19 @@ final class MaybeTest extends TestCase
 	{
 		static::assertCount(0, nothing());
 		static::assertCount(1, Just('a'));
+	}
+
+	public function test_maybe_select_not_null(): void
+	{
+		static::assertTrue(
+			maybeSelectNotNull(nothing())->isNothing()
+		);
+		static::assertTrue(
+			maybeSelectNotNull(just(null))->isNothing()
+		);
+		static::assertSame(
+			'a',
+			maybeSelectNotNull(just('a'))->fromJust()
+		);
 	}
 }

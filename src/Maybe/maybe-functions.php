@@ -289,7 +289,9 @@ function catMaybes(iterable $maybes): Listt
  * @phpstan-return Listt<TKey, X>
  * @phan-return Listt<TKey, X>
  *
- * @Complexity O(N) Lazy.
+ * @complexity O(N) Lazy.
+ *
+ * @IgnoreAnnotation("complexity")
  *
  * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  */

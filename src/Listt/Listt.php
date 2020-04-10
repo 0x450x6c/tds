@@ -21,6 +21,8 @@ use TDS\Ord;
  *
  * @template-implements \Iterator<TKey, TValue>
  * @psalm-immutable
+ *
+ * @IgnoreAnnotation("complexity")
  */
 class Listt implements \Iterator, \Countable
 {
@@ -117,7 +119,7 @@ class Listt implements \Iterator, \Countable
 	 *
 	 * @psalm-pure
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function __invoke(?\Closure $predicate = null): void
 	{
@@ -147,7 +149,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey|XKey, TValue|XValue>
 	 * @phan-return Listt<TKey|XKey, TValue|XValue>
 	 *
-	 * @Complexity O(N) Lazy.
+	 * @complexity O(N) Lazy.
 	 */
 	public function concat(
 		iterable $list,
@@ -205,7 +207,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return TValue
 	 * @phan-return TValue
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function head()
 	{
@@ -228,7 +230,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Maybe<TValue>
 	 * @phan-return Maybe<TValue>
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function headMaybe(): Maybe
 	{
@@ -250,7 +252,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return TValue
 	 * @phan-return TValue
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function last()
 	{
@@ -282,7 +284,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Maybe<TValue>
 	 * @phan-return Maybe<TValue>
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function lastMaybe(): Maybe
 	{
@@ -302,7 +304,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, TValue>
 	 * @phan-return Listt<TKey, TValue>
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function tail(bool $preserveNumericKeys = false): self
 	{
@@ -350,7 +352,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, TValue>
 	 * @phan-return Listt<TKey, TValue>
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function init(): self
 	{
@@ -409,7 +411,7 @@ class Listt implements \Iterator, \Countable
 	/**
 	 * @psalm-pure
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function null(): bool
 	{
@@ -438,7 +440,7 @@ class Listt implements \Iterator, \Countable
 	 *
 	 * @psalm-pure
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function isEmpty(): bool
 	{
@@ -450,7 +452,7 @@ class Listt implements \Iterator, \Countable
 	 *
 	 * @psalm-pure
 	 *
-	 * @Complexity when source is array
+	 * @complexity when source is array
 	 *     or count is specified while creating a list,
 	 *     then O(1), otherwise O(N).
 	 */
@@ -494,7 +496,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<XKey, XValue>
 	 * @phan-return Listt<XKey, XValue>
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public static function emptyList(): self
 	{
@@ -536,7 +538,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<XKey, XValue>
 	 * @phan-return Listt<XKey, XValue>
 	 *
-	 * @Complexity O(1) just creates a list, but not iterates by.
+	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
 	public static function fromGenerator(
 		\Closure $makeGeneratorFn,
@@ -564,7 +566,7 @@ class Listt implements \Iterator, \Countable
 	 *
 	 * @param mixed $value
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public static function from($value): self
 	{
@@ -601,7 +603,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<XKey, XValue>
 	 * @phan-return Listt<XKey, XValue>
 	 *
-	 * @Complexity O(1) just creates a list, but not iterates by.
+	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
 	public static function fromIter(
 		iterable $value,
@@ -643,7 +645,7 @@ class Listt implements \Iterator, \Countable
 	 *
 	 * @psalm-pure
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function apply(?\Closure $predicate = null): void
 	{
@@ -689,7 +691,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return TValue
 	 * @phan-return TValue
 	 *
-	 * @Complexity O(N) where N = $n.
+	 * @complexity O(N) where N = $n.
 	 */
 	public function nth(int $n)
 	{
@@ -738,7 +740,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, TValue>
 	 * @phan-return Listt<TKey, TValue>
 	 *
-	 * @Complexity O(N) Lazy.
+	 * @complexity O(N) Lazy.
 	 */
 	public function select(
 		\Closure $predicate,
@@ -785,7 +787,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return TValue
 	 * @phan-return TValue
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function minimum()
 	{
@@ -830,7 +832,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return TValue
 	 * @phan-return TValue
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function maximum()
 	{
@@ -877,7 +879,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, TValue>
 	 * @phan-return Listt<TKey, TValue>
 	 *
-	 * @Complexity O(N) Lazy.
+	 * @complexity O(N) Lazy.
 	 */
 	public function tap(\Closure $predicate): self
 	{
@@ -920,7 +922,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, X>
 	 * @phan-return Listt<TKey, X>
 	 *
-	 * @Complexity O(N) Lazy.
+	 * @complexity O(N) Lazy.
 	 */
 	public function map(\Closure $predicate): self
 	{
@@ -965,7 +967,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, X>
 	 * @phan-return Listt<TKey, X>
 	 *
-	 * @Complexity O(N) Lazy.
+	 * @complexity O(N) Lazy.
 	 *
 	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
 	 */
@@ -988,7 +990,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, TValue>
 	 * @phan-return Listt<TKey, TValue>
 	 *
-	 * @Complexity O(2N) Creates one array, and reverse iterate.
+	 * @complexity O(2N) Creates one array, and reverse iterate.
 	 */
 	public function reverse(bool $preserveNumericKeys = false): self
 	{
@@ -1030,7 +1032,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return \Generator<TKey, TValue>
 	 * @phan-return \Generator<TKey, TValue>
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function toGenerator(): \Generator
 	{
@@ -1050,7 +1052,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return array<array-key, TValue>
 	 * @phan-return array<string|int, TValue>
 	 *
-	 * @Complexity O(N)
+	 * @complexity O(N)
 	 */
 	public function toArray(): array
 	{
@@ -1063,7 +1065,7 @@ class Listt implements \Iterator, \Countable
 	/**
 	 * @psalm-pure
 	 *
-	 * @Complexity when source is array
+	 * @complexity when source is array
 	 *     or count is specified while creating a list,
 	 *     then O(1), otherwise O(N).
 	 */
@@ -1089,7 +1091,7 @@ class Listt implements \Iterator, \Countable
 	}
 
 	/**
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function rewind(): void
 	{
@@ -1098,7 +1100,7 @@ class Listt implements \Iterator, \Countable
 	}
 
 	/**
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function valid(): bool
 	{
@@ -1110,7 +1112,7 @@ class Listt implements \Iterator, \Countable
 	 * @psalm-return TKey
 	 * @phpstan-return TKey
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function key()
 	{
@@ -1119,7 +1121,7 @@ class Listt implements \Iterator, \Countable
 	}
 
 	/**
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function next(): void
 	{
@@ -1133,7 +1135,7 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return TValue
 	 * @phan-return TValue
 	 *
-	 * @Complexity O(1)
+	 * @complexity O(1)
 	 */
 	public function current()
 	{

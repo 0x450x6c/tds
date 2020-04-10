@@ -17,10 +17,23 @@ use TDS\Listt\Listt;
  *
  * @template T
  *
+ * @implements \Iterator<int, T>
+ *
  * @psalm-immutable
  */
-interface Maybe
+abstract class Maybe implements \Iterator, \Countable
 {
+	/**
+	 * Alias for Maybe::apply().
+	 *
+	 * @psalm-param \Closure(T) $predicate
+	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 *
+	 * @psalm-pure
+	 */
+	abstract public function __invoke(\Closure $predicate): void;
+
 	/**
 	 * The maybe function takes a default value, a function, and a Maybe value.
 	 *
@@ -36,9 +49,9 @@ interface Maybe
 	 * @phpstan-param X $defaultValue
 	 * @phan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure(T=):Y $predicate
+	 * @psalm-param \Closure(T):Y $predicate
 	 * @phpstan-param \Closure(T):Y $predicate
-	 * @phan-param \Closure(T):Y|\Closure():Y $predicate
+	 * @phan-param \Closure(T):Y $predicate
 	 *
 	 * @psalm-return X|Y
 	 * @phpstan-return X|Y
@@ -48,17 +61,17 @@ interface Maybe
 	 *
 	 * @param mixed $defaultValue
 	 */
-	public function maybe($defaultValue, \Closure $predicate);
+	abstract public function maybe($defaultValue, \Closure $predicate);
 
 	/**
 	 * @psalm-pure
 	 */
-	public function isJust(): bool;
+	abstract public function isJust(): bool;
 
 	/**
 	 * @psalm-pure
 	 */
-	public function isNothing(): bool;
+	abstract public function isNothing(): bool;
 
 	/**
 	 * @psalm-return T
@@ -69,7 +82,7 @@ interface Maybe
 	 *
 	 * @throws FromJustNothingException
 	 */
-	public function fromJust();
+	abstract public function fromJust();
 
 	/**
 	 * @template X
@@ -86,12 +99,27 @@ interface Maybe
 	 *
 	 * @param mixed $defaultValue
 	 */
-	public function fromMaybe($defaultValue);
+	abstract public function fromMaybe($defaultValue);
 
 	/**
 	 * @psalm-return Listt<int, T>
 	 * @phpstan-return Listt<int, T>
 	 * @phan-return Listt<int, T>
+	 *
+	 * @psalm-pure
 	 */
-	public function toList(): Listt;
+	abstract public function toList(): Listt;
+
+	/**
+	 * Apply predicate if `Just`.
+	 *
+	 * @psalm-param \Closure(T) $predicate
+	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 *
+	 * @psalm-pure
+	 */
+	abstract public function apply(\Closure $predicate): void;
+
+	abstract public function key(): int;
 }

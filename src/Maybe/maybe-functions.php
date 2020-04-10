@@ -54,9 +54,9 @@ function just($value): Just
  * @phpstan-param X $defaultValue
  * @phan-param X $defaultValue
  *
- * @psalm-param \Closure(T=):Y $predicate
+ * @psalm-param \Closure(T):Y $predicate
  * @phpstan-param \Closure(T):Y $predicate
- * @phan-param \Closure(T):Y|\Closure():Y $predicate
+ * @phan-param \Closure(T):Y $predicate
  *
  * @psalm-return X|Y
  * @phpstan-return X|Y

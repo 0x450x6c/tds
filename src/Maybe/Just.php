@@ -6,11 +6,11 @@ use TDS\Listt\Listt;
 
 /**
  * @template T
- * @implements Maybe<T>
+ * @extends Maybe<T>
  *
  * @psalm-immutable
  */
-final class Just implements Maybe
+final class Just extends Maybe
 {
 	/**
 	 * @var T
@@ -18,6 +18,13 @@ final class Just implements Maybe
 	 * @readonly
 	 */
 	private $value;
+
+	/**
+	 * @psalm-readonly-allow-private-mutation
+	 *
+	 * @var int
+	 */
+	private $iteratorCursor = 0;
 
 	/**
 	 * @psalm-param T $value
@@ -31,6 +38,20 @@ final class Just implements Maybe
 	private function __construct($value)
 	{
 		$this->value = $value;
+	}
+
+	/**
+	 * Alias for Maybe::apply().
+	 *
+	 * @psalm-param \Closure(T) $predicate
+	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 *
+	 * @psalm-pure
+	 */
+	public function __invoke(\Closure $predicate): void
+	{
+		$this->apply($predicate);
 	}
 
 	/**
@@ -68,9 +89,9 @@ final class Just implements Maybe
 	 * @phpstan-param X $defaultValue
 	 * @phan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure(T=):Y $predicate
+	 * @psalm-param \Closure(T):Y $predicate
 	 * @phpstan-param \Closure(T):Y $predicate
-	 * @phan-param \Closure(T):Y|\Closure():Y $predicate
+	 * @phan-param \Closure(T):Y $predicate
 	 *
 	 * @psalm-return Y
 	 * @phpstan-return Y
@@ -148,5 +169,72 @@ final class Just implements Maybe
 	public function toList(): Listt
 	{
 		return Listt::fromIter([$this->value]);
+	}
+
+	/**
+	 * Apply predicate if `Just`.
+	 *
+	 * @psalm-param \Closure(T) $predicate
+	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 *
+	 * @psalm-pure
+	 */
+	public function apply(\Closure $predicate): void
+	{
+		\call_user_func_array($predicate, [$this->value]);
+	}
+
+	public function rewind(): void
+	{
+		$this->iteratorCursor = 0;
+	}
+
+	public function valid(): bool
+	{
+		return 0 === $this->iteratorCursor;
+	}
+
+	public function key(): int
+	{
+		if (!$this->valid()) {
+			throw new \RuntimeException('Iterator is not valid.');
+		}
+
+		/** @psalm-var int */
+		return $this->iteratorCursor;
+	}
+
+	public function next(): void
+	{
+		/**
+		 * @psalm-suppress MixedOperand
+		 * @psalm-suppress ImpurePropertyAssignment
+		 */
+		++$this->iteratorCursor;
+	}
+
+	/**
+	 * @psalm-pure
+	 *
+	 * @psalm-return T
+	 * @phpstan-return T
+	 * @phan-return T
+	 */
+	public function current()
+	{
+		if (!$this->valid()) {
+			throw new \RuntimeException('Iterator is not valid.');
+		}
+
+		return $this->value;
+	}
+
+	/**
+	 * @psalm-pure
+	 */
+	public function count(): int
+	{
+		return 1;
 	}
 }

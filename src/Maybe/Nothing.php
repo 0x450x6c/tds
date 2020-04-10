@@ -5,15 +5,13 @@ namespace TDS\Maybe;
 use TDS\Listt\Listt;
 
 /**
- * @phpstan-template T
- * @phan-template T of mixed
- * @psalm-template T of mixed
+ * @template T
  *
- * @implements Maybe<T>
+ * @extends Maybe<T>
  *
  * @psalm-immutable
  */
-final class Nothing implements Maybe
+final class Nothing extends Maybe
 {
 	/**
 	 * @psalm-var null|self<mixed>
@@ -34,7 +32,22 @@ final class Nothing implements Maybe
 	}
 
 	/**
-	 * @psalm-return self<mixed>
+	 * Alias for Maybe::apply().
+	 *
+	 * @psalm-param \Closure(T) $predicate
+	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 *
+	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
+	 *
+	 * @psalm-pure
+	 */
+	public function __invoke(\Closure $predicate): void
+	{
+	}
+
+	/**
+	 * @psalm-return self<T>
 	 * @phpstan-return self<T>
 	 * @phan-return self<T>
 	 *
@@ -68,9 +81,9 @@ final class Nothing implements Maybe
 	 * @phpstan-param X $defaultValue
 	 * @phan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure(T=):Y $predicate
-	 * @phpstan-param \Closure(T=):Y $predicate
-	 * @phan-param \Closure(T):Y|\Closure():Y $predicate
+	 * @psalm-param \Closure(T):Y $predicate
+	 * @phpstan-param \Closure(T):Y $predicate
+	 * @phan-param \Closure(T):Y $predicate
 	 *
 	 * @psalm-return X
 	 * @phpstan-return X
@@ -138,6 +151,7 @@ final class Nothing implements Maybe
 	 * @psalm-return Listt<int, T>
 	 * @phpstan-return Listt<int, T>
 	 * @phan-return Listt<int, T>
+	 * @phan-suppress PhanParamSignatureMismatch
 	 */
 	public function toList(): Listt
 	{
@@ -149,5 +163,54 @@ final class Nothing implements Maybe
 		$list = [];
 
 		return Listt::fromIter($list);
+	}
+
+	/**
+	 * Apply predicate if `Just`.
+	 *
+	 * @psalm-param \Closure(T) $predicate
+	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 *
+	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
+	 *
+	 * @psalm-pure
+	 */
+	public function apply(\Closure $predicate): void
+	{
+	}
+
+	public function rewind(): void
+	{
+	}
+
+	public function valid(): bool
+	{
+		return false;
+	}
+
+	public function key(): int
+	{
+		throw new \RuntimeException('Iterator is not valid.');
+	}
+
+	public function next(): void
+	{
+	}
+
+	/**
+	 * @psalm-pure
+	 */
+	public function current(): void
+	{
+		throw new \RuntimeException('Iterator is not valid.');
+	}
+
+	/**
+	 * @psalm-pure
+	 */
+	public function count(): int
+	{
+		return 0;
 	}
 }

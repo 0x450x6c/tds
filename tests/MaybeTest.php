@@ -205,4 +205,25 @@ final class MaybeTest extends TestCase
 				->toArray()
 		);
 	}
+
+	public function test_using_as_iterator(): void
+	{
+		static::assertIsIterable(nothing());
+		static::assertIsIterable(Just('a'));
+
+		static::assertSame(
+			[],
+			iterator_to_array(nothing())
+		);
+		static::assertSame(
+			['a'],
+			iterator_to_array(Just('a'))
+		);
+	}
+
+	public function test_using_as_countable(): void
+	{
+		static::assertCount(0, nothing());
+		static::assertCount(1, Just('a'));
+	}
 }

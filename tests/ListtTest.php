@@ -14,6 +14,7 @@ use function TDS\Listt\isEmpty;
 use function TDS\Listt\last;
 use function TDS\Listt\lastMaybe;
 use function TDS\Listt\length;
+use function TDS\Listt\listSelectNotNull;
 use TDS\Listt\Listt;
 use function TDS\Listt\null;
 use function TDS\Listt\tail;
@@ -574,6 +575,14 @@ final class ListtTest extends TestCase
 		static::assertSame(
 			50,
 			fromIter($list)->maximum()->n
+		);
+	}
+
+	public function test_list_select_not_null(): void
+	{
+		self::assertList(
+			['a', 'b', 'c'],
+			listSelectNotNull(['a', null, 'b', null, 'c', null])
 		);
 	}
 

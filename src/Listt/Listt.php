@@ -957,9 +957,9 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-template X
 	 * @phan-template X
 	 *
-	 * @psalm-param \Closure(TValue=, TKey=):Maybe<X> $predicate
-	 * @phpstan-param \Closure(TValue=, TKey=):Maybe<X> $predicate
-	 * @phan-param \Closure(TValue=, TKey=):(Maybe<X>) $predicate
+	 * @psalm-param \Closure(TValue, TKey=):Maybe<X> $predicate
+	 * @phpstan-param (\Closure(TValue):Maybe<X>)&(\Closure(TValue, TKey):Maybe<X>) $predicate
+	 * @phan-param \Closure(TValue, TKey=):(Maybe<X>) $predicate
 	 *
 	 * @psalm-pure
 	 *

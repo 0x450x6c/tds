@@ -2,7 +2,9 @@
 
 namespace TDS\Listt;
 
+use function TDS\Maybe\just;
 use TDS\Maybe\Maybe;
+use function TDS\Maybe\nothing;
 
 /**
  * Append two lists.
@@ -778,4 +780,32 @@ function toArray(iterable $list): array
 function apply(iterable $list, ?\Closure $predicate = null): void
 {
 	Listt::fromIter($list)->apply($predicate);
+}
+
+/**
+ * Selects not null items of list.
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue|null>|iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue|null>|iterable<TKey, TValue> $list
+ * @phan-param iterable<TKey, TValue|null> $list
+ *
+ * @psalm-return Listt<TKey, TValue>
+ * @phpstan-return Listt<TKey, TValue>
+ * @phan-return Listt<TKey, TValue>
+ *
+ * @psalm-pure
+ */
+function listSelectNotNull(iterable $list): Listt
+{
+	return Listt::fromIter($list)
+		->mapMaybe(static fn ($x) => null === $x ? nothing() : just($x))
+	;
 }

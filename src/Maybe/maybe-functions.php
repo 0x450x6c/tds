@@ -301,6 +301,8 @@ function mapMaybe(iterable $list, \Closure $predicate): Listt
 }
 
 /**
+ * Convert `Just null` to `Nothing`.
+ *
  * @psalm-template T
  * @phpstan-template T
  * @phan-template T

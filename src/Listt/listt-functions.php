@@ -793,8 +793,8 @@ function apply(iterable $list, ?\Closure $predicate = null): void
  * @phpstan-template TValue
  * @phan-template TValue
  *
- * @psalm-param iterable<TKey, TValue|null>|iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue|null>|iterable<TKey, TValue> $list
+ * @psalm-param iterable<TKey, TValue|null> $list
+ * @phpstan-param iterable<TKey, TValue|null> $list
  * @phan-param iterable<TKey, TValue|null> $list
  *
  * @psalm-return Listt<TKey, TValue>

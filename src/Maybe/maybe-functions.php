@@ -307,8 +307,8 @@ function mapMaybe(iterable $list, \Closure $predicate): Listt
  * @phpstan-template T
  * @phan-template T
  *
- * @psalm-param Maybe<T|null>|Maybe<T> $maybe
- * @phpstan-param Maybe<T|null>|Maybe<T> $maybe
+ * @psalm-param Maybe<T|null> $maybe
+ * @phpstan-param Maybe<T|null> $maybe
  * @phan-param Maybe<T|null> $maybe
  *
  * @psalm-return Maybe<T>

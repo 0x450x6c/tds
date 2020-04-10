@@ -236,9 +236,13 @@ final class MaybeTest extends TestCase
 		static::assertTrue(
 			maybeSelectNotNull(just(null))->isNothing()
 		);
+
+		/** @var null|string */
+		$a = 'a';
+
 		static::assertSame(
 			'a',
-			maybeSelectNotNull(just('a'))->fromJust()
+			maybeSelectNotNull(just($a))->fromJust()
 		);
 	}
 }

@@ -391,6 +391,27 @@ function fromIter(iterable $value, $count = null): Listt
 }
 
 /**
+ * Creates a list from any range of numbers.
+ *
+ * @param ?int $end if null, then list become infinity
+ *
+ * @psalm-pure
+ *
+ * @psalm-return Listt<int, int>
+ * @phpstan-return Listt<int, int>
+ * @phan-return Listt<int, int>
+ *
+ * @complexity O(N).
+ */
+function fromRange(
+	int $start,
+	?int $end = null,
+	int $step = 1
+): Listt {
+	return Listt::fromRange($start, $end, $step);
+}
+
+/**
  * Creates an empty list.
  *
  * @psalm-template TKey
@@ -700,6 +721,37 @@ function isEmpty(iterable $list): bool
 function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
 {
 	return Listt::fromIter($list)->reverse($preserveNumericKeys);
+}
+
+/**
+ * Take n, applied to a list xs,
+ *     returns the prefix of xs of length n, or xs itself if n > length xs:.
+ *
+ * @psalm-pure
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ * @phan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ * @phan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ * @phan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-return Listt<TKey, TValue>
+ * @phpstan-return Listt<TKey, TValue>
+ * @phan-return Listt<TKey, TValue>
+ *
+ * @IgnoreAnnotation("complexity")
+ *
+ * @complexity O(N).
+ */
+function take(iterable $list, int $n, bool $preserveNumericKeys = false): Listt
+{
+	return fromIter($list)->take($n, $preserveNumericKeys);
 }
 
 /**

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace TDS\Listt;
 
@@ -637,6 +639,44 @@ class Listt implements \Iterator, \Countable
 	}
 
 	/**
+	 * Creates a list from any range of numbers.
+	 *
+	 * @param ?int $end if null, then list become infinity
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return Listt<int, int>
+	 * @phpstan-return Listt<int, int>
+	 * @phan-return Listt<int, int>
+	 *
+	 * @complexity O(N).
+	 */
+	public static function fromRange(
+		int $start,
+		?int $end = null,
+		int $step = 1
+	): self {
+		/**
+		 * @psalm-var \Closure():\Generator<int, int>
+		 */
+		$makeGeneratorFn = static function () use (
+			$start,
+			$end,
+			$step
+		): \Generator {
+			$current = $start;
+			while (null === $end || $end > $current) {
+				yield $current;
+				$current += $step;
+			}
+		};
+
+		return self::fromGenerator(
+			$makeGeneratorFn
+		);
+	}
+
+	/**
 	 * Iterates over list applying predicate (if specified).
 	 *
 	 * @psalm-param null|\Closure(TValue=, TKey=) $predicate
@@ -802,12 +842,7 @@ class Listt implements \Iterator, \Countable
 		$minimum = $generator->current();
 		/** @psalm-suppress ImpureMethodCall */
 		foreach ($generator as $v) {
-			if ($v instanceof Ord) {
-				/** @var Ord $minimum */
-				if ($v->compare($minimum) < 0) {
-					$minimum = $v;
-				}
-			} elseif ($v < $minimum) {
+			if (Ord::LT === self::compare($v, $minimum)) {
 				$minimum = $v;
 			}
 		}
@@ -847,12 +882,7 @@ class Listt implements \Iterator, \Countable
 		$maximum = $generator->current();
 		/** @psalm-suppress ImpureMethodCall */
 		foreach ($generator as $v) {
-			if ($v instanceof Ord) {
-				/** @var Ord $maximum */
-				if ($v->compare($maximum) > 0) {
-					$maximum = $v;
-				}
-			} elseif ($v > $maximum) {
+			if (Ord::GT === self::compare($v, $maximum)) {
 				$maximum = $v;
 			}
 		}
@@ -990,12 +1020,12 @@ class Listt implements \Iterator, \Countable
 	 * @phpstan-return Listt<TKey, TValue>
 	 * @phan-return Listt<TKey, TValue>
 	 *
-	 * @complexity O(2N) Creates one array, and reverse iterate.
+	 * @complexity O(2N).
 	 */
 	public function reverse(bool $preserveNumericKeys = false): self
 	{
 		/** @psalm-var \Closure():\Generator<TKey, TValue> */
-		$generatorFn = function () use ($preserveNumericKeys): \Generator {
+		$makeGeneratorFn = function () use ($preserveNumericKeys): \Generator {
 			$list = $this->toArray();
 			if (0 === \count($list)) {
 				return;
@@ -1021,8 +1051,67 @@ class Listt implements \Iterator, \Countable
 		}
 
 		return self::fromGenerator(
-			$generatorFn,
+			$makeGeneratorFn,
 			$count
+		);
+	}
+
+	/**
+	 * Take n, applied to a list xs,
+	 *     returns the prefix of xs of length n, or xs itself if n > length xs:.
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return Listt<TKey, TValue>
+	 * @phpstan-return Listt<TKey, TValue>
+	 * @phan-return Listt<TKey, TValue>
+	 *
+	 * @complexity O(N).
+	 */
+	public function take(int $n, bool $preserveNumericKeys = false): self
+	{
+		if ($n <= 0) {
+			/**
+			 * @psalm-var iterable<TKey, TValue>
+			 * @phpstan-var iterable<TKey, TValue>
+			 * @phan-var iterable<TKey, TValue>
+			 */
+			$emptyList = [];
+
+			return self::fromIter($emptyList);
+		}
+
+		if ($this->null()) {
+			return $this;
+		}
+
+		/**
+		 * @psalm-var \Closure():\Generator<TKey, TValue>
+		 */
+		$makeGeneratorFn = function () use (
+			$preserveNumericKeys,
+			$n
+		): \Generator {
+			$takenElements = 0;
+			foreach ($this->toGenerator() as $k => $v) {
+				if ($takenElements === $n) {
+					break;
+				}
+
+				++$takenElements;
+
+				if (!$preserveNumericKeys && \is_int($k)) {
+					yield $v;
+
+					continue;
+				}
+
+				yield $k => $v;
+			}
+		};
+
+		return self::fromGenerator(
+			$makeGeneratorFn
 		);
 	}
 
@@ -1204,5 +1293,55 @@ class Listt implements \Iterator, \Countable
 		foreach ($value as $k => $v) {
 			yield $k => $v;
 		}
+	}
+
+	/**
+	 * @psalm-template X
+	 * @phpstan-template X
+	 * @phan-template X
+	 *
+	 * @psalm-param X $a
+	 * @phpstan-param X $a
+	 * @psalm-param X $a
+	 *
+	 * @psalm-param X $b
+	 * @phpstan-param X $b
+	 * @phan-param X $b
+	 *
+	 * @psalm-return Ord::EQ|Ord::GT|Ord::LT
+	 * @phpstan-return int(0)|int(1)|int(-1)
+	 * @phan-return int
+	 *
+	 * @param mixed $a
+	 * @param mixed $b
+	 *
+	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
+	 *
+	 * @psalm-pure
+	 */
+	private static function compare($a, $b)
+	{
+		if ($a instanceof Ord && $b instanceof Ord) {
+			/**
+			 * @psalm-suppress ImpureMethodCall
+			 */
+			return $a->compare($b);
+		}
+
+		if (!is_scalar($a) || !is_scalar($b)) {
+			throw new \RuntimeException(
+				'Only scalars or instance of `Ord` allowed.',
+			);
+		}
+
+		if ($a > $b) {
+			return Ord::GT;
+		}
+
+		if ($a < $b) {
+			return Ord::LT;
+		}
+
+		return Ord::EQ;
 	}
 }

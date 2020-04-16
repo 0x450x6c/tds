@@ -6,6 +6,7 @@ use PHPUnit\Framework\TestCase;
 use function TDS\Listt\concat;
 use TDS\Listt\EmptyListException;
 use function TDS\Listt\fromIter;
+use function TDS\Listt\fromRange;
 use function TDS\Listt\head;
 use function TDS\Listt\headMaybe;
 use TDS\Listt\IndexTooLargeException;
@@ -18,6 +19,7 @@ use function TDS\Listt\listSelectNotNull;
 use TDS\Listt\Listt;
 use function TDS\Listt\null;
 use function TDS\Listt\tail;
+use function TDS\Listt\take;
 use function TDS\Listt\uncons;
 use function TDS\Maybe\just;
 use function TDS\Maybe\nothing;
@@ -586,6 +588,42 @@ final class ListtTest extends TestCase
 		);
 	}
 
+	public function test_take(): void
+	{
+		self::assertList(
+			['a', 'b'],
+			fromIter(['a', 'b', 'c'])->take(2)
+		);
+
+		self::assertList(
+			['a', 'b'],
+			take(['a', 'b', 'c'], 2)
+		);
+
+		self::assertList(
+			[],
+			take(['a', 'b', 'c'], 0)
+		);
+	}
+
+	public function test_range(): void
+	{
+		self::assertList(
+			[5, 10, 15],
+			take(Listt::fromRange(5, null, 5), 3)
+		);
+
+		self::assertList(
+			[5, 10, 15],
+			take(fromRange(5, null, 5), 3)
+		);
+
+		self::assertList(
+			[5, 10, 15],
+			fromRange(5, 19, 5)
+		);
+	}
+
 	/**
 	 * @phpstan-param array<mixed> $expected
 	 * @phpstan-param Listt<mixed, mixed> $actual
@@ -610,9 +648,25 @@ class _Orderable implements Ord
 
 	/**
 	 * @param _Orderable $target
+	 *
+	 * @psalm-return self::EQ|self::LT|self::GT
+	 * @phpstan-return int(1)|int(0)|int(-1)
+	 * @phan-return int
+	 *
+	 * @return int
 	 */
-	public function compare($target): int
+	public function compare($target)
 	{
-		return $this->n - $target->n;
+		$diff = $this->n - $target->n;
+
+		if ($diff > 0) {
+			return self::GT;
+		}
+
+		if ($diff < 0) {
+			return self::LT;
+		}
+
+		return self::EQ;
 	}
 }

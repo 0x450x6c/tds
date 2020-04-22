@@ -24,7 +24,7 @@ use TDS\Ord;
  *
  * @IgnoreAnnotation("complexity")
  */
-class Listt implements \Iterator, \Countable
+class Listt implements \Iterator, \Countable, \Serializable
 {
 	/**
 	 * @psalm-var \Closure():\Generator<TKey, TValue>
@@ -1141,6 +1141,36 @@ class Listt implements \Iterator, \Countable
 	{
 		/** @psalm-suppress ImpureMethodCall */
 		return $this->getGeneratorForIterator()->current();
+	}
+
+	/**
+	 * @return string
+	 */
+	public function serialize()
+	{
+		return serialize($this->toArray());
+	}
+
+	/**
+	 * @param string $serialized
+	 */
+	public function unserialize($serialized): void
+	{
+		/**
+		 * @psalm-var array<TKey, TValue>
+		 * @phpstan-var array<TKey, TValue>
+		 * @phan-var array<TKey, TValue>
+		 */
+		$data = unserialize($serialized);
+		/**
+		 * @psalm-suppress MixedArgumentTypeCoercion
+		 */
+		$count = \count($data);
+
+		$this->__construct(
+			static fn () => self::yieldFromIter($data),
+			$count
+		);
 	}
 
 	/**

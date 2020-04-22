@@ -249,4 +249,29 @@ final class Just extends Maybe
 	{
 		return 1;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function serialize()
+	{
+		return serialize($this->value);
+	}
+
+	/**
+	 * @param string $serialized
+	 */
+	public function unserialize($serialized): void
+	{
+		/**
+		 * @psalm-var T
+		 * @phpstan-var T
+		 * @phan-var T
+		 */
+		$value = unserialize($serialized);
+
+		$this->__construct(
+			$value
+		);
+	}
 }

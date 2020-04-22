@@ -23,7 +23,7 @@ use TDS\Listt\Listt;
  *
  * @psalm-immutable
  */
-abstract class Maybe implements \Iterator, \Countable
+abstract class Maybe implements \Iterator, \Countable, \Serializable
 {
 	/**
 	 * Alias for Maybe::apply().

@@ -222,4 +222,20 @@ final class Nothing extends Maybe
 	{
 		return 0;
 	}
+
+	/**
+	 * @return string
+	 */
+	public function serialize()
+	{
+		return '';
+	}
+
+	/**
+	 * @param string $serialized
+	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
+	 */
+	public function unserialize($serialized): void
+	{
+	}
 }

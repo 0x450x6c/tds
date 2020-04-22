@@ -586,6 +586,22 @@ final class ListtTest extends TestCase
 		);
 	}
 
+	public function test_serialize(): void
+	{
+		$listA = ['a', 'b', 'c'];
+		/**
+		 * @psalm-var Listt<int, string>
+		 * @phpstan-var Listt<int, string>
+		 * @phan-var Listt<int, string>
+		 */
+		$listB = unserialize(serialize(fromIter($listA)));
+
+		self::assertList(
+			$listA,
+			$listB
+		);
+	}
+
 	/**
 	 * @phpstan-param array<mixed> $expected
 	 * @phpstan-param Listt<mixed, mixed> $actual

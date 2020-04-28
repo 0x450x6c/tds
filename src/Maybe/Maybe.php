@@ -87,7 +87,7 @@ abstract class Maybe implements \Iterator, \Countable
 	 *
 	 * @psalm-pure
 	 *
-	 * @throws FromJustNothingException
+	 * @throws UsingFromJustOnNothingException
 	 */
 	abstract public function fromJust();
 

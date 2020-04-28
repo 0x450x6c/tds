@@ -344,7 +344,6 @@ final class ListtTest extends TestCase
 	{
 		$list1 = [1, 2, 3];
 		$result = Listt::fromIter($list1)->toGenerator();
-		static::assertInstanceOf(\Generator::class, $result);
 		static::assertSame($list1, iterator_to_array($result));
 	}
 

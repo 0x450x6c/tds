@@ -5,7 +5,6 @@ namespace TDS\Tests;
 use PHPUnit\Framework\TestCase;
 use function TDS\Maybe\catMaybes;
 use function TDS\Maybe\fromJust;
-use TDS\Maybe\FromJustNothingException;
 use function TDS\Maybe\fromMaybe;
 use function TDS\Maybe\isJust;
 use function TDS\Maybe\isNothing;
@@ -17,6 +16,7 @@ use function TDS\Maybe\maybeSelectNotNull;
 use function TDS\Maybe\maybeToList;
 use TDS\Maybe\Nothing;
 use function TDS\Maybe\nothing;
+use TDS\Maybe\UsingFromJustOnNothingException;
 
 /**
  * @internal
@@ -104,10 +104,10 @@ final class MaybeTest extends TestCase
 			fromJust($justA)
 		);
 
-		$this->expectException(FromJustNothingException::class);
+		$this->expectException(UsingFromJustOnNothingException::class);
 		nothing()->fromJust();
 
-		$this->expectException(FromJustNothingException::class);
+		$this->expectException(UsingFromJustOnNothingException::class);
 		fromJust(nothing());
 	}
 

@@ -5,8 +5,6 @@ namespace TDS\Maybe;
 use TDS\Listt\Listt;
 
 /**
- * @return Nothing<mixed>
- *
  * @psalm-pure
  */
 function nothing(): Nothing

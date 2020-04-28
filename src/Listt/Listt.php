@@ -1323,6 +1323,8 @@ class Listt implements \Iterator, \Countable
 	{
 		if ($a instanceof Ord && $b instanceof Ord) {
 			/**
+			 * @psalm-var Ord $a
+			 * @psalm-var Ord $b
 			 * @psalm-suppress ImpureMethodCall
 			 */
 			return $a->compare($b);

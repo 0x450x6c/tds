@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
 
-$php74/bin/php \
+$php/bin/php \
 	 -c $projectRoot/tools/etc/php/php.ini \
 	 $argv

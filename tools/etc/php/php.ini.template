@@ -2,6 +2,16 @@
 ; mode: ini
 ; End:
 extension=${php_ast}/lib/php/extensions/ast.so
+extension=${php_readline}/lib/php/extensions/readline.so
+extension=${php_json}/lib/php/extensions/json.so
+extension=${php_dom}/lib/php/extensions/dom.so
+extension=${php_simplexml}/lib/php/extensions/simplexml.so
+extension=${php_filter}/lib/php/extensions/filter.so
+extension=${php_iconv}/lib/php/extensions/iconv.so
+extension=${php_openssl}/lib/php/extensions/openssl.so
+extension=${php_tokenizer}/lib/php/extensions/tokenizer.so
+extension=${php_mbstring}/lib/php/extensions/mbstring.so
+extension=${php_xmlwriter}/lib/php/extensions/xmlwriter.so
 
 memory_limit=2048M
 max_execution_time=120

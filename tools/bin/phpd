@@ -1,6 +1,6 @@
 #!/usr/bin/env fish
 
-$php74/bin/php \
+$php/bin/php \
   -c $projectRoot/tools/etc/php/php.ini \
   -dzend_extension=$php_xdebug/lib/php/extensions/xdebug.so \
   -dxdebug.remote_enable=1 \

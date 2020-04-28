@@ -5,21 +5,13 @@ namespace TDS\Maybe;
 use TDS\Listt\Listt;
 
 /**
- * @psalm-template T
- * @phpstan-template T
- * @phan-template T
- *
- * @template-extends Maybe<T>
+ * @template-extends Maybe<mixed>
  *
  * @psalm-immutable
  */
 final class Nothing extends Maybe
 {
 	/**
-	 * @psalm-var null|self<mixed>
-	 * @phpstan-var null|self<T>
-	 * @phan-var null|self<mixed>
-	 *
 	 * @psalm-readonly
 	 */
 	private static ?self $instance = null;
@@ -36,9 +28,9 @@ final class Nothing extends Maybe
 	/**
 	 * Alias for Maybe::apply().
 	 *
-	 * @psalm-param \Closure(T) $predicate
-	 * @phpstan-param \Closure(T):(void|mixed) $predicate
-	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 * @psalm-param \Closure $predicate
+	 * @phpstan-param \Closure $predicate
+	 * @phan-param \Closure $predicate
 	 *
 	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 *
@@ -49,10 +41,6 @@ final class Nothing extends Maybe
 	}
 
 	/**
-	 * @psalm-return self<T>
-	 * @phpstan-return self<T>
-	 * @phan-return self<T>
-	 *
 	 * @psalm-pure
 	 *
 	 * @phan-suppress PhanPartialTypeMismatchReturn
@@ -80,17 +68,13 @@ final class Nothing extends Maybe
 	 * @phpstan-template X
 	 * @phan-template X
 	 *
-	 * @psalm-template Y
-	 * @phpstan-template Y
-	 * @phan-template Y
-	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
 	 * @phan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure(T):Y $predicate
-	 * @phpstan-param \Closure(T):Y $predicate
-	 * @phan-param \Closure(T):Y $predicate
+	 * @psalm-param \Closure $predicate
+	 * @phpstan-param \Closure $predicate
+	 * @phan-param \Closure $predicate
 	 *
 	 * @psalm-return X
 	 * @phpstan-return X
@@ -127,11 +111,11 @@ final class Nothing extends Maybe
 	/**
 	 * @psalm-pure
 	 *
-	 * @throws FromJustNothingException
+	 * @throws UsingFromJustOnNothingException
 	 */
 	public function fromJust(): void
 	{
-		throw new FromJustNothingException();
+		throw new UsingFromJustOnNothingException();
 	}
 
 	/**
@@ -157,17 +141,17 @@ final class Nothing extends Maybe
 	}
 
 	/**
-	 * @psalm-return Listt<int, T>
-	 * @phpstan-return Listt<int, T>
-	 * @phan-return Listt<int, T>
+	 * @psalm-return Listt<int, mixed>
+	 * @phpstan-return Listt<int, mixed>
+	 * @phan-return Listt<int, mixed>
 	 * @phan-suppress PhanParamSignatureMismatch
 	 */
 	public function toList(): Listt
 	{
 		/**
-		 * @psalm-var iterable<int, T>
-		 * @phpstan-var iterable<int, T>
-		 * @phan-var iterable<int, T>
+		 * @psalm-var iterable<int, mixed>
+		 * @phpstan-var iterable<int, mixed>
+		 * @phan-var iterable<int, mixed>
 		 */
 		$list = [];
 
@@ -177,9 +161,9 @@ final class Nothing extends Maybe
 	/**
 	 * Apply predicate if `Just`.
 	 *
-	 * @psalm-param \Closure(T) $predicate
-	 * @phpstan-param \Closure(T):(void|mixed) $predicate
-	 * @phan-param \Closure(T):(void|mixed) $predicate
+	 * @psalm-param \Closure $predicate
+	 * @phpstan-param \Closure $predicate
+	 * @phan-param \Closure $predicate
 	 *
 	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 *

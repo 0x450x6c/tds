@@ -3,8 +3,20 @@
     "type": "library",
     "description": "Typed data structures.",
     "license": "LGPL",
-    "require": {},
+    "require": {
+    },
     "require-dev": {
+        "ext-ast": "*",
+        "ext-json": "*",
+        "ext-dom": "*",
+        "ext-simplexml": "*",
+        "ext-filter": "*",
+        "ext-readline": "*",
+        "ext-iconv": "*",
+        "ext-openssl": "*",
+        "ext-tokenizer": "*",
+        "ext-mbstring": "*",
+        "ext-xmlwriter": "*",
         "phpunit/phpunit": ">=9.1",
         "vimeo/psalm": ">=3.10",
         "phpstan/phpstan": ">=0.12",
@@ -20,6 +32,7 @@
         },
         "files": [
             "src/Listt/listt-functions.php",
+            "src/Either/either-functions.php",
             "src/Maybe/maybe-functions.php"
         ]
     },

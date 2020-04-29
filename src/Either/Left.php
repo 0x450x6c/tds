@@ -189,4 +189,27 @@ class Left implements Either
 	{
 		return nothing();
 	}
+
+	/**
+	 * @return string
+	 */
+	public function serialize()
+	{
+		return serialize($this->value);
+	}
+
+	/**
+	 * @param string $serialized
+	 */
+	public function unserialize($serialized): void
+	{
+		/**
+		 * @psalm-var L
+		 * @phpstan-var L
+		 * @phan-var L
+		 */
+		$data = unserialize($serialized);
+
+		$this->__construct($data);
+	}
 }

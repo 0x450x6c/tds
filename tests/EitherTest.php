@@ -8,9 +8,11 @@ use function TDS\Either\fromLeft;
 use function TDS\Either\fromRight;
 use function TDS\Either\isLeft;
 use function TDS\Either\isRight;
+use TDS\Either\Left;
 use function TDS\Either\left;
 use function TDS\Either\lefts;
 use function TDS\Either\partitionEithers;
+use TDS\Either\Right;
 use function TDS\Either\right;
 use function TDS\Either\rights;
 
@@ -205,5 +207,29 @@ final class EitherTest extends TestCase
 		static::assertCount(2, $result);
 		static::assertSame($listA, $result[0]->toArray());
 		static::assertSame($listB, $result[1]->toArray());
+	}
+
+	public function test_serialize_left(): void
+	{
+		$left = unserialize(serialize(left('test')));
+
+		static::assertInstanceOf(Left::class, $left);
+
+		static::assertSame(
+			'test',
+			$left->maybeLeft()->fromJust()
+		);
+	}
+
+	public function test_serialize_right(): void
+	{
+		$right = unserialize(serialize(right('test')));
+
+		static::assertInstanceOf(Right::class, $right);
+
+		static::assertSame(
+			'test',
+			$right->maybeRight()->fromJust()
+		);
 	}
 }

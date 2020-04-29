@@ -195,4 +195,27 @@ class Right implements Either
 	{
 		return just($this->value);
 	}
+
+	/**
+	 * @return string
+	 */
+	public function serialize()
+	{
+		return serialize($this->value);
+	}
+
+	/**
+	 * @param string $serialized
+	 */
+	public function unserialize($serialized): void
+	{
+		/**
+		 * @psalm-var R
+		 * @phpstan-var R
+		 * @phan-var R
+		 */
+		$data = unserialize($serialized);
+
+		$this->__construct($data);
+	}
 }

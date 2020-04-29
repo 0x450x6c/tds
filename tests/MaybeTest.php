@@ -8,6 +8,7 @@ use function TDS\Maybe\fromJust;
 use function TDS\Maybe\fromMaybe;
 use function TDS\Maybe\isJust;
 use function TDS\Maybe\isNothing;
+use TDS\Maybe\Just;
 use function TDS\Maybe\just;
 use function TDS\Maybe\listToMaybe;
 use function TDS\Maybe\mapMaybe;
@@ -243,6 +244,22 @@ final class MaybeTest extends TestCase
 		static::assertSame(
 			'a',
 			maybeSelectNotNull(just($a))->fromJust()
+		);
+	}
+
+	public function test_serialize(): void
+	{
+		$justA = unserialize(serialize(just('a')));
+		static::assertInstanceOf(Just::class, $justA);
+		static::assertSame(
+			'a',
+			$justA->fromJust()
+		);
+
+		$nothing = unserialize(serialize(nothing()));
+		static::assertInstanceOf(Nothing::class, $nothing);
+		static::assertTrue(
+			$nothing->isNothing()
 		);
 	}
 }

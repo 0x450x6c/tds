@@ -19,7 +19,7 @@ use TDS\Maybe\Maybe;
  *
  * @psalm-immutable
  */
-interface Either
+interface Either extends \Serializable
 {
 	/**
 	 * Case analysis for the Either type.

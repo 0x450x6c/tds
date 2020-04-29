@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace TDS\Tests;
 
@@ -305,12 +307,11 @@ final class ListtTest extends TestCase
 		static::assertCount(42, Listt::fromIter($emptyList, 42));
 		static::assertCount(42, Listt::fromIter($emptyList, static fn () => 42));
 
-		$this->expectException(\InvalidArgumentException::class);
-		$this->expectExceptionMessage(
-			'Use `Listt::fromGenerator` for generators.'
-		);
-		Listt::fromIter(
-			Listt::from('test')->toGenerator()
+		self::assertList(
+			['test'],
+			Listt::fromIter(
+				Listt::from('test')->toGenerator()
+			)
 		);
 	}
 
@@ -374,9 +375,7 @@ final class ListtTest extends TestCase
 		static::assertSame(
 			$listB,
 			Listt::fromIter($listA)
-				->mapMaybe(static fn (int $item) => (
-					0 === $item % 2 ? nothing() : just("test-{$item}")
-				))
+				->mapMaybe(static fn (int $item) => (0 === $item % 2 ? nothing() : just("test-{$item}")))
 				->toArray()
 		);
 	}

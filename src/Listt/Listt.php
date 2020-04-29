@@ -624,12 +624,6 @@ class Listt implements \Iterator, \Countable
 			}
 		}
 
-		if ($value instanceof \Generator) {
-			throw new \InvalidArgumentException(
-				'Use `Listt::fromGenerator` for generators.'
-			);
-		}
-
 		/** @phan-var iterable<XKey, XValue> $value */
 
 		return self::fromGenerator(

@@ -17,8 +17,6 @@ final class Nothing extends Maybe
 	private static ?self $instance = null;
 
 	/**
-	 * @phan-suppress PhanGenericConstructorTypes
-	 *
 	 * @psalm-pure
 	 */
 	private function __construct()
@@ -30,9 +28,6 @@ final class Nothing extends Maybe
 	 *
 	 * @psalm-param \Closure $predicate
 	 * @phpstan-param \Closure $predicate
-	 * @phan-param \Closure $predicate
-	 *
-	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 *
 	 * @psalm-pure
 	 */
@@ -42,8 +37,6 @@ final class Nothing extends Maybe
 
 	/**
 	 * @psalm-pure
-	 *
-	 * @phan-suppress PhanPartialTypeMismatchReturn
 	 */
 	public static function instance(): self
 	{
@@ -66,22 +59,15 @@ final class Nothing extends Maybe
 	 *
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
-	 * @phan-param X $defaultValue
 	 *
 	 * @psalm-param \Closure $predicate
 	 * @phpstan-param \Closure $predicate
-	 * @phan-param \Closure $predicate
 	 *
 	 * @psalm-return X
 	 * @phpstan-return X
-	 * @phan-return X
-	 *
-	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
-	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 *
 	 * @psalm-pure
 	 *
@@ -121,15 +107,12 @@ final class Nothing extends Maybe
 	/**
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
-	 * @phan-param X $defaultValue
 	 *
 	 * @psalm-return X
 	 * @phpstan-return X
-	 * @phan-return X
 	 *
 	 * @psalm-pure
 	 *
@@ -143,15 +126,12 @@ final class Nothing extends Maybe
 	/**
 	 * @psalm-return Listt<int, mixed>
 	 * @phpstan-return Listt<int, mixed>
-	 * @phan-return Listt<int, mixed>
-	 * @phan-suppress PhanParamSignatureMismatch
 	 */
 	public function toList(): Listt
 	{
 		/**
 		 * @psalm-var iterable<int, mixed>
 		 * @phpstan-var iterable<int, mixed>
-		 * @phan-var iterable<int, mixed>
 		 */
 		$list = [];
 
@@ -163,9 +143,6 @@ final class Nothing extends Maybe
 	 *
 	 * @psalm-param \Closure $predicate
 	 * @phpstan-param \Closure $predicate
-	 * @phan-param \Closure $predicate
-	 *
-	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 *
 	 * @psalm-pure
 	 */
@@ -217,7 +194,6 @@ final class Nothing extends Maybe
 
 	/**
 	 * @param string $serialized
-	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 */
 	public function unserialize($serialized): void
 	{

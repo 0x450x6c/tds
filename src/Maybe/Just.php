@@ -7,7 +7,6 @@ use TDS\Listt\Listt;
 /**
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @template-extends Maybe<T>
  *
@@ -32,7 +31,6 @@ final class Just extends Maybe
 	/**
 	 * @psalm-param T $value
 	 * @phpstan-param T $value
-	 * @phan-param T $value
 	 *
 	 * @param mixed $value
 	 *
@@ -48,7 +46,6 @@ final class Just extends Maybe
 	 *
 	 * @psalm-param \Closure(T) $predicate
 	 * @phpstan-param \Closure(T):(void|mixed) $predicate
-	 * @phan-param \Closure(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
@@ -60,15 +57,12 @@ final class Just extends Maybe
 	/**
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param X $value
 	 * @phpstan-param X $value
-	 * @phan-param X $value
 	 *
 	 * @psalm-return self<X>
 	 * @phpstan-return self<X>
-	 * @phan-return Just<X>
 	 *
 	 * @psalm-pure
 	 *
@@ -89,27 +83,18 @@ final class Just extends Maybe
 	 *
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-template Y
 	 * @phpstan-template Y
-	 * @phan-template Y
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
-	 * @phan-param X $defaultValue
 	 *
 	 * @psalm-param \Closure(T):Y $predicate
 	 * @phpstan-param \Closure(T):Y $predicate
-	 * @phan-param \Closure(T):Y $predicate
 	 *
 	 * @psalm-return Y
 	 * @phpstan-return Y
-	 * @phan-return Y
-	 *
-	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
-	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
-	 * @phan-suppress PhanParamTooMany
 	 *
 	 * @psalm-pure
 	 *
@@ -139,7 +124,6 @@ final class Just extends Maybe
 	/**
 	 * @psalm-return T
 	 * @phpstan-return T
-	 * @phan-return T
 	 *
 	 * @psalm-pure
 	 */
@@ -151,20 +135,14 @@ final class Just extends Maybe
 	/**
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
-	 * @phan-param X $defaultValue
 	 *
 	 * @psalm-return T
 	 * @phpstan-return T
-	 * @phan-return T
 	 *
 	 * @psalm-pure
-	 *
-	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
-	 * @phan-suppress PhanUnusedPublicFinalMethodParameter
 	 *
 	 * @param mixed $defaultValue
 	 */
@@ -176,7 +154,6 @@ final class Just extends Maybe
 	/**
 	 * @psalm-return Listt<int, T>
 	 * @phpstan-return Listt<int, T>
-	 * @phan-return Listt<int, T>
 	 */
 	public function toList(): Listt
 	{
@@ -188,7 +165,6 @@ final class Just extends Maybe
 	 *
 	 * @psalm-param \Closure(T) $predicate
 	 * @phpstan-param \Closure(T):(void|mixed) $predicate
-	 * @phan-param \Closure(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
@@ -231,7 +207,6 @@ final class Just extends Maybe
 	 *
 	 * @psalm-return T
 	 * @phpstan-return T
-	 * @phan-return T
 	 */
 	public function current()
 	{
@@ -266,7 +241,6 @@ final class Just extends Maybe
 		/**
 		 * @psalm-var T
 		 * @phpstan-var T
-		 * @phan-var T
 		 */
 		$value = unserialize($serialized);
 

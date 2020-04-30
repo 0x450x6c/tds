@@ -15,31 +15,24 @@ use function TDS\Maybe\nothing;
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-template XKey
  * @phpstan-template XKey
- * @phan-template XKey
  *
  * @psalm-template XValue
  * @phpstan-template XValue
- * @phan-template XValue
  *
  * @psalm-param iterable<TKey, TValue> $listA
  * @phpstan-param iterable<TKey, TValue> $listA
- * @phan-param iterable<TKey, TValue> $listA
  *
  * @psalm-param iterable<XKey, XValue> $listB
  * @phpstan-param iterable<XKey, XValue> $listB
- * @phan-param iterable<XKey, XValue> $listB
  *
  * @psalm-return Listt<TKey|XKey, TValue|XValue>
  * @phpstan-return Listt<TKey|XKey, TValue|XValue>
- * @phan-return Listt<TKey|XKey, TValue|XValue>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -59,11 +52,9 @@ function concat(
  * @phpstan-template TKey
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @throws EmptyListException
  *
@@ -71,7 +62,6 @@ function concat(
  *
  * @psalm-return TValue
  * @phpstan-return TValue
- * @phan-return TValue
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -86,24 +76,17 @@ function head(iterable $list)
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return Maybe<TValue>
  * @phpstan-return Maybe<TValue>
- * @phan-return Maybe<TValue>
- *
- * @phan-suppress PhanCommentParamOutOfOrder
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -121,11 +104,9 @@ function headMaybe(iterable $list): Maybe
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @throws EmptyListException
  *
@@ -133,7 +114,6 @@ function headMaybe(iterable $list): Maybe
  *
  * @psalm-return TValue
  * @phpstan-return TValue
- * @phan-return TValue
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -148,24 +128,17 @@ function last(iterable $list)
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return Maybe<TValue>
  * @phpstan-return Maybe<TValue>
- * @phan-return Maybe<TValue>
- *
- * @phan-suppress PhanCommentParamOutOfOrder
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -185,15 +158,12 @@ function lastMaybe(iterable $list)
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -209,21 +179,17 @@ function tail(iterable $list, bool $preserveNumericKeys = false): Listt
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -243,19 +209,15 @@ function init(iterable $list): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Maybe<array{TValue, Listt<TKey, TValue>}>
  * @phpstan-return Maybe<array{0: TValue, 1:Listt<TKey, TValue>}>
- * @phan-return Maybe<array{TValue, Listt<TKey, TValue>}>
  */
 function uncons(iterable $list): Maybe
 {
@@ -273,7 +235,6 @@ function uncons(iterable $list): Maybe
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, mixed> $list
  *
  * @psalm-pure
  *
@@ -292,11 +253,9 @@ function length(iterable $list): int
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
  * @psalm-param null|int|\Closure():int $count
@@ -304,18 +263,12 @@ function length(iterable $list): int
  * @phpstan-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
  * @phpstan-param null|int|\Closure():int $count
  *
- * @phan-param \Closure():(\Generator<TKey, TValue>) $makeGeneratorFn
- * @phan-param null|int|\Closure():int $count
- *
  * @param null|\Closure|int $count
- *
- * @phan-suppress PhanCommentParamOutOfOrder
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(1) just creates a list, but not iterates by.
  * @IgnoreAnnotation("complexity")
@@ -330,17 +283,14 @@ function fromGenerator(\Closure $makeGeneratorFn, $count = null): Listt
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param TValue $value
  * @phpstan-param TValue $value
- * @phan-param TValue $value
  *
  * @psalm-pure
  *
  * @psalm-return Listt<int, TValue>
  * @phpstan-return Listt<int, TValue>
- * @phan-return Listt<int, TValue>
  *
  * @param mixed $value
  *
@@ -357,11 +307,9 @@ function from($value): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @param null|\Closure|int $count
  *
@@ -371,16 +319,10 @@ function from($value): Listt
  * @phpstan-param iterable<TKey, TValue> $value
  * @phpstan-param null|int|\Closure():int $count
  *
- * @phan-param iterable<TKey, TValue> $value
- * @phan-param null|int|\Closure():int $count
- *
- * @phan-suppress PhanCommentParamOutOfOrder
- *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(N) just creates a list, but not iterates by.
  * @IgnoreAnnotation("complexity")
@@ -399,7 +341,6 @@ function fromIter(iterable $value, $count = null): Listt
  *
  * @psalm-return Listt<int, int>
  * @phpstan-return Listt<int, int>
- * @phan-return Listt<int, int>
  *
  * @complexity O(N).
  */
@@ -419,11 +360,8 @@ function fromRange(
  *
  * @psalm-pure
  *
- * @phan-suppress PhanTemplateTypeNotDeclaredInFunctionParams
- *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -446,11 +384,9 @@ function emptyList(): Listt
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @throws IndexTooLargeException
  *
@@ -458,7 +394,6 @@ function emptyList(): Listt
  *
  * @psalm-return TValue
  * @phpstan-return TValue
- * @phan-return TValue
  *
  * @complexity O(N) where N = $n.
  * @IgnoreAnnotation("complexity")
@@ -476,25 +411,20 @@ function nth(iterable $list, int $n)
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-param \Closure(TValue=, TKey=):bool $predicate
  * @phpstan-param (\Closure(TValue):bool)&(\Closure(TValue, TKey):bool) $predicate
- * @phan-param \Closure(TValue):bool|\Closure(TValue, TKey):bool $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -512,22 +442,16 @@ function select(iterable $list, \Closure $predicate): Listt
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @throws EmptyListException
  *
  * @psalm-pure
  *
- * @phan-suppress PhanTypeMismatchReturnNullable
- * @phan-suppress PhanPartialTypeMismatchReturn
- *
  * @psalm-return TValue
  * @phpstan-return TValue
- * @phan-return TValue
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -545,22 +469,16 @@ function minimum(iterable $list)
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @throws EmptyListException
  *
  * @psalm-pure
  *
- * @phan-suppress PhanTypeMismatchReturnNullable
- * @phan-suppress PhanPartialTypeMismatchReturn
- *
  * @psalm-return TValue
  * @phpstan-return TValue
- * @phan-return TValue
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -575,28 +493,23 @@ function maximum(iterable $list)
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
  * @psalm-param \Closure(TValue=, TKey=) $predicate
  * @phpstan-param \Closure(TValue=, TKey=):(void|mixed) $predicate
- * @phan-param \Closure():(void|mixed)|\Closure(TValue):(void|mixed)|\Closure(TValue, TKey):(void|mixed) $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -615,34 +528,26 @@ function tap(iterable $list, \Closure $predicate): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-template X
  * @phpstan-template X
- * @phan-template X
  *
  * @psalm-param \Closure(TValue=, TKey=):X $predicate
  * @phpstan-param (\Closure(TValue):X)&(\Closure(TValue, TKey):X) $predicate
- * @phan-param (\Closure(TValue):X)|(\Closure(TValue, TKey):X) $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, X>
  * @phpstan-return Listt<TKey, X>
- * @phan-return Listt<TKey, X>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
- *
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  */
 function map(iterable $list, \Closure $predicate): Listt
 {
@@ -660,7 +565,6 @@ function map(iterable $list, \Closure $predicate): Listt
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, mixed> $list
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -681,7 +585,6 @@ function null(iterable $list): bool
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, mixed> $list
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -701,19 +604,15 @@ function isEmpty(iterable $list): bool
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @complexity O(2N) Creates one array, and reverse iterate.
  * @IgnoreAnnotation("complexity")
@@ -731,19 +630,15 @@ function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @IgnoreAnnotation("complexity")
  *
@@ -759,19 +654,15 @@ function take(iterable $list, int $n, bool $preserveNumericKeys = false): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-return \Generator<TKey, TValue>
  * @phpstan-return \Generator<TKey, TValue>
- * @phan-return \Generator<TKey, TValue>
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -787,17 +678,14 @@ function toGenerator(iterable $list): \Generator
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return array<array-key, TValue>
  * @phpstan-return array<array-key, TValue>
- * @phan-return array<string|int, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -818,11 +706,9 @@ function toArray(iterable $list): array
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<mixed, mixed> $list
  *
  * @psalm-param null|\Closure(TValue=, TKey=) $predicate
  * @phpstan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
- * @phan-param null|\Closure(mixed=, mixed=):(void|mixed) $predicate
  *
  * @psalm-pure
  *
@@ -839,19 +725,15 @@ function apply(iterable $list, ?\Closure $predicate = null): void
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue|null> $list
  * @phpstan-param iterable<TKey, TValue|null> $list
- * @phan-param iterable<TKey, TValue|null> $list
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, TValue>
  *
  * @psalm-pure
  */

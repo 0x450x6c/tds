@@ -15,11 +15,9 @@ use TDS\Ord;
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @template-implements \Iterator<TKey, TValue>
  * @psalm-immutable
@@ -31,7 +29,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-var \Closure():\Generator<TKey, TValue>
 	 * @phpstan-var \Closure():\Generator<TKey, TValue>
-	 * @phan-var \Closure():(\Generator<TKey, TValue>)
 	 *
 	 * @psalm-allow-private-mutation
 	 */
@@ -40,9 +37,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-var null|\Generator<TKey, TValue>
 	 * @phpstan-var null|\Generator<TKey, TValue>
-	 * @phan-var null|\Generator<TKey, TValue>
-	 *
-	 * @phan-suppress PhanTypeMismatchProperty
 	 *
 	 * @psalm-allow-private-mutation
 	 */
@@ -51,9 +45,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-var null|\Generator<TKey, TValue>
 	 * @phpstan-var null|\Generator<TKey, TValue>
-	 * @phan-var null|\Generator<TKey, TValue>
-	 *
-	 * @phan-suppress PhanTypeMismatchProperty
 	 *
 	 * @psalm-allow-private-mutation
 	 */
@@ -72,7 +63,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-var null|\Closure():int $count
 	 * @phpstan-var null|\Closure():int $count
-	 * @phan-var null|\Closure():int $count
 	 * @psalm-allow-private-mutation
 	 */
 	private ?\Closure $countFn = null;
@@ -80,13 +70,9 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
 	 * @phpstan-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
-	 * @phan-param \Closure():(\Generator<TKey, TValue>) $makeGeneratorFn
 	 *
 	 * @psalm-param null|int|\Closure():int $count
 	 * @phpstan-param null|int|\Closure():int $count
-	 * @phan-param null|int|\Closure():int $count
-	 *
-	 * @phan-suppress PhanCommentParamOutOfOrder
 	 *
 	 * @param null|\Closure|int $count
 	 *
@@ -117,7 +103,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param null|\Closure(TValue=, TKey=) $predicate
 	 * @phpstan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
-	 * @phan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -137,19 +122,15 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template XKey
 	 * @phpstan-template XKey
-	 * @phan-template XKey
 	 *
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
-	 * @phan-template XValue
 	 *
 	 * @psalm-param iterable<XKey, XValue> $list
 	 * @phpstan-param iterable<XKey, XValue> $list
-	 * @phan-param iterable<XKey, XValue> $list
 	 *
 	 * @psalm-return Listt<TKey|XKey, TValue|XValue>
 	 * @phpstan-return Listt<TKey|XKey, TValue|XValue>
-	 * @phan-return Listt<TKey|XKey, TValue|XValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -207,7 +188,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return TValue
 	 * @phpstan-return TValue
-	 * @phan-return TValue
 	 *
 	 * @complexity O(1)
 	 */
@@ -230,7 +210,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Maybe<TValue>
 	 * @phpstan-return Maybe<TValue>
-	 * @phan-return Maybe<TValue>
 	 *
 	 * @complexity O(1)
 	 */
@@ -252,7 +231,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return TValue
 	 * @phpstan-return TValue
-	 * @phan-return TValue
 	 *
 	 * @complexity O(N)
 	 */
@@ -284,7 +262,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Maybe<TValue>
 	 * @phpstan-return Maybe<TValue>
-	 * @phan-return Maybe<TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -304,7 +281,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Listt<TKey, TValue>
 	 * @phpstan-return Listt<TKey, TValue>
-	 * @phan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -352,7 +328,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Listt<TKey, TValue>
 	 * @phpstan-return Listt<TKey, TValue>
-	 * @phan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -396,7 +371,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Maybe<array{TValue, Listt<TKey, TValue>}>
 	 * @phpstan-return Maybe<array{0: TValue, 1:Listt<TKey, TValue>}>
-	 * @phan-return Maybe<array{TValue, Listt<TKey, TValue>}>
 	 */
 	public function uncons(): Maybe
 	{
@@ -466,7 +440,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-return Maybe<TValue>
 	 * @phpstan-return Maybe<TValue>
-	 * @phan-return Maybe<TValue>
 	 *
 	 * @psalm-pure
 	 */
@@ -484,19 +457,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template XKey
 	 * @phpstan-template XKey
-	 * @phan-template XKey
 	 *
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
-	 * @phan-template XValue
 	 *
 	 * @psalm-pure
 	 *
-	 * @phan-suppress PhanTemplateTypeNotDeclaredInFunctionParams
-	 *
 	 * @psalm-return Listt<XKey, XValue>
 	 * @phpstan-return Listt<XKey, XValue>
-	 * @phan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(1)
 	 */
@@ -516,29 +484,22 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template XKey
 	 * @phpstan-template XKey
-	 * @phan-template XKey
 	 *
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
-	 * @phan-template XValue
 	 *
 	 * @psalm-param \Closure():\Generator<XKey, XValue> $makeGeneratorFn
 	 * @phpstan-param \Closure():\Generator<XKey, XValue> $makeGeneratorFn
-	 * @phan-param \Closure():(\Generator<XKey, XValue>) $makeGeneratorFn
 	 *
 	 * @psalm-param null|int|\Closure():int $count
 	 * @phpstan-param null|int|\Closure():int $count
-	 * @phan-param null|int|\Closure():int $count
 	 *
 	 * @param null|\Closure|int $count
-	 *
-	 * @phan-suppress PhanCommentParamOutOfOrder
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
 	 * @phpstan-return Listt<XKey, XValue>
-	 * @phan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
@@ -554,17 +515,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
-	 * @phan-template XValue
 	 *
 	 * @psalm-param XValue $value
 	 * @phpstan-param XValue $value
-	 * @phan-param XValue $value
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<int, XValue>
 	 * @phpstan-return Listt<int, XValue>
-	 * @phan-return Listt<int, XValue>
 	 *
 	 * @param mixed $value
 	 *
@@ -580,11 +538,9 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template XKey
 	 * @phpstan-template XKey
-	 * @phan-template XKey
 	 *
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
-	 * @phan-template XValue
 	 *
 	 * @param null|\Closure|int $count
 	 *
@@ -594,16 +550,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @phpstan-param iterable<XKey, XValue> $value
 	 * @phpstan-param null|int|\Closure():int $count
 	 *
-	 * @phan-param iterable<XKey, XValue> $value
-	 * @phan-param null|int|\Closure():int $count
-	 *
-	 * @phan-suppress PhanCommentParamOutOfOrder
-	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
 	 * @phpstan-return Listt<XKey, XValue>
-	 * @phan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
@@ -624,8 +574,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 			}
 		}
 
-		/** @phan-var iterable<XKey, XValue> $value */
-
 		return self::fromGenerator(
 			static fn () => self::yieldFromIter($value),
 			$count
@@ -641,7 +589,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Listt<int, int>
 	 * @phpstan-return Listt<int, int>
-	 * @phan-return Listt<int, int>
 	 *
 	 * @complexity O(N).
 	 */
@@ -675,7 +622,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param null|\Closure(TValue=, TKey=) $predicate
 	 * @phpstan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
-	 * @phan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -723,7 +669,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return TValue
 	 * @phpstan-return TValue
-	 * @phan-return TValue
 	 *
 	 * @complexity O(N) where N = $n.
 	 */
@@ -766,13 +711,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param \Closure(TValue, TKey=):bool $predicate
 	 * @phpstan-param (\Closure(TValue):bool)&(\Closure(TValue, TKey):bool) $predicate
-	 * @phan-param \Closure(TValue):bool|\Closure(TValue, TKey):bool $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
 	 * @phpstan-return Listt<TKey, TValue>
-	 * @phan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -814,12 +757,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 *
-	 * @phan-suppress PhanTypeMismatchReturnNullable
-	 * @phan-suppress PhanPartialTypeMismatchReturn
-	 *
 	 * @psalm-return TValue
 	 * @phpstan-return TValue
-	 * @phan-return TValue
 	 *
 	 * @complexity O(N)
 	 */
@@ -854,12 +793,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 *
-	 * @phan-suppress PhanTypeMismatchReturnNullable
-	 * @phan-suppress PhanPartialTypeMismatchReturn
-	 *
 	 * @psalm-return TValue
 	 * @phpstan-return TValue
-	 * @phan-return TValue
 	 *
 	 * @complexity O(N)
 	 */
@@ -895,13 +830,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param \Closure(TValue=, TKey=) $predicate
 	 * @phpstan-param \Closure(TValue=, TKey=):(void|mixed) $predicate
-	 * @phan-param \Closure():(void|mixed)|\Closure(TValue):(void|mixed)|\Closure(TValue, TKey):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
 	 * @phpstan-return Listt<TKey, TValue>
-	 * @phan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -909,7 +842,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	{
 		/**
 		 * @phpstan-var \Closure():\Generator<TKey, TValue>
-		 * @phan-suppress PhanParamTooMany
 		 */
 		$generator = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
@@ -934,17 +866,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param \Closure(TValue, TKey=):X $predicate
 	 * @phpstan-param (\Closure(TValue):X)&(\Closure(TValue, TKey):X) $predicate
-	 * @phan-param (\Closure(TValue):X)|(\Closure(TValue, TKey):X) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, X>
 	 * @phpstan-return Listt<TKey, X>
-	 * @phan-return Listt<TKey, X>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -979,21 +908,16 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param \Closure(TValue, TKey=):Maybe<X> $predicate
 	 * @phpstan-param (\Closure(TValue):Maybe<X>)&(\Closure(TValue, TKey):Maybe<X>) $predicate
-	 * @phan-param \Closure(TValue, TKey=):(Maybe<X>) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, X>
 	 * @phpstan-return Listt<TKey, X>
-	 * @phan-return Listt<TKey, X>
 	 *
 	 * @complexity O(N) Lazy.
-	 *
-	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
 	 */
 	public function mapMaybe(\Closure $predicate): self
 	{
@@ -1012,7 +936,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Listt<TKey, TValue>
 	 * @phpstan-return Listt<TKey, TValue>
-	 * @phan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(2N).
 	 */
@@ -1058,7 +981,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return Listt<TKey, TValue>
 	 * @phpstan-return Listt<TKey, TValue>
-	 * @phan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N).
 	 */
@@ -1068,7 +990,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 			/**
 			 * @psalm-var iterable<TKey, TValue>
 			 * @phpstan-var iterable<TKey, TValue>
-			 * @phan-var iterable<TKey, TValue>
 			 */
 			$emptyList = [];
 
@@ -1113,7 +1034,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
 	 * @phpstan-return \Generator<TKey, TValue>
-	 * @phan-return \Generator<TKey, TValue>
 	 *
 	 * @complexity O(1)
 	 */
@@ -1133,7 +1053,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 * @psalm-return array<array-key, TValue>
 	 * @phpstan-return array<array-key, TValue>
-	 * @phan-return array<string|int, TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -1216,7 +1135,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 * @psalm-return TValue
 	 * @phpstan-return TValue
-	 * @phan-return TValue
 	 *
 	 * @complexity O(1)
 	 */
@@ -1242,7 +1160,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 		/**
 		 * @psalm-var array<TKey, TValue>
 		 * @phpstan-var array<TKey, TValue>
-		 * @phan-var array<TKey, TValue>
 		 */
 		$data = unserialize($serialized);
 		/**
@@ -1260,9 +1177,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
 	 * @phpstan-return \Generator<TKey, TValue>
-	 * @phan-return \Generator<TKey, TValue>
-	 *
-	 * @phan-suppress PhanPartialTypeMismatchReturn
 	 */
 	private function getGenerator(): \Generator
 	{
@@ -1279,9 +1193,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
 	 * @phpstan-return \Generator<TKey, TValue>
-	 * @phan-return \Generator<TKey, TValue>
-	 *
-	 * @phan-suppress PhanPartialTypeMismatchReturn
 	 */
 	private function getGeneratorForIterator(): \Generator
 	{
@@ -1296,21 +1207,17 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-template XKey
 	 * @phpstan-template XKey
-	 * @phan-template XKey
 	 *
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
-	 * @phan-template XValue
 	 *
 	 * @psalm-param iterable<XKey, XValue> $value
 	 * @phpstan-param iterable<XKey, XValue> $value
-	 * @phan-param iterable<XKey, XValue> $value
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return \Generator<XKey, XValue>
 	 * @phpstan-return \Generator<XKey, XValue>
-	 * @phan-return \Generator<XKey, XValue>
 	 */
 	private static function yieldFromIter(iterable $value): \Generator
 	{
@@ -1322,7 +1229,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param X $a
 	 * @phpstan-param X $a
@@ -1330,16 +1236,12 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param X $b
 	 * @phpstan-param X $b
-	 * @phan-param X $b
 	 *
 	 * @psalm-return Ord::EQ|Ord::GT|Ord::LT
 	 * @phpstan-return int(0)|int(1)|int(-1)
-	 * @phan-return int
 	 *
 	 * @param mixed $a
 	 * @param mixed $b
-	 *
-	 * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
 	 *
 	 * @psalm-pure
 	 */

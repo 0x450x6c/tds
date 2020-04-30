@@ -3,7 +3,7 @@ Typed data structures.
 
 A clone of several haskell data structures.
 
-Structures are typified through psalm, phpstan and phan.
+Structures are typified through psalm and phpstan.
 
 ### Maybe - clone of haskell's [Data.Maybe][data-maybe]
 

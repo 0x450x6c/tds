@@ -17,7 +17,6 @@ use TDS\Listt\Listt;
  *
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @template-implements \Iterator<int, T>
  *
@@ -30,7 +29,6 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param \Closure(T) $predicate
 	 * @phpstan-param \Closure(T):(void|mixed) $predicate
-	 * @phan-param \Closure(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
@@ -46,23 +44,18 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-template Y
 	 * @phpstan-template Y
-	 * @phan-template Y
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
-	 * @phan-param X $defaultValue
 	 *
 	 * @psalm-param \Closure(T):Y $predicate
 	 * @phpstan-param \Closure(T):Y $predicate
-	 * @phan-param \Closure(T):Y $predicate
 	 *
 	 * @psalm-return X|Y
 	 * @phpstan-return X|Y
-	 * @phan-return X|Y
 	 *
 	 * @psalm-pure
 	 *
@@ -83,7 +76,6 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-return T
 	 * @phpstan-return T
-	 * @phan-return T
 	 *
 	 * @psalm-pure
 	 *
@@ -94,15 +86,12 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-template X
 	 * @phpstan-template X
-	 * @phan-template X
 	 *
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
-	 * @phan-param X $defaultValue
 	 *
 	 * @psalm-return T|X
 	 * @phpstan-return T|X
-	 * @phan-return T|X
 	 *
 	 * @psalm-pure
 	 *
@@ -113,7 +102,6 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-return Listt<int, T>
 	 * @phpstan-return Listt<int, T>
-	 * @phan-return Listt<int, T>
 	 *
 	 * @psalm-pure
 	 */
@@ -124,7 +112,6 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-param \Closure(T) $predicate
 	 * @phpstan-param \Closure(T):(void|mixed) $predicate
-	 * @phan-param \Closure(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */

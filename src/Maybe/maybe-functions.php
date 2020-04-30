@@ -15,15 +15,12 @@ function nothing(): Nothing
 /**
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-param T $value
  * @phpstan-param T $value
- * @phan-param T $value
  *
  * @psalm-return Just<T>
  * @phpstan-return Just<T>
- * @phan-return Just<T>
  *
  * @psalm-pure
  *
@@ -44,34 +41,24 @@ function just($value): Just
  *
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-template X
  * @phpstan-template X
- * @phan-template X
  *
  * @psalm-template Y
  * @phpstan-template Y
- * @phan-template Y
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
- * @phan-param Maybe<T> $maybe
  *
  * @psalm-param X $defaultValue
  * @phpstan-param X $defaultValue
- * @phan-param X $defaultValue
  *
  * @psalm-param \Closure(T):Y $predicate
  * @phpstan-param \Closure(T):Y $predicate
- * @phan-param \Closure(T):Y $predicate
  *
  * @psalm-return X|Y
  * @phpstan-return X|Y
- * @phan-return X|Y
- *
- * @phan-suppress PhanCommentParamOutOfOrder
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  *
  * @psalm-pure
  *
@@ -85,15 +72,12 @@ function maybe(Maybe $maybe, $defaultValue, \Closure $predicate)
 /**
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @param Maybe<T> $maybe
  * @psalm-assert-if-true Just<T> $maybe
  * @psalm-assert-if-false Nothing<T> $maybe
  *
  * @psalm-pure
- *
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  */
 function isJust(Maybe $maybe): bool
 {
@@ -103,15 +87,12 @@ function isJust(Maybe $maybe): bool
 /**
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @param Maybe<T> $maybe
  * @psalm-assert-if-true Nothing<T> $maybe
  * @psalm-assert-if-false Just<T> $maybe
  *
  * @psalm-pure
- *
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  */
 function isNothing(Maybe $maybe): bool
 {
@@ -121,15 +102,12 @@ function isNothing(Maybe $maybe): bool
 /**
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
- * @phan-param Maybe<T> $maybe
  *
  * @psalm-return T
  * @phpstan-return T
- * @phan-return T
  *
  * @psalm-pure
  *
@@ -143,27 +121,20 @@ function fromJust(Maybe $maybe)
 /**
  * @psalm-template X
  * @phpstan-template X
- * @phan-template X
  *
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
- * @phan-param Maybe<T> $maybe
  *
  * @psalm-param X $defaultValue
  * @phpstan-param X $defaultValue
- * @phan-param X $defaultValue
  *
  * @psalm-return T|X
  * @phpstan-return T|X
- * @phan-return T|X
  *
  * @psalm-pure
- *
- * @phan-suppress PhanCommentParamOutOfOrder
  *
  * @param mixed $defaultValue
  */
@@ -175,21 +146,15 @@ function fromMaybe(Maybe $maybe, $defaultValue)
 /**
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Maybe<TValue>
  * @phpstan-return Maybe<TValue>
- * @phan-return Maybe<TValue>
- *
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  *
  * @psalm-pure
  */
@@ -201,15 +166,12 @@ function listToMaybe(iterable $list): Maybe
 /**
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-param Maybe<T> $maybe
  * @phpstan-param Maybe<T> $maybe
- * @phan-param Maybe<T> $maybe
  *
  * @psalm-return Listt<int, T>
  * @phpstan-return Listt<int, T>
- * @phan-return Listt<int, T>
  */
 function maybeToList(Maybe $maybe): Listt
 {
@@ -225,21 +187,17 @@ function maybeToList(Maybe $maybe): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template T
  *
  * @psalm-param iterable<TKey, Maybe<TValue>> $maybes
  * @phpstan-param iterable<TKey, Maybe<TValue>> $maybes
- * @phan-param iterable<TKey, Maybe<T>> $maybes
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
  * @phpstan-return Listt<TKey, TValue>
- * @phan-return Listt<TKey, T>
  */
 function catMaybes(iterable $maybes): Listt
 {
@@ -263,35 +221,27 @@ function catMaybes(iterable $maybes): Listt
  *
  * @psalm-template TKey
  * @phpstan-template TKey
- * @phan-template TKey
  *
  * @psalm-template TValue
  * @phpstan-template TValue
- * @phan-template TValue
  *
  * @psalm-template X
  * @phpstan-template X
- * @phan-template X
  *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
- * @phan-param iterable<TKey, TValue> $list
  *
  * @psalm-param \Closure(TValue=, TKey=):Maybe<X> $predicate
  * @phpstan-param \Closure(TValue=, TKey=):Maybe<X> $predicate
- * @phan-param \Closure(TValue=, TKey=):(Maybe<X>) $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, X>
  * @phpstan-return Listt<TKey, X>
- * @phan-return Listt<TKey, X>
  *
  * @complexity O(N) Lazy.
  *
  * @IgnoreAnnotation("complexity")
- *
- * @phan-suppress PhanTemplateTypeNotUsedInFunctionReturn
  */
 function mapMaybe(iterable $list, \Closure $predicate): Listt
 {
@@ -303,15 +253,12 @@ function mapMaybe(iterable $list, \Closure $predicate): Listt
  *
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-param Maybe<T|null> $maybe
  * @phpstan-param Maybe<T|null> $maybe
- * @phan-param Maybe<T|null> $maybe
  *
  * @psalm-return Maybe<T>
  * @phpstan-return Maybe<T>
- * @phan-return Maybe<T>
  *
  * @psalm-pure
  */
@@ -323,7 +270,6 @@ function maybeSelectNotNull(Maybe $maybe): Maybe
 
 	/**
 	 * @phpstan-var Maybe<T>
-	 * @phan-var Maybe<T>
 	 */
 	return $maybe;
 }
@@ -333,15 +279,12 @@ function maybeSelectNotNull(Maybe $maybe): Maybe
  *
  * @psalm-template T
  * @phpstan-template T
- * @phan-template T
  *
  * @psalm-param T|null $value
  * @phpstan-param T|null $value
- * @phan-param T|null $value
  *
  * @psalm-return Maybe<T>
  * @phpstan-return Maybe<T>
- * @phan-return Maybe<T>
  *
  * @psalm-pure
  *

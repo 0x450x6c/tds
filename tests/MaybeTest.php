@@ -17,6 +17,7 @@ use function TDS\Maybe\maybeSelectNotNull;
 use function TDS\Maybe\maybeToList;
 use TDS\Maybe\Nothing;
 use function TDS\Maybe\nothing;
+use function TDS\Maybe\toMaybe;
 use TDS\Maybe\UsingFromJustOnNothingException;
 
 /**
@@ -260,6 +261,18 @@ final class MaybeTest extends TestCase
 		static::assertInstanceOf(Nothing::class, $nothing);
 		static::assertTrue(
 			$nothing->isNothing()
+		);
+	}
+
+	public function test_to_maybe(): void
+	{
+		static::assertSame(
+			nothing(),
+			toMaybe(null)
+		);
+		static::assertSame(
+			'a',
+			toMaybe('a')->fromJust()
 		);
 	}
 }

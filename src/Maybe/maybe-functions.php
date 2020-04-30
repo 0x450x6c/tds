@@ -327,3 +327,27 @@ function maybeSelectNotNull(Maybe $maybe): Maybe
 	 */
 	return $maybe;
 }
+
+/**
+ * Convert nullable value to `Maybe`.
+ *
+ * @psalm-template T
+ * @phpstan-template T
+ * @phan-template T
+ *
+ * @psalm-param T|null $value
+ * @phpstan-param T|null $value
+ * @phan-param T|null $value
+ *
+ * @psalm-return Maybe<T>
+ * @phpstan-return Maybe<T>
+ * @phan-return Maybe<T>
+ *
+ * @psalm-pure
+ *
+ * @param mixed $value
+ */
+function toMaybe($value): Maybe
+{
+	return null === $value ? nothing() : just($value);
+}

@@ -208,18 +208,26 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 *
-	 * @psalm-return Maybe<TValue>
-	 * @phpstan-return Maybe<TValue>
+	 * @psalm-template X
+	 * @phpstan-template X
+	 *
+	 * @psalm-param X $defaultValue
+	 * @phpstan-param X $defaultValue
+	 *
+	 * @psalm-return TValue|X
+	 * @phpstan-return TValue|X
 	 *
 	 * @complexity O(1)
+	 *
+	 * @param mixed $defaultValue
 	 */
-	public function headMaybe(): Maybe
+	public function headOr($defaultValue)
 	{
 		if ($this->null()) {
-			return nothing();
+			return $defaultValue;
 		}
 
-		return just($this->head());
+		return $this->head();
 	}
 
 	/**

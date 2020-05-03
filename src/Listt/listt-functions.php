@@ -80,20 +80,28 @@ function head(iterable $list)
  * @psalm-template TValue
  * @phpstan-template TValue
  *
+ * @psalm-template X
+ * @phpstan-template X
+ *
+ * @psalm-param X $defaultValue
+ * @phpstan-param X $defaultValue
+ *
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
- * @psalm-return Maybe<TValue>
- * @phpstan-return Maybe<TValue>
+ * @psalm-return TValue|X
+ * @phpstan-return TValue|X
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
+ *
+ * @param mixed $defaultValue
  */
-function headMaybe(iterable $list): Maybe
+function headOr(iterable $list, $defaultValue)
 {
-	return Listt::fromIter($list)->headMaybe();
+	return Listt::fromIter($list)->headOr($defaultValue);
 }
 
 /**

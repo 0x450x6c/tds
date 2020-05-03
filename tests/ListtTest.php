@@ -10,7 +10,7 @@ use TDS\Listt\EmptyListException;
 use function TDS\Listt\fromIter;
 use function TDS\Listt\fromRange;
 use function TDS\Listt\head;
-use function TDS\Listt\headMaybe;
+use function TDS\Listt\headOr;
 use TDS\Listt\IndexTooLargeException;
 use function TDS\Listt\init;
 use function TDS\Listt\isEmpty;
@@ -70,18 +70,18 @@ final class ListtTest extends TestCase
 		fromIter($emptyList)->head();
 	}
 
-	public function test_head_maybe(): void
+	public function test_head_or(): void
 	{
 		$listA = ['a', 'b'];
 
 		static::assertSame(
 			'a',
-			fromIter($listA)->headMaybe()->fromJust()
+			fromIter($listA)->headOr(null)
 		);
 
 		static::assertSame(
 			'a',
-			headMaybe($listA)->fromJust()
+			headOr($listA, null)
 		);
 
 		/**
@@ -89,9 +89,9 @@ final class ListtTest extends TestCase
 		 */
 		$emptyList = [];
 
-		static::assertInstanceOf(
-			Nothing::class,
-			fromIter($emptyList)->headMaybe()
+		static::assertSame(
+			'b',
+			fromIter($emptyList)->headOr('b')
 		);
 	}
 

@@ -631,6 +631,222 @@ function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
 }
 
 /**
+ * The intersperse function takes an element
+ *   and a list and `intersperses' that element
+ *   between the elements of the list.
+ *
+ * This is lazy function,
+ *     will be applied only when you are reading data from list.
+ *
+ * @psalm-pure
+ *
+ * @psalm-template XValue
+ * @phpstan-template XValue
+ *
+ * @psalm-template XKey
+ * @phpstan-template XKey
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param XValue $value
+ * @phpstan-param XValue $value
+ *
+ * @psalm-param XKey|null $key
+ * @phpstan-param XKey|null $key
+ *
+ * @psalm-return Listt<TKey|XKey, TValue|XValue>
+ * @phpstan-return Listt<TKey|XKey, TValue|XValue>
+ *
+ * @complexity O(N).
+ *
+ * @param mixed      $value
+ * @param null|mixed $key
+ */
+function intersperse(
+	iterable $list,
+	$value,
+	$key = null,
+	bool $preserveNumericKeys = false
+): Listt {
+	/**
+	 * @psalm-var Listt<TKey|XKey, TValue|XValue>
+	 * @phpstan-var Listt<TKey|XKey, TValue|XValue>
+	 */
+	return Listt::fromIter($list)->intersperse($value, $key, $preserveNumericKeys);
+}
+
+/**
+ * Left-associative fold of a structure.
+ *
+ * @psalm-template A
+ * @phpstan-template A
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param \Closure(A, TValue, TKey=):A $predicate
+ * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+ *
+ * @psalm-param A $initialValue
+ * @phpstan-param A $initialValue
+ *
+ * @psalm-pure
+ *
+ * @psalm-return A
+ * @phpstan-return A
+ *
+ * @complexity O(N).
+ *
+ * @param mixed $initialValue
+ */
+function foldl(iterable $list, \Closure $predicate, $initialValue)
+{
+	return Listt::fromIter($list)->foldl($predicate, $initialValue);
+}
+
+/**
+ * A variant of foldl that has no base case,
+ *   and thus may only be applied to non-empty structures.
+ *
+ * @psalm-template A of TValue
+ * @phpstan-template A
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
+ * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+ *
+ * @psalm-pure
+ *
+ * @psalm-return A|TValue
+ * @phpstan-return A|TValue
+ *
+ * @complexity O(N).
+ */
+function foldl1(iterable $list, \Closure $predicate)
+{
+	return Listt::fromIter($list)->foldl1($predicate);
+}
+
+/**
+ * Right-associative fold of a structure.
+ *
+ * @psalm-template A
+ * @phpstan-template A
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param \Closure(A, TValue, TKey=):A $predicate
+ * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+ *
+ * @psalm-param A $initialValue
+ * @phpstan-param A $initialValue
+ *
+ * @psalm-pure
+ *
+ * @psalm-return A
+ * @phpstan-return A
+ *
+ * @complexity O(N).
+ *
+ * @param mixed $initialValue
+ */
+function foldr(
+	iterable $list,
+	\Closure $predicate,
+	$initialValue,
+	bool $preserveNumericKeys = false
+) {
+	return Listt::fromIter($list)->foldr(
+		$predicate,
+		$initialValue,
+		$preserveNumericKeys
+	);
+}
+
+/**
+ * A variant of foldr that has no base case,
+ *   and thus may only be applied to non-empty structures.
+ *
+ * @psalm-template A of TValue
+ * @phpstan-template A
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
+ * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+ *
+ * @psalm-pure
+ *
+ * @psalm-return A|TValue
+ * @phpstan-return A|TValue
+ *
+ * @complexity O(N).
+ */
+function foldr1(iterable $list, \Closure $predicate)
+{
+	return Listt::fromIter($list)->foldr1($predicate);
+}
+
+/**
+ * The sum function computes the sum of the numbers of a structure.
+ *
+ * @psalm-pure
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-return TValue
+ * @phpstan-return TValue
+ *
+ * @complexity O(N).
+ */
+function sum(iterable $list)
+{
+	return Listt::fromIter($list)->sum();
+}
+
+/**
  * Take n, applied to a list xs,
  *     returns the prefix of xs of length n, or xs itself if n > length xs:.
  *

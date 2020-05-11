@@ -982,6 +982,237 @@ class Listt implements \Iterator, \Countable, \Serializable
 	}
 
 	/**
+	 * The intersperse function takes an element
+	 *   and a list and `intersperses' that element
+	 *   between the elements of the list.
+	 *
+	 * This is lazy function,
+	 *     will be applied only when you are reading data from list.
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 *
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 *
+	 * @psalm-param XValue $value
+	 * @phpstan-param XValue $value
+	 *
+	 * @psalm-param XKey|null $key
+	 * @phpstan-param XKey|null $key
+	 *
+	 * @psalm-return Listt<TKey|XKey, TValue|XValue>
+	 * @phpstan-return Listt<TKey|XKey, TValue|XValue>
+	 *
+	 * @complexity O(N).
+	 *
+	 * @param mixed      $value
+	 * @param null|mixed $key
+	 */
+	public function intersperse(
+		$value,
+		$key = null,
+		bool $preserveNumericKeys = false
+	): self {
+		/** @psalm-var \Closure():\Generator<TKey|XKey, TValue|XValue> */
+		$makeGeneratorFn = function () use (
+			$value,
+			$key,
+			$preserveNumericKeys
+		): \Generator {
+			if ($this->isEmpty()) {
+				return;
+			}
+
+			$generator = $this->toGenerator();
+			while (true) {
+				/** @psalm-suppress ImpureMethodCall */
+				$k = $generator->key();
+				/** @psalm-suppress ImpureMethodCall */
+				$v = $generator->current();
+
+				if (!$preserveNumericKeys && \is_int($k)) {
+					yield $v;
+				} else {
+					yield $k => $v;
+				}
+
+				/** @psalm-suppress ImpureMethodCall */
+				$generator->next();
+				/** @psalm-suppress ImpureMethodCall */
+				if (!$generator->valid()) {
+					break;
+				}
+
+				if (null === $key) {
+					yield $value;
+				} else {
+					yield $key => $value;
+				}
+			}
+		};
+
+		$count = fn (): int => ($this->count() * 2) - 1;
+
+		return self::fromGenerator(
+			$makeGeneratorFn,
+			$count
+		);
+	}
+
+	/**
+	 * Left-associative fold of a structure.
+	 *
+	 * @psalm-template A
+	 * @phpstan-template A
+	 *
+	 * @psalm-param \Closure(A, TValue, TKey=):A $predicate
+	 * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+	 *
+	 * @psalm-param A $initialValue
+	 * @phpstan-param A $initialValue
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return A
+	 * @phpstan-return A
+	 *
+	 * @complexity O(N).
+	 *
+	 * @param mixed $initialValue
+	 */
+	public function foldl(\Closure $predicate, $initialValue)
+	{
+		foreach ($this->toGenerator() as $k => $v) {
+			$initialValue = \call_user_func_array(
+				$predicate,
+				[$initialValue, $v, $k]
+			);
+		}
+
+		return $initialValue;
+	}
+
+	/**
+	 * A variant of foldl that has no base case,
+	 *   and thus may only be applied to non-empty structures.
+	 *
+	 * @psalm-template A of TValue
+	 * @phpstan-template A
+	 *
+	 * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
+	 * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return A|TValue
+	 * @phpstan-return A|TValue
+	 *
+	 * @complexity O(N).
+	 */
+	public function foldl1(\Closure $predicate)
+	{
+		if ($this->null()) {
+			throw new EmptyListException(
+				'Empty list.'
+			);
+		}
+
+		$head = $this->head();
+		$tail = $this->tail();
+
+		return $tail->foldl($predicate, $head);
+	}
+
+	/**
+	 * Right-associative fold of a structure.
+	 *
+	 * @psalm-template A
+	 * @phpstan-template A
+	 *
+	 * @psalm-param \Closure(A, TValue, TKey=):A $predicate
+	 * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+	 *
+	 * @psalm-param A $initialValue
+	 * @phpstan-param A $initialValue
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return A
+	 * @phpstan-return A
+	 *
+	 * @complexity O(N).
+	 *
+	 * @param mixed $initialValue
+	 */
+	public function foldr(
+		\Closure $predicate,
+		$initialValue,
+		bool $preserveNumericKeys = false
+	) {
+		foreach ($this->reverse($preserveNumericKeys) as $k => $v) {
+			$initialValue = \call_user_func_array(
+				$predicate,
+				[$initialValue, $v, $k]
+			);
+		}
+
+		return $initialValue;
+	}
+
+	/**
+	 * The sum function computes the sum of the numbers of a structure.
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return TValue
+	 * @phpstan-return TValue
+	 *
+	 * @complexity O(N).
+	 */
+	public function sum()
+	{
+		/** @psalm-suppress all */
+		return $this->foldl(static fn ($a, $b) => $a + $b, 0);
+	}
+
+	/**
+	 * A variant of foldr that has no base case,
+	 *   and thus may only be applied to non-empty structures.
+	 *
+	 * This is lazy function,
+	 *     will be applied only when you are reading data from list.
+	 *
+	 * @psalm-template A of TValue
+	 * @phpstan-template A
+	 *
+	 * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
+	 * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return A|TValue
+	 * @phpstan-return A|TValue
+	 *
+	 * @complexity O(N) Lazy.
+	 */
+	public function foldr1(\Closure $predicate)
+	{
+		if ($this->null()) {
+			throw new EmptyListException(
+				'Empty list.'
+			);
+		}
+
+		$init = $this->init();
+		$last = $this->last();
+
+		return $init->foldr($predicate, $last);
+	}
+
+	/**
 	 * Take n, applied to a list xs,
 	 *     returns the prefix of xs of length n, or xs itself if n > length xs:.
 	 *

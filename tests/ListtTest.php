@@ -7,12 +7,17 @@ namespace TDS\Tests;
 use PHPUnit\Framework\TestCase;
 use function TDS\Listt\concat;
 use TDS\Listt\EmptyListException;
+use function TDS\Listt\foldl;
+use function TDS\Listt\foldl1;
+use function TDS\Listt\foldr;
+use function TDS\Listt\foldr1;
 use function TDS\Listt\fromIter;
 use function TDS\Listt\fromRange;
 use function TDS\Listt\head;
 use function TDS\Listt\headOr;
 use TDS\Listt\IndexTooLargeException;
 use function TDS\Listt\init;
+use function TDS\Listt\intersperse;
 use function TDS\Listt\isEmpty;
 use function TDS\Listt\last;
 use function TDS\Listt\lastMaybe;
@@ -20,6 +25,7 @@ use function TDS\Listt\length;
 use function TDS\Listt\listSelectNotNull;
 use TDS\Listt\Listt;
 use function TDS\Listt\null;
+use function TDS\Listt\sum;
 use function TDS\Listt\tail;
 use function TDS\Listt\take;
 use function TDS\Listt\uncons;
@@ -634,6 +640,97 @@ final class ListtTest extends TestCase
 		self::assertList(
 			[5, 10, 15],
 			fromRange(5, 19, 5)
+		);
+	}
+
+	public function test_intersperse(): void
+	{
+		$listA = ['a', 'b', 'c', 'd', 'e'];
+		$listB = ['a', ',', 'b', ',', 'c', ',', 'd', ',', 'e'];
+
+		self::assertList(
+			$listB,
+			fromIter($listA)->intersperse(',')
+		);
+
+		self::assertList(
+			$listB,
+			intersperse($listA, ',')
+		);
+	}
+
+	public function test_foldl(): void
+	{
+		$listA = ['a', 'b', 'c', 'd', 'e'];
+
+		static::assertSame(
+			'_abcde',
+			fromIter($listA)->foldl(static fn (string $x, string $y) => $x.$y, '_')
+		);
+
+		static::assertSame(
+			'_abcde',
+			foldl($listA, static fn (string $x, string $y) => $x.$y, '_')
+		);
+	}
+
+	public function test_foldl1(): void
+	{
+		$listA = ['a', 'b', 'c', 'd', 'e'];
+
+		static::assertSame(
+			'abcde',
+			fromIter($listA)->foldl1(static fn (string $x, string $y) => $x.$y)
+		);
+
+		static::assertSame(
+			'abcde',
+			foldl1($listA, static fn (string $x, string $y) => $x.$y)
+		);
+	}
+
+	public function test_foldr(): void
+	{
+		$listA = ['a', 'b', 'c', 'd', 'e'];
+
+		static::assertSame(
+			'_edcba',
+			fromIter($listA)->foldr(static fn (string $x, string $y) => $x.$y, '_')
+		);
+
+		static::assertSame(
+			'_edcba',
+			foldr($listA, static fn (string $x, string $y) => $x.$y, '_')
+		);
+	}
+
+	public function test_foldr1(): void
+	{
+		$listA = ['a', 'b', 'c', 'd', 'e'];
+
+		static::assertSame(
+			'edcba',
+			fromIter($listA)->foldr1(static fn (string $x, string $y) => $x.$y)
+		);
+
+		static::assertSame(
+			'edcba',
+			foldr1($listA, static fn (string $x, string $y) => $x.$y)
+		);
+	}
+
+	public function test_sum(): void
+	{
+		$listA = [1, 2, 3];
+
+		static::assertSame(
+			6,
+			fromIter($listA)->sum()
+		);
+
+		static::assertSame(
+			6,
+			sum($listA)
 		);
 	}
 

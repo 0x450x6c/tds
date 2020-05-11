@@ -6,6 +6,7 @@ namespace TDS\Tests;
 
 use PHPUnit\Framework\TestCase;
 use function TDS\Listt\concat;
+use function TDS\Listt\concatMap;
 use TDS\Listt\EmptyListException;
 use function TDS\Listt\foldl;
 use function TDS\Listt\foldl1;
@@ -731,6 +732,22 @@ final class ListtTest extends TestCase
 		static::assertSame(
 			6,
 			sum($listA)
+		);
+	}
+
+	public function test_concat_map(): void
+	{
+		$listA = [['a', 'b'], ['c', 'd'], ['d', 'e']];
+		$listB = ['a', 'b', 'c', 'd', 'd', 'e'];
+
+		self::assertList(
+			$listB,
+			fromIter($listA)->concatMap(static fn (iterable $list): iterable => $list)
+		);
+
+		self::assertList(
+			$listB,
+			concatMap($listA, static fn (iterable $list): iterable => $list)
 		);
 	}
 

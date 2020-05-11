@@ -890,14 +890,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 		/**
 		 * @phpstan-var callable():\Generator<TKey, X>
 		 */
-		$generator = function () use ($predicate): \Generator {
+		$makeGeneratorFn = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
 				yield $k => \call_user_func_array($predicate, [$v, $k]);
 			}
 		};
 
 		return self::fromGenerator(
-			$generator,
+			$makeGeneratorFn,
 			$this->count ?? $this->countFn
 		);
 	}
@@ -1196,6 +1196,59 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 		throw new \RuntimeException(
 			'Only numeric lists can be summarized.'
+		);
+	}
+
+	/**
+	 * Map a function over all the elements of a container and concatenate the resulting lists.
+	 *
+	 * This is lazy function,
+	 *     will be applied only when you are reading data from list.
+	 *
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 *
+	 * @psalm-param callable(TValue, TKey=):iterable<XKey, XValue> $predicate
+	 * @phpstan-param callable(TValue):iterable<XKey, XValue> $predicate
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return Listt<XKey, XValue>
+	 * @phpstan-return Listt<XKey, XValue>
+	 *
+	 * @complexity O(N) Lazy.
+	 */
+	public function concatMap(
+		callable $predicate,
+		bool $preserveNumericKeys = false
+	): self {
+		/**
+		 * @phpstan-var callable():\Generator<XKey, XValue>
+		 */
+		$makeGeneratorFn = function () use (
+			$predicate,
+			$preserveNumericKeys
+		): \Generator {
+			foreach ($this->toGenerator() as $k => $v) {
+				$childList = \call_user_func_array($predicate, [$v, $k]);
+				foreach ($childList as $childListKey => $childListValue) {
+					if (!$preserveNumericKeys && \is_int($childListKey)) {
+						yield $childListValue;
+
+						continue;
+					}
+
+					yield $childListKey => $childListValue;
+				}
+			}
+		};
+
+		return self::fromGenerator(
+			$makeGeneratorFn,
+			$this->count ?? $this->countFn
 		);
 	}
 

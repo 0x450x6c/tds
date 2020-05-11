@@ -848,6 +848,45 @@ function sum(iterable $list)
 }
 
 /**
+ * Map a function over all the elements of a container and concatenate the resulting lists.
+ *
+ * This is lazy function,
+ *     will be applied only when you are reading data from list.
+ *
+ * @psalm-template XKey
+ * @phpstan-template XKey
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-template XValue
+ * @phpstan-template XValue
+ *
+ * @psalm-param callable(TValue, TKey=):iterable<XKey, XValue> $predicate
+ * @phpstan-param callable(TValue):iterable<XKey, XValue> $predicate
+ *
+ * @psalm-pure
+ *
+ * @psalm-return Listt<XKey, XValue>
+ * @phpstan-return Listt<XKey, XValue>
+ *
+ * @complexity O(N) Lazy.
+ */
+function concatMap(
+	iterable $list,
+	callable $predicate,
+	bool $preserveNumericKeys = false
+): Listt {
+	return Listt::fromIter($list)->concatMap($predicate, $preserveNumericKeys);
+}
+
+/**
  * Take n, applied to a list xs,
  *     returns the prefix of xs of length n, or xs itself if n > length xs:.
  *

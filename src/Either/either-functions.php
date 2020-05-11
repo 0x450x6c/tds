@@ -63,11 +63,11 @@ function right($value): Right
  * @psalm-param Either<L, R> $either
  * @phpstan-param Either<L, R> $either
  *
- * @psalm-param \Closure(L):LReturn $leftPredicate
- * @phpstan-param \Closure(L):LReturn $leftPredicate
+ * @psalm-param callable(L):LReturn $leftPredicate
+ * @phpstan-param callable(L):LReturn $leftPredicate
  *
- * @psalm-param \Closure(R):RReturn $rightPredicate
- * @phpstan-param \Closure(R):RReturn $rightPredicate
+ * @psalm-param callable(R):RReturn $rightPredicate
+ * @phpstan-param callable(R):RReturn $rightPredicate
  *
  * @psalm-return LReturn|RReturn
  * @phpstan-return LReturn|RReturn
@@ -76,8 +76,8 @@ function right($value): Right
  */
 function either(
 	Either $either,
-	\Closure $leftPredicate,
-	\Closure $rightPredicate
+	callable $leftPredicate,
+	callable $rightPredicate
 ) {
 	return $either->either($leftPredicate, $rightPredicate);
 }
@@ -194,7 +194,7 @@ function fromRight(Either $either, $defaultValue)
 function lefts(iterable $eithers): Listt
 {
 	/**
-	 * @phpstan-var \Closure(Either<L, R>):Maybe<L>
+	 * @phpstan-var callable(Either<L, R>):Maybe<L>
 	 */
 	$predicate = static function (Either $either): Maybe {
 		return $either->maybeLeft();
@@ -222,7 +222,7 @@ function lefts(iterable $eithers): Listt
 function rights(iterable $eithers): Listt
 {
 	/**
-	 * @phpstan-var \Closure(Either<L, R>):Maybe<R>
+	 * @phpstan-var callable(Either<L, R>):Maybe<R>
 	 */
 	$predicate = static function (Either $either): Maybe {
 		return $either->maybeRight();

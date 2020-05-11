@@ -265,13 +265,13 @@ function length(iterable $list): int
  * @psalm-template TValue
  * @phpstan-template TValue
  *
- * @psalm-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
- * @psalm-param null|int|\Closure():int $count
+ * @psalm-param callable():\Generator<TKey, TValue> $makeGeneratorFn
+ * @psalm-param null|int|callable():int $count
  *
- * @phpstan-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
- * @phpstan-param null|int|\Closure():int $count
+ * @phpstan-param callable():\Generator<TKey, TValue> $makeGeneratorFn
+ * @phpstan-param null|int|callable():int $count
  *
- * @param null|\Closure|int $count
+ * @param null|callable|int $count
  *
  * @psalm-pure
  *
@@ -281,7 +281,7 @@ function length(iterable $list): int
  * @complexity O(1) just creates a list, but not iterates by.
  * @IgnoreAnnotation("complexity")
  */
-function fromGenerator(\Closure $makeGeneratorFn, $count = null): Listt
+function fromGenerator(callable $makeGeneratorFn, $count = null): Listt
 {
 	return Listt::fromGenerator($makeGeneratorFn, $count);
 }
@@ -319,13 +319,13 @@ function from($value): Listt
  * @psalm-template TValue
  * @phpstan-template TValue
  *
- * @param null|\Closure|int $count
+ * @param null|callable|int $count
  *
  * @psalm-param iterable<TKey, TValue> $value
- * @psalm-param null|int|\Closure():int $count
+ * @psalm-param null|int|callable():int $count
  *
  * @phpstan-param iterable<TKey, TValue> $value
- * @phpstan-param null|int|\Closure():int $count
+ * @phpstan-param null|int|callable():int $count
  *
  * @psalm-pure
  *
@@ -426,8 +426,8 @@ function nth(iterable $list, int $n)
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param \Closure(TValue=, TKey=):bool $predicate
- * @phpstan-param (\Closure(TValue):bool)&(\Closure(TValue, TKey):bool) $predicate
+ * @psalm-param callable(TValue=, TKey=):bool $predicate
+ * @phpstan-param callable(TValue):bool $predicate
  *
  * @psalm-pure
  *
@@ -437,7 +437,7 @@ function nth(iterable $list, int $n)
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
  */
-function select(iterable $list, \Closure $predicate): Listt
+function select(iterable $list, callable $predicate): Listt
 {
 	return Listt::fromIter($list)->select($predicate);
 }
@@ -511,8 +511,8 @@ function maximum(iterable $list)
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
- * @psalm-param \Closure(TValue=, TKey=) $predicate
- * @phpstan-param \Closure(TValue=, TKey=):(void|mixed) $predicate
+ * @psalm-param callable(TValue=, TKey=) $predicate
+ * @phpstan-param callable(TValue=, TKey=):(void|mixed) $predicate
  *
  * @psalm-pure
  *
@@ -522,7 +522,7 @@ function maximum(iterable $list)
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
  */
-function tap(iterable $list, \Closure $predicate): Listt
+function tap(iterable $list, callable $predicate): Listt
 {
 	return Listt::fromIter($list)->tap($predicate);
 }
@@ -546,8 +546,8 @@ function tap(iterable $list, \Closure $predicate): Listt
  * @psalm-template X
  * @phpstan-template X
  *
- * @psalm-param \Closure(TValue=, TKey=):X $predicate
- * @phpstan-param (\Closure(TValue):X)&(\Closure(TValue, TKey):X) $predicate
+ * @psalm-param callable(TValue=, TKey=):X $predicate
+ * @phpstan-param callable(TValue):X $predicate
  *
  * @psalm-pure
  *
@@ -557,7 +557,7 @@ function tap(iterable $list, \Closure $predicate): Listt
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
  */
-function map(iterable $list, \Closure $predicate): Listt
+function map(iterable $list, callable $predicate): Listt
 {
 	return Listt::fromIter($list)->map($predicate);
 }
@@ -697,8 +697,8 @@ function intersperse(
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param \Closure(A, TValue, TKey=):A $predicate
- * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+ * @psalm-param callable(A, TValue, TKey=):A $predicate
+ * @phpstan-param callable(A, TValue):A $predicate
  *
  * @psalm-param A $initialValue
  * @phpstan-param A $initialValue
@@ -712,7 +712,7 @@ function intersperse(
  *
  * @param mixed $initialValue
  */
-function foldl(iterable $list, \Closure $predicate, $initialValue)
+function foldl(iterable $list, callable $predicate, $initialValue)
 {
 	return Listt::fromIter($list)->foldl($predicate, $initialValue);
 }
@@ -733,8 +733,8 @@ function foldl(iterable $list, \Closure $predicate, $initialValue)
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
- * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+ * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
+ * @phpstan-param callable(A|TValue, TValue):A $predicate
  *
  * @psalm-pure
  *
@@ -743,7 +743,7 @@ function foldl(iterable $list, \Closure $predicate, $initialValue)
  *
  * @complexity O(N).
  */
-function foldl1(iterable $list, \Closure $predicate)
+function foldl1(iterable $list, callable $predicate)
 {
 	return Listt::fromIter($list)->foldl1($predicate);
 }
@@ -763,8 +763,7 @@ function foldl1(iterable $list, \Closure $predicate)
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param \Closure(A, TValue, TKey=):A $predicate
- * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+ * @psalm-param callable(A, TValue, TKey=):A $predicate
  *
  * @psalm-param A $initialValue
  * @phpstan-param A $initialValue
@@ -780,7 +779,7 @@ function foldl1(iterable $list, \Closure $predicate)
  */
 function foldr(
 	iterable $list,
-	\Closure $predicate,
+	callable $predicate,
 	$initialValue,
 	bool $preserveNumericKeys = false
 ) {
@@ -807,8 +806,7 @@ function foldr(
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
- * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+ * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
  *
  * @psalm-pure
  *
@@ -817,7 +815,7 @@ function foldr(
  *
  * @complexity O(N).
  */
-function foldr1(iterable $list, \Closure $predicate)
+function foldr1(iterable $list, callable $predicate)
 {
 	return Listt::fromIter($list)->foldr1($predicate);
 }
@@ -830,7 +828,7 @@ function foldr1(iterable $list, \Closure $predicate)
  * @psalm-template TKey
  * @phpstan-template TKey
  *
- * @psalm-template TValue
+ * @psalm-template TValue of int|float
  * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
@@ -843,6 +841,9 @@ function foldr1(iterable $list, \Closure $predicate)
  */
 function sum(iterable $list)
 {
+	/**
+	 * @psalm-var TValue
+	 */
 	return Listt::fromIter($list)->sum();
 }
 
@@ -931,15 +932,15 @@ function toArray(iterable $list): array
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param null|\Closure(TValue=, TKey=) $predicate
- * @phpstan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
+ * @psalm-param null|callable(TValue=, TKey=) $predicate
+ * @phpstan-param null|callable(TValue=, TKey=):(void|mixed) $predicate
  *
  * @psalm-pure
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
  */
-function apply(iterable $list, ?\Closure $predicate = null): void
+function apply(iterable $list, ?callable $predicate = null): void
 {
 	Listt::fromIter($list)->apply($predicate);
 }

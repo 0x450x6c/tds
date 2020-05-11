@@ -54,8 +54,8 @@ function just($value): Just
  * @psalm-param X $defaultValue
  * @phpstan-param X $defaultValue
  *
- * @psalm-param \Closure(T):Y $predicate
- * @phpstan-param \Closure(T):Y $predicate
+ * @psalm-param callable(T):Y $predicate
+ * @phpstan-param callable(T):Y $predicate
  *
  * @psalm-return X|Y
  * @phpstan-return X|Y
@@ -64,7 +64,7 @@ function just($value): Just
  *
  * @param mixed $defaultValue
  */
-function maybe(Maybe $maybe, $defaultValue, \Closure $predicate)
+function maybe(Maybe $maybe, $defaultValue, callable $predicate)
 {
 	return $maybe->maybe($defaultValue, $predicate);
 }
@@ -231,8 +231,8 @@ function catMaybes(iterable $maybes): Listt
  * @psalm-param iterable<TKey, TValue> $list
  * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param \Closure(TValue=, TKey=):Maybe<X> $predicate
- * @phpstan-param \Closure(TValue=, TKey=):Maybe<X> $predicate
+ * @psalm-param callable(TValue=, TKey=):Maybe<X> $predicate
+ * @phpstan-param callable(TValue):Maybe<X> $predicate
  *
  * @psalm-pure
  *
@@ -243,7 +243,7 @@ function catMaybes(iterable $maybes): Listt
  *
  * @IgnoreAnnotation("complexity")
  */
-function mapMaybe(iterable $list, \Closure $predicate): Listt
+function mapMaybe(iterable $list, callable $predicate): Listt
 {
 	return Listt::fromIter($list)->mapMaybe($predicate);
 }

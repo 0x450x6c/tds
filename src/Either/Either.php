@@ -31,18 +31,18 @@ interface Either extends \Serializable
 	 * @psalm-template RReturn
 	 * @phpstan-template RReturn
 	 *
-	 * @psalm-param \Closure(L):LReturn $leftPredicate
-	 * @phpstan-param \Closure(L):LReturn $leftPredicate
+	 * @psalm-param callable(L):LReturn $leftPredicate
+	 * @phpstan-param callable(L):LReturn $leftPredicate
 	 *
-	 * @psalm-param \Closure(R):RReturn $rightPredicate
-	 * @phpstan-param \Closure(R):RReturn $rightPredicate
+	 * @psalm-param callable(R):RReturn $rightPredicate
+	 * @phpstan-param callable(R):RReturn $rightPredicate
 	 *
 	 * @psalm-return LReturn|RReturn
 	 * @phpstan-return LReturn|RReturn
 	 *
 	 * @psalm-pure
 	 */
-	public function either(\Closure $leftPredicate, \Closure $rightPredicate);
+	public function either(callable $leftPredicate, callable $rightPredicate);
 
 	/**
 	 * @psalm-pure

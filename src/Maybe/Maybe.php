@@ -27,12 +27,12 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	/**
 	 * Alias for Maybe::apply().
 	 *
-	 * @psalm-param \Closure(T) $predicate
-	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @psalm-param callable(T) $predicate
+	 * @phpstan-param callable(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
-	abstract public function __invoke(\Closure $predicate): void;
+	abstract public function __invoke(callable $predicate): void;
 
 	/**
 	 * The maybe function takes a default value, a function, and a Maybe value.
@@ -51,8 +51,8 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure(T):Y $predicate
-	 * @phpstan-param \Closure(T):Y $predicate
+	 * @psalm-param callable(T):Y $predicate
+	 * @phpstan-param callable(T):Y $predicate
 	 *
 	 * @psalm-return X|Y
 	 * @phpstan-return X|Y
@@ -61,7 +61,7 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	 *
 	 * @param mixed $defaultValue
 	 */
-	abstract public function maybe($defaultValue, \Closure $predicate);
+	abstract public function maybe($defaultValue, callable $predicate);
 
 	/**
 	 * @psalm-pure
@@ -110,12 +110,12 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	/**
 	 * Apply predicate if `Just`.
 	 *
-	 * @psalm-param \Closure(T) $predicate
-	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @psalm-param callable(T) $predicate
+	 * @phpstan-param callable(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
-	abstract public function apply(\Closure $predicate): void;
+	abstract public function apply(callable $predicate): void;
 
 	abstract public function key(): int;
 }

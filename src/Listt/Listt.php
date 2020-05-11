@@ -27,12 +27,12 @@ use TDS\Ord;
 class Listt implements \Iterator, \Countable, \Serializable
 {
 	/**
-	 * @psalm-var \Closure():\Generator<TKey, TValue>
-	 * @phpstan-var \Closure():\Generator<TKey, TValue>
+	 * @psalm-var callable():\Generator<TKey, TValue>
+	 * @phpstan-var callable():\Generator<TKey, TValue>
 	 *
 	 * @psalm-allow-private-mutation
 	 */
-	private \Closure $makeGeneratorFn;
+	private $makeGeneratorFn;
 
 	/**
 	 * @psalm-var null|\Generator<TKey, TValue>
@@ -61,25 +61,25 @@ class Listt implements \Iterator, \Countable, \Serializable
 	private ?int $count = null;
 
 	/**
-	 * @psalm-var null|\Closure():int $count
-	 * @phpstan-var null|\Closure():int $count
+	 * @psalm-var null|callable():int
+	 * @phpstan-var null|callable():int
 	 * @psalm-allow-private-mutation
 	 */
-	private ?\Closure $countFn = null;
+	private $countFn;
 
 	/**
-	 * @psalm-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
-	 * @phpstan-param \Closure():\Generator<TKey, TValue> $makeGeneratorFn
+	 * @psalm-param callable():\Generator<TKey, TValue> $makeGeneratorFn
+	 * @phpstan-param callable():\Generator<TKey, TValue> $makeGeneratorFn
 	 *
-	 * @psalm-param null|int|\Closure():int $count
-	 * @phpstan-param null|int|\Closure():int $count
+	 * @psalm-param null|int|callable():int $count
+	 * @phpstan-param null|int|callable():int $count
 	 *
-	 * @param null|\Closure|int $count
+	 * @param null|callable|int $count
 	 *
 	 * @psalm-pure
 	 */
 	private function __construct(
-		\Closure $makeGeneratorFn,
+		callable $makeGeneratorFn,
 		$count = null
 	) {
 		/** @psalm-suppress ImpurePropertyAssignment */
@@ -101,14 +101,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * Same as Listt::apply().
 	 *
-	 * @psalm-param null|\Closure(TValue=, TKey=) $predicate
-	 * @phpstan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
+	 * @psalm-param null|callable(TValue=, TKey=) $predicate
+	 * @phpstan-param null|callable(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @complexity O(N)
 	 */
-	public function __invoke(?\Closure $predicate = null): void
+	public function __invoke(?callable $predicate = null): void
 	{
 		$this->apply($predicate);
 	}
@@ -146,7 +146,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		}
 
 		/**
-		 * @phpstan-var \Closure():\Generator<TKey|XKey, TValue|XValue>
+		 * @phpstan-var callable():\Generator<TKey|XKey, TValue|XValue>
 		 */
 		$makeGeneratorFn = function () use (
 			$preserveNumericKeys,
@@ -299,7 +299,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		}
 
 		/**
-		 * @phpstan-var \Closure():\Generator<TKey, TValue>
+		 * @phpstan-var callable():\Generator<TKey, TValue>
 		 */
 		$makeGeneratorFn = function () use ($preserveNumericKeys): \Generator {
 			$generator = $this->toGenerator();
@@ -346,7 +346,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		}
 
 		/**
-		 * @phpstan-var \Closure():\Generator<TKey, TValue>
+		 * @phpstan-var callable():\Generator<TKey, TValue>
 		 */
 		$makeGeneratorFn = function (): \Generator {
 			$generator = $this->toGenerator();
@@ -496,13 +496,13 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
 	 *
-	 * @psalm-param \Closure():\Generator<XKey, XValue> $makeGeneratorFn
-	 * @phpstan-param \Closure():\Generator<XKey, XValue> $makeGeneratorFn
+	 * @psalm-param callable():\Generator<XKey, XValue> $makeGeneratorFn
+	 * @phpstan-param callable():\Generator<XKey, XValue> $makeGeneratorFn
 	 *
-	 * @psalm-param null|int|\Closure():int $count
-	 * @phpstan-param null|int|\Closure():int $count
+	 * @psalm-param null|int|callable():int $count
+	 * @phpstan-param null|int|callable():int $count
 	 *
-	 * @param null|\Closure|int $count
+	 * @param null|callable|int $count
 	 *
 	 * @psalm-pure
 	 *
@@ -512,7 +512,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
 	public static function fromGenerator(
-		\Closure $makeGeneratorFn,
+		callable $makeGeneratorFn,
 		$count = null
 	): self {
 		return new self($makeGeneratorFn, $count);
@@ -550,13 +550,13 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template XValue
 	 * @phpstan-template XValue
 	 *
-	 * @param null|\Closure|int $count
+	 * @param null|callable|int $count
 	 *
 	 * @psalm-param iterable<XKey, XValue> $value
-	 * @psalm-param null|int|\Closure():int $count
+	 * @psalm-param null|int|callable():int $count
 	 *
 	 * @phpstan-param iterable<XKey, XValue> $value
-	 * @phpstan-param null|int|\Closure():int $count
+	 * @phpstan-param null|int|callable():int $count
 	 *
 	 * @psalm-pure
 	 *
@@ -606,7 +606,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		int $step = 1
 	): self {
 		/**
-		 * @psalm-var \Closure():\Generator<int, int>
+		 * @psalm-var callable():\Generator<int, int>
 		 */
 		$makeGeneratorFn = static function () use (
 			$start,
@@ -628,14 +628,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * Iterates over list applying predicate (if specified).
 	 *
-	 * @psalm-param null|\Closure(TValue=, TKey=) $predicate
-	 * @phpstan-param null|\Closure(TValue=, TKey=):(void|mixed) $predicate
+	 * @psalm-param null|callable(TValue=, TKey=) $predicate
+	 * @phpstan-param null|callable(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @complexity O(N)
 	 */
-	public function apply(?\Closure $predicate = null): void
+	public function apply(?callable $predicate = null): void
 	{
 		if (null !== $predicate) {
 			if (null === $this->count) {
@@ -717,8 +717,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * This is lazy function,
 	 *     will be applied only when you are reading data from list.
 	 *
-	 * @psalm-param \Closure(TValue, TKey=):bool $predicate
-	 * @phpstan-param (\Closure(TValue):bool)&(\Closure(TValue, TKey):bool) $predicate
+	 * @psalm-param callable(TValue, TKey=):bool $predicate
+	 * @phpstan-param callable(TValue):bool $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -728,11 +728,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @complexity O(N) Lazy.
 	 */
 	public function select(
-		\Closure $predicate,
+		callable $predicate,
 		bool $preserveNumericKeys = false
 	): self {
 		/**
-		 * @phpstan-var \Closure():\Generator<TKey, TValue>
+		 * @phpstan-var callable():\Generator<TKey, TValue>
 		 */
 		$generator = function () use (
 			$predicate,
@@ -836,8 +836,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * This is lazy function,
 	 *     will be applied only when you are reading data from list.
 	 *
-	 * @psalm-param \Closure(TValue=, TKey=) $predicate
-	 * @phpstan-param \Closure(TValue=, TKey=):(void|mixed) $predicate
+	 * @psalm-param callable(TValue=, TKey=) $predicate
+	 * @phpstan-param callable(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -846,10 +846,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @complexity O(N) Lazy.
 	 */
-	public function tap(\Closure $predicate): self
+	public function tap(callable $predicate): self
 	{
 		/**
-		 * @phpstan-var \Closure():\Generator<TKey, TValue>
+		 * @phpstan-var callable():\Generator<TKey, TValue>
 		 */
 		$generator = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
@@ -875,8 +875,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template X
 	 * @phpstan-template X
 	 *
-	 * @psalm-param \Closure(TValue, TKey=):X $predicate
-	 * @phpstan-param (\Closure(TValue):X)&(\Closure(TValue, TKey):X) $predicate
+	 * @psalm-param callable(TValue, TKey=):X $predicate
+	 * @phpstan-param callable(TValue):X $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -885,10 +885,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @complexity O(N) Lazy.
 	 */
-	public function map(\Closure $predicate): self
+	public function map(callable $predicate): self
 	{
 		/**
-		 * @phpstan-var \Closure():\Generator<TKey, X>
+		 * @phpstan-var callable():\Generator<TKey, X>
 		 */
 		$generator = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
@@ -917,8 +917,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template X
 	 * @phpstan-template X
 	 *
-	 * @psalm-param \Closure(TValue, TKey=):Maybe<X> $predicate
-	 * @phpstan-param (\Closure(TValue):Maybe<X>)&(\Closure(TValue, TKey):Maybe<X>) $predicate
+	 * @psalm-param callable(TValue, TKey=):Maybe<X> $predicate
+	 * @phpstan-param callable(TValue):Maybe<X> $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -927,7 +927,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @complexity O(N) Lazy.
 	 */
-	public function mapMaybe(\Closure $predicate): self
+	public function mapMaybe(callable $predicate): self
 	{
 		return catMaybes(
 			$this->map($predicate)
@@ -949,7 +949,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 */
 	public function reverse(bool $preserveNumericKeys = false): self
 	{
-		/** @psalm-var \Closure():\Generator<TKey, TValue> */
+		/** @psalm-var callable():\Generator<TKey, TValue> */
 		$makeGeneratorFn = function () use ($preserveNumericKeys): \Generator {
 			$list = $this->toArray();
 			if (0 === \count($list)) {
@@ -1016,7 +1016,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		$key = null,
 		bool $preserveNumericKeys = false
 	): self {
-		/** @psalm-var \Closure():\Generator<TKey|XKey, TValue|XValue> */
+		/** @psalm-var callable():\Generator<TKey|XKey, TValue|XValue> */
 		$makeGeneratorFn = function () use (
 			$value,
 			$key,
@@ -1068,8 +1068,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template A
 	 * @phpstan-template A
 	 *
-	 * @psalm-param \Closure(A, TValue, TKey=):A $predicate
-	 * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+	 * @psalm-param callable(A, TValue, TKey=):A $predicate
+	 * @phpstan-param callable(A, TValue):A $predicate
 	 *
 	 * @psalm-param A $initialValue
 	 * @phpstan-param A $initialValue
@@ -1083,7 +1083,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @param mixed $initialValue
 	 */
-	public function foldl(\Closure $predicate, $initialValue)
+	public function foldl(callable $predicate, $initialValue)
 	{
 		foreach ($this->toGenerator() as $k => $v) {
 			$initialValue = \call_user_func_array(
@@ -1102,8 +1102,8 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template A of TValue
 	 * @phpstan-template A
 	 *
-	 * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
-	 * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+	 * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
+	 * @phpstan-param callable(A|TValue, TValue):A $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -1112,7 +1112,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @complexity O(N).
 	 */
-	public function foldl1(\Closure $predicate)
+	public function foldl1(callable $predicate)
 	{
 		if ($this->null()) {
 			throw new EmptyListException(
@@ -1132,8 +1132,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template A
 	 * @phpstan-template A
 	 *
-	 * @psalm-param \Closure(A, TValue, TKey=):A $predicate
-	 * @phpstan-param (\Closure(A, TValue):A)&(\Closure(A, TValue, TKey):A) $predicate
+	 * @psalm-param callable(A, TValue, TKey=):A $predicate
 	 *
 	 * @psalm-param A $initialValue
 	 * @phpstan-param A $initialValue
@@ -1148,7 +1147,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @param mixed $initialValue
 	 */
 	public function foldr(
-		\Closure $predicate,
+		callable $predicate,
 		$initialValue,
 		bool $preserveNumericKeys = false
 	) {
@@ -1167,15 +1166,37 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 *
-	 * @psalm-return TValue
+	 * @psalm-return (
+	 *     TValue is int ? int : (
+	 *         TValue is float ? float : (
+	 *             TValue is numeric ? float : null
+	 *         )
+	 *     )
+	 * )
 	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N).
 	 */
 	public function sum()
 	{
-		/** @psalm-suppress all */
-		return $this->foldl(static fn ($a, $b) => $a + $b, 0);
+		if ($this->isEmpty()) {
+			/**
+			 * @psalm-var int
+			 * @phpstan-var TValue
+			 */
+			return 0;
+		}
+
+		if (self::assertNumericList($this)) {
+			/**
+			 * @phpstan-var Listt<TKey, int|float> $this
+			 */
+			return $this->foldl1([self::class, '_add']);
+		}
+
+		throw new \RuntimeException(
+			'Only numeric lists can be summarized.'
+		);
 	}
 
 	/**
@@ -1188,8 +1209,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template A of TValue
 	 * @phpstan-template A
 	 *
-	 * @psalm-param \Closure(A|TValue, TValue, TKey=):A $predicate
-	 * @phpstan-param (\Closure(A|TValue, TValue):A)&(\Closure(A|TValue, TValue, TKey):A) $predicate
+	 * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -1198,7 +1218,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @complexity O(N) Lazy.
 	 */
-	public function foldr1(\Closure $predicate)
+	public function foldr1(callable $predicate)
 	{
 		if ($this->null()) {
 			throw new EmptyListException(
@@ -1240,7 +1260,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		}
 
 		/**
-		 * @psalm-var \Closure():\Generator<TKey, TValue>
+		 * @psalm-var callable():\Generator<TKey, TValue>
 		 */
 		$makeGeneratorFn = function () use (
 			$preserveNumericKeys,
@@ -1410,6 +1430,62 @@ class Listt implements \Iterator, \Countable, \Serializable
 			static fn () => self::yieldFromIter($data),
 			$count
 		);
+	}
+
+	/**
+	 * @param float|int $a
+	 * @param float|int $b
+	 *
+	 * @return float|int
+	 */
+	private static function _add($a, $b)
+	{
+		return $a + $b;
+	}
+
+	/**
+	 * @psalm-pure
+	 *
+	 * @psalm-template XKey
+	 * @psalm-template XValue
+	 *
+	 * @psalm-param Listt<XKey, XValue> $list
+	 *
+	 * @psalm-assert-if-true Listt<XKey, int> $list
+	 */
+	private static function assertIntList(self $list): bool
+	{
+		return !$list->null() && \is_int($list->head());
+	}
+
+	/**
+	 * @psalm-pure
+	 *
+	 * @psalm-template XKey
+	 * @psalm-template XValue
+	 *
+	 * @psalm-param Listt<XKey, XValue> $list
+	 *
+	 * @psalm-assert-if-true Listt<XKey, float> $list
+	 */
+	private static function assertFloatList(self $list): bool
+	{
+		return !$list->null() && \is_float($list->head());
+	}
+
+	/**
+	 * @psalm-pure
+	 *
+	 * @psalm-template XKey
+	 * @psalm-template XValue
+	 *
+	 * @psalm-param Listt<XKey, XValue> $list
+	 *
+	 * @psalm-assert-if-true Listt<XKey, numeric> $list
+	 */
+	private static function assertNumericList(self $list): bool
+	{
+		return !$list->null() && is_numeric($list->head());
 	}
 
 	/**

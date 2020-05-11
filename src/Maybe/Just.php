@@ -44,12 +44,12 @@ final class Just extends Maybe
 	/**
 	 * Alias for Maybe::apply().
 	 *
-	 * @psalm-param \Closure(T) $predicate
-	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @psalm-param callable(T) $predicate
+	 * @phpstan-param callable(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
-	public function __invoke(\Closure $predicate): void
+	public function __invoke(callable $predicate): void
 	{
 		$this->apply($predicate);
 	}
@@ -90,8 +90,8 @@ final class Just extends Maybe
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure(T):Y $predicate
-	 * @phpstan-param \Closure(T):Y $predicate
+	 * @psalm-param callable(T):Y $predicate
+	 * @phpstan-param callable(T):Y $predicate
 	 *
 	 * @psalm-return Y
 	 * @phpstan-return Y
@@ -100,7 +100,7 @@ final class Just extends Maybe
 	 *
 	 * @param mixed $defaultValue
 	 */
-	public function maybe($defaultValue, \Closure $predicate)
+	public function maybe($defaultValue, callable $predicate)
 	{
 		return $predicate($this->value);
 	}
@@ -163,12 +163,12 @@ final class Just extends Maybe
 	/**
 	 * Apply predicate if `Just`.
 	 *
-	 * @psalm-param \Closure(T) $predicate
-	 * @phpstan-param \Closure(T):(void|mixed) $predicate
+	 * @psalm-param callable(T) $predicate
+	 * @phpstan-param callable(T):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 */
-	public function apply(\Closure $predicate): void
+	public function apply(callable $predicate): void
 	{
 		\call_user_func_array($predicate, [$this->value]);
 	}

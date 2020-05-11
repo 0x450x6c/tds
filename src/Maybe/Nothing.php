@@ -26,12 +26,12 @@ final class Nothing extends Maybe
 	/**
 	 * Alias for Maybe::apply().
 	 *
-	 * @psalm-param \Closure $predicate
-	 * @phpstan-param \Closure $predicate
+	 * @psalm-param callable $predicate
+	 * @phpstan-param callable $predicate
 	 *
 	 * @psalm-pure
 	 */
-	public function __invoke(\Closure $predicate): void
+	public function __invoke(callable $predicate): void
 	{
 	}
 
@@ -63,8 +63,8 @@ final class Nothing extends Maybe
 	 * @psalm-param X $defaultValue
 	 * @phpstan-param X $defaultValue
 	 *
-	 * @psalm-param \Closure $predicate
-	 * @phpstan-param \Closure $predicate
+	 * @psalm-param callable $predicate
+	 * @phpstan-param callable $predicate
 	 *
 	 * @psalm-return X
 	 * @phpstan-return X
@@ -73,7 +73,7 @@ final class Nothing extends Maybe
 	 *
 	 * @param mixed $defaultValue
 	 */
-	public function maybe($defaultValue, \Closure $predicate)
+	public function maybe($defaultValue, callable $predicate)
 	{
 		return $defaultValue;
 	}
@@ -141,12 +141,12 @@ final class Nothing extends Maybe
 	/**
 	 * Apply predicate if `Just`.
 	 *
-	 * @psalm-param \Closure $predicate
-	 * @phpstan-param \Closure $predicate
+	 * @psalm-param callable $predicate
+	 * @phpstan-param callable $predicate
 	 *
 	 * @psalm-pure
 	 */
-	public function apply(\Closure $predicate): void
+	public function apply(callable $predicate): void
 	{
 	}
 

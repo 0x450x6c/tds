@@ -10,3 +10,8 @@ parameters:
 			count: 1
 			path: src/Listt/Listt.php
 
+		-
+			message: "#^Method TDS\\\\Listt\\\\Listt\\:\\:sum\\(\\) should return TValue but returns int\\.$#"
+			count: 1
+			path: src/Listt/Listt.php
+

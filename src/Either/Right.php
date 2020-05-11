@@ -64,18 +64,18 @@ class Right implements Either
 	 * @psalm-template RReturn
 	 * @phpstan-template RReturn
 	 *
-	 * @psalm-param \Closure $leftPredicate
-	 * @phpstan-param \Closure $leftPredicate
+	 * @psalm-param callable $leftPredicate
+	 * @phpstan-param callable $leftPredicate
 	 *
-	 * @psalm-param \Closure(R):RReturn $rightPredicate
-	 * @phpstan-param \Closure(R):RReturn $rightPredicate
+	 * @psalm-param callable(R):RReturn $rightPredicate
+	 * @phpstan-param callable(R):RReturn $rightPredicate
 	 *
 	 * @psalm-return RReturn
 	 * @phpstan-return RReturn
 	 *
 	 * @psalm-pure
 	 */
-	public function either(\Closure $leftPredicate, \Closure $rightPredicate)
+	public function either(callable $leftPredicate, callable $rightPredicate)
 	{
 		return $rightPredicate($this->value);
 	}

@@ -325,7 +325,7 @@ final class ListtTest extends TestCase
 	{
 		$list1 = [1, 2, 3];
 		/**
-		 * @phpstan-var \Closure():\Generator<int, int>
+		 * @phpstan-var callable():\Generator<int, int>
 		 */
 		$generator = static fn (): \Generator => yield from $list1;
 

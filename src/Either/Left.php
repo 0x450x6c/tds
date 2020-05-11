@@ -64,18 +64,18 @@ class Left implements Either
 	 * @psalm-template LReturn
 	 * @phpstan-template LReturn
 	 *
-	 * @psalm-param \Closure(L):LReturn $leftPredicate
-	 * @phpstan-param \Closure(L):LReturn $leftPredicate
+	 * @psalm-param callable(L):LReturn $leftPredicate
+	 * @phpstan-param callable(L):LReturn $leftPredicate
 	 *
-	 * @psalm-param \Closure $rightPredicate
-	 * @phpstan-param \Closure $rightPredicate
+	 * @psalm-param callable $rightPredicate
+	 * @phpstan-param callable $rightPredicate
 	 *
 	 * @psalm-return LReturn
 	 * @phpstan-return LReturn
 	 *
 	 * @psalm-pure
 	 */
-	public function either(\Closure $leftPredicate, \Closure $rightPredicate)
+	public function either(callable $leftPredicate, callable $rightPredicate)
 	{
 		return $leftPredicate($this->value);
 	}

@@ -30,6 +30,7 @@ use function TDS\Listt\listSelectNotNull;
 use TDS\Listt\Listt;
 use function TDS\Listt\mapYield;
 use function TDS\Listt\null;
+use function TDS\Listt\product;
 use function TDS\Listt\sum;
 use function TDS\Listt\tail;
 use function TDS\Listt\take;
@@ -760,6 +761,21 @@ final class ListtTest extends TestCase
 		static::assertSame(
 			6,
 			sum($listA)
+		);
+	}
+
+	public function test_product(): void
+	{
+		$listA = [2, 2, 2];
+
+		static::assertSame(
+			8,
+			fromIter($listA)->product()
+		);
+
+		static::assertSame(
+			8,
+			product($listA)
 		);
 	}
 

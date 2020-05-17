@@ -887,6 +887,33 @@ function sum(iterable $list)
 }
 
 /**
+ * The product function computes the product of the numbers of a structure.
+ *
+ * @psalm-pure
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue of int|float
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-return TValue
+ * @phpstan-return TValue
+ *
+ * @complexity O(N).
+ */
+function product(iterable $list)
+{
+	/**
+	 * @psalm-var TValue
+	 */
+	return Listt::fromIter($list)->product();
+}
+
+/**
  * Map a function over all the elements of a container and concatenate the resulting lists.
  *
  * This is lazy function,

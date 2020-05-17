@@ -1239,6 +1239,44 @@ class Listt implements \Iterator, \Countable, \Serializable
 	}
 
 	/**
+	 * The product function computes the product of the numbers of a structure.
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return (
+	 *     TValue is int ? int : (
+	 *         TValue is float ? float : (
+	 *             TValue is numeric ? float : null
+	 *         )
+	 *     )
+	 * )
+	 * @phpstan-return TValue
+	 *
+	 * @complexity O(N).
+	 */
+	public function product()
+	{
+		if ($this->isEmpty()) {
+			/**
+			 * @psalm-var int
+			 * @phpstan-var TValue
+			 */
+			return 0;
+		}
+
+		if (self::assertNumericList($this)) {
+			/**
+			 * @phpstan-var Listt<TKey, int|float> $this
+			 */
+			return $this->foldl1([self::class, '_multiply']);
+		}
+
+		throw new \RuntimeException(
+			'The product function can be applied only for list of numbers.'
+		);
+	}
+
+	/**
 	 * Map a function over all the elements of a container and concatenate the resulting lists.
 	 *
 	 * This is lazy function,
@@ -1665,6 +1703,17 @@ class Listt implements \Iterator, \Countable, \Serializable
 	private static function _add($a, $b)
 	{
 		return $a + $b;
+	}
+
+	/**
+	 * @param float|int $a
+	 * @param float|int $b
+	 *
+	 * @return float|int
+	 */
+	private static function _multiply($a, $b)
+	{
+		return $a * $b;
 	}
 
 	/**

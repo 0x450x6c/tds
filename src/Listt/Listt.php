@@ -78,7 +78,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 */
-	private function __construct(
+	protected function __construct(
 		callable $makeGeneratorFn,
 		$count = null
 	) {
@@ -1588,6 +1588,75 @@ class Listt implements \Iterator, \Countable, \Serializable
 	}
 
 	/**
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 *
+	 * @psalm-param iterable<XKey, XValue> $value
+	 * @phpstan-param iterable<XKey, XValue> $value
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return \Generator<XKey, XValue>
+	 * @phpstan-return \Generator<XKey, XValue>
+	 */
+	protected static function yieldFromIter(iterable $value): \Generator
+	{
+		foreach ($value as $k => $v) {
+			yield $k => $v;
+		}
+	}
+
+	/**
+	 * @psalm-template X
+	 * @phpstan-template X
+	 *
+	 * @psalm-param X $a
+	 * @phpstan-param X $a
+	 * @psalm-param X $a
+	 *
+	 * @psalm-param X $b
+	 * @phpstan-param X $b
+	 *
+	 * @psalm-return Ord::EQ|Ord::GT|Ord::LT
+	 * @phpstan-return int(0)|int(1)|int(-1)
+	 *
+	 * @param mixed $a
+	 * @param mixed $b
+	 *
+	 * @psalm-pure
+	 */
+	protected static function compare($a, $b)
+	{
+		if ($a instanceof Ord && $b instanceof Ord) {
+			/**
+			 * @psalm-var Ord $a
+			 * @psalm-var Ord $b
+			 * @psalm-suppress ImpureMethodCall
+			 */
+			return $a->compare($b);
+		}
+
+		if (!is_scalar($a) || !is_scalar($b)) {
+			throw new \RuntimeException(
+				'Only scalars or instance of `Ord` allowed.',
+			);
+		}
+
+		if ($a > $b) {
+			return Ord::GT;
+		}
+
+		if ($a < $b) {
+			return Ord::LT;
+		}
+
+		return Ord::EQ;
+	}
+
+	/**
 	 * @param float|int $a
 	 * @param float|int $b
 	 *
@@ -1672,74 +1741,5 @@ class Listt implements \Iterator, \Countable, \Serializable
 		}
 
 		return $this->generatorForIterator;
-	}
-
-	/**
-	 * @psalm-template XKey
-	 * @phpstan-template XKey
-	 *
-	 * @psalm-template XValue
-	 * @phpstan-template XValue
-	 *
-	 * @psalm-param iterable<XKey, XValue> $value
-	 * @phpstan-param iterable<XKey, XValue> $value
-	 *
-	 * @psalm-pure
-	 *
-	 * @psalm-return \Generator<XKey, XValue>
-	 * @phpstan-return \Generator<XKey, XValue>
-	 */
-	private static function yieldFromIter(iterable $value): \Generator
-	{
-		foreach ($value as $k => $v) {
-			yield $k => $v;
-		}
-	}
-
-	/**
-	 * @psalm-template X
-	 * @phpstan-template X
-	 *
-	 * @psalm-param X $a
-	 * @phpstan-param X $a
-	 * @psalm-param X $a
-	 *
-	 * @psalm-param X $b
-	 * @phpstan-param X $b
-	 *
-	 * @psalm-return Ord::EQ|Ord::GT|Ord::LT
-	 * @phpstan-return int(0)|int(1)|int(-1)
-	 *
-	 * @param mixed $a
-	 * @param mixed $b
-	 *
-	 * @psalm-pure
-	 */
-	private static function compare($a, $b)
-	{
-		if ($a instanceof Ord && $b instanceof Ord) {
-			/**
-			 * @psalm-var Ord $a
-			 * @psalm-var Ord $b
-			 * @psalm-suppress ImpureMethodCall
-			 */
-			return $a->compare($b);
-		}
-
-		if (!is_scalar($a) || !is_scalar($b)) {
-			throw new \RuntimeException(
-				'Only scalars or instance of `Ord` allowed.',
-			);
-		}
-
-		if ($a > $b) {
-			return Ord::GT;
-		}
-
-		if ($a < $b) {
-			return Ord::LT;
-		}
-
-		return Ord::EQ;
 	}
 }

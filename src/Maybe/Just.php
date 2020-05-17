@@ -2,8 +2,6 @@
 
 namespace TDS\Maybe;
 
-use TDS\Listt\Listt;
-
 /**
  * @psalm-template T
  * @phpstan-template T
@@ -22,13 +20,6 @@ final class Just extends Maybe
 	private $value;
 
 	/**
-	 * @psalm-readonly-allow-private-mutation
-	 *
-	 * @var int
-	 */
-	private $iteratorCursor = 0;
-
-	/**
 	 * @psalm-param T $value
 	 * @phpstan-param T $value
 	 *
@@ -39,19 +30,11 @@ final class Just extends Maybe
 	private function __construct($value)
 	{
 		$this->value = $value;
-	}
 
-	/**
-	 * Alias for Maybe::apply().
-	 *
-	 * @psalm-param callable(T) $predicate
-	 * @phpstan-param callable(T):(void|mixed) $predicate
-	 *
-	 * @psalm-pure
-	 */
-	public function __invoke(callable $predicate): void
-	{
-		$this->apply($predicate);
+		parent::__construct(
+			static fn () => static::yieldFromIter([$value]),
+			0
+		);
 	}
 
 	/**
@@ -148,72 +131,6 @@ final class Just extends Maybe
 	 */
 	public function fromMaybe($defaultValue)
 	{
-		return $this->value;
-	}
-
-	/**
-	 * @psalm-return Listt<int, T>
-	 * @phpstan-return Listt<int, T>
-	 */
-	public function toList(): Listt
-	{
-		return Listt::fromIter([$this->value]);
-	}
-
-	/**
-	 * Apply predicate if `Just`.
-	 *
-	 * @psalm-param callable(T) $predicate
-	 * @phpstan-param callable(T):(void|mixed) $predicate
-	 *
-	 * @psalm-pure
-	 */
-	public function apply(callable $predicate): void
-	{
-		\call_user_func_array($predicate, [$this->value]);
-	}
-
-	public function rewind(): void
-	{
-		$this->iteratorCursor = 0;
-	}
-
-	public function valid(): bool
-	{
-		return 0 === $this->iteratorCursor;
-	}
-
-	public function key(): int
-	{
-		if (!$this->valid()) {
-			throw new \RuntimeException('Iterator is not valid.');
-		}
-
-		/** @psalm-var int */
-		return $this->iteratorCursor;
-	}
-
-	public function next(): void
-	{
-		/**
-		 * @psalm-suppress MixedOperand
-		 * @psalm-suppress ImpurePropertyAssignment
-		 */
-		++$this->iteratorCursor;
-	}
-
-	/**
-	 * @psalm-pure
-	 *
-	 * @psalm-return T
-	 * @phpstan-return T
-	 */
-	public function current()
-	{
-		if (!$this->valid()) {
-			throw new \RuntimeException('Iterator is not valid.');
-		}
-
 		return $this->value;
 	}
 

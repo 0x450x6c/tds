@@ -2,8 +2,6 @@
 
 namespace TDS\Maybe;
 
-use TDS\Listt\Listt;
-
 /**
  * @template-extends Maybe<mixed>
  *
@@ -21,18 +19,15 @@ final class Nothing extends Maybe
 	 */
 	private function __construct()
 	{
-	}
-
-	/**
-	 * Alias for Maybe::apply().
-	 *
-	 * @psalm-param callable $predicate
-	 * @phpstan-param callable $predicate
-	 *
-	 * @psalm-pure
-	 */
-	public function __invoke(callable $predicate): void
-	{
+		/**
+		 * @psalm-var iterable<int, mixed>
+		 * @phpstan-var iterable<int, mixed>
+		 */
+		$list = [];
+		parent::__construct(
+			static fn () => static::yieldFromIter($list),
+			0
+		);
 	}
 
 	/**
@@ -121,59 +116,6 @@ final class Nothing extends Maybe
 	public function fromMaybe($defaultValue)
 	{
 		return $defaultValue;
-	}
-
-	/**
-	 * @psalm-return Listt<int, mixed>
-	 * @phpstan-return Listt<int, mixed>
-	 */
-	public function toList(): Listt
-	{
-		/**
-		 * @psalm-var iterable<int, mixed>
-		 * @phpstan-var iterable<int, mixed>
-		 */
-		$list = [];
-
-		return Listt::fromIter($list);
-	}
-
-	/**
-	 * Apply predicate if `Just`.
-	 *
-	 * @psalm-param callable $predicate
-	 * @phpstan-param callable $predicate
-	 *
-	 * @psalm-pure
-	 */
-	public function apply(callable $predicate): void
-	{
-	}
-
-	public function rewind(): void
-	{
-	}
-
-	public function valid(): bool
-	{
-		return false;
-	}
-
-	public function key(): int
-	{
-		throw new \RuntimeException('Iterator is not valid.');
-	}
-
-	public function next(): void
-	{
-	}
-
-	/**
-	 * @psalm-pure
-	 */
-	public function current(): void
-	{
-		throw new \RuntimeException('Iterator is not valid.');
 	}
 
 	/**

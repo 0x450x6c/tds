@@ -18,22 +18,12 @@ use TDS\Listt\Listt;
  * @psalm-template T
  * @phpstan-template T
  *
- * @template-implements \Iterator<int, T>
+ * @template-extends Listt<int, T>
  *
  * @psalm-immutable
  */
-abstract class Maybe implements \Iterator, \Countable, \Serializable
+abstract class Maybe extends Listt
 {
-	/**
-	 * Alias for Maybe::apply().
-	 *
-	 * @psalm-param callable(T) $predicate
-	 * @phpstan-param callable(T):(void|mixed) $predicate
-	 *
-	 * @psalm-pure
-	 */
-	abstract public function __invoke(callable $predicate): void;
-
 	/**
 	 * The maybe function takes a default value, a function, and a Maybe value.
 	 *
@@ -98,24 +88,4 @@ abstract class Maybe implements \Iterator, \Countable, \Serializable
 	 * @param mixed $defaultValue
 	 */
 	abstract public function fromMaybe($defaultValue);
-
-	/**
-	 * @psalm-return Listt<int, T>
-	 * @phpstan-return Listt<int, T>
-	 *
-	 * @psalm-pure
-	 */
-	abstract public function toList(): Listt;
-
-	/**
-	 * Apply predicate if `Just`.
-	 *
-	 * @psalm-param callable(T) $predicate
-	 * @phpstan-param callable(T):(void|mixed) $predicate
-	 *
-	 * @psalm-pure
-	 */
-	abstract public function apply(callable $predicate): void;
-
-	abstract public function key(): int;
 }

@@ -164,21 +164,6 @@ function listToMaybe(iterable $list): Maybe
 }
 
 /**
- * @psalm-template T
- * @phpstan-template T
- *
- * @psalm-param Maybe<T> $maybe
- * @phpstan-param Maybe<T> $maybe
- *
- * @psalm-return Listt<int, T>
- * @phpstan-return Listt<int, T>
- */
-function maybeToList(Maybe $maybe): Listt
-{
-	return $maybe->toList();
-}
-
-/**
  * The `catMaybes` function takes a list of `Maybes`
  *     and returns a list of all the `Just` values.
  *

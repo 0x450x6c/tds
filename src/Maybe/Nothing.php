@@ -2,6 +2,8 @@
 
 namespace TDS\Maybe;
 
+use TDS\Listt\Listt;
+
 /**
  * @template-extends Maybe<mixed>
  *
@@ -139,5 +141,20 @@ final class Nothing extends Maybe
 	 */
 	public function unserialize($serialized): void
 	{
+	}
+
+	/**
+	 * @psalm-return Listt<int, mixed>
+	 * @phpstan-return Listt<int, mixed>
+	 */
+	public function toList(): Listt
+	{
+		/**
+		 * @psalm-var iterable<int, mixed>
+		 * @phpstan-var iterable<int, mixed>
+		 */
+		$list = [];
+
+		return Listt::fromIter($list);
 	}
 }

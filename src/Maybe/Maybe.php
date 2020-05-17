@@ -88,4 +88,12 @@ abstract class Maybe extends Listt
 	 * @param mixed $defaultValue
 	 */
 	abstract public function fromMaybe($defaultValue);
+
+	/**
+	 * @psalm-return Listt<int, T>
+	 * @phpstan-return Listt<int, T>
+	 *
+	 * @psalm-pure
+	 */
+	abstract public function toList(): Listt;
 }

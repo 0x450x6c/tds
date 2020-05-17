@@ -14,6 +14,7 @@ use function TDS\Maybe\listToMaybe;
 use function TDS\Maybe\mapMaybe;
 use function TDS\Maybe\maybe;
 use function TDS\Maybe\maybeSelectNotNull;
+use function TDS\Maybe\maybeToList;
 use TDS\Maybe\Nothing;
 use function TDS\Maybe\nothing;
 use function TDS\Maybe\toMaybe;
@@ -249,6 +250,29 @@ final class MaybeTest extends TestCase
 		static::assertSame(
 			'a',
 			toMaybe('a')->fromJust()
+		);
+	}
+
+	public function test_maybe_to_list(): void
+	{
+		static::assertSame(
+			['a'],
+			just('a')->toList()->toArray()
+		);
+
+		static::assertSame(
+			['a'],
+			maybeToList(just('a'))->toArray()
+		);
+
+		static::assertSame(
+			[],
+			nothing()->toList()->toArray()
+		);
+
+		static::assertSame(
+			[],
+			maybeToList(nothing())->toArray()
 		);
 	}
 }

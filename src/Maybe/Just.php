@@ -2,6 +2,8 @@
 
 namespace TDS\Maybe;
 
+use TDS\Listt\Listt;
+
 /**
  * @psalm-template T
  * @phpstan-template T
@@ -164,5 +166,14 @@ final class Just extends Maybe
 		$this->__construct(
 			$value
 		);
+	}
+
+	/**
+	 * @psalm-return Listt<int, T>
+	 * @phpstan-return Listt<int, T>
+	 */
+	public function toList(): Listt
+	{
+		return Listt::fromIter([$this->value]);
 	}
 }

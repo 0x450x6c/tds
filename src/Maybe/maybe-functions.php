@@ -234,6 +234,21 @@ function mapMaybe(iterable $list, callable $predicate): Listt
 }
 
 /**
+ * @psalm-template T
+ * @phpstan-template T
+ *
+ * @psalm-param Maybe<T> $maybe
+ * @phpstan-param Maybe<T> $maybe
+ *
+ * @psalm-return Listt<int, T>
+ * @phpstan-return Listt<int, T>
+ */
+function maybeToList(Maybe $maybe): Listt
+{
+	return $maybe->toList();
+}
+
+/**
  * Convert `Just null` to `Nothing`.
  *
  * @psalm-template T

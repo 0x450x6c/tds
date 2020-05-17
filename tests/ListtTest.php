@@ -28,6 +28,7 @@ use function TDS\Listt\lastMaybe;
 use function TDS\Listt\length;
 use function TDS\Listt\listSelectNotNull;
 use TDS\Listt\Listt;
+use function TDS\Listt\mapYield;
 use function TDS\Listt\null;
 use function TDS\Listt\sum;
 use function TDS\Listt\tail;
@@ -374,6 +375,30 @@ final class ListtTest extends TestCase
 			Listt::fromIter($listA)
 				->map(static fn (int $item) => 'test-'.($item + 1))
 				->toArray()
+		);
+	}
+
+	public function test_map_yield(): void
+	{
+		$listA = [1, 2, 3];
+		$listB = ['key-0' => 'test-1', 'key-1' => 'test-2', 'key-2' => 'test-3'];
+
+		/**
+		 * @phpstan-var callable(int, int):\Generator<string, string>
+		 */
+		$fn = static function (int $item, int $key): \Generator {
+			yield 'key-'.(string) $key => 'test-'.(string) $item;
+		};
+
+		self::assertList(
+			$listB,
+			Listt::fromIter($listA)
+				->mapYield($fn)
+		);
+
+		self::assertList(
+			$listB,
+			mapYield($listA, $fn)
 		);
 	}
 

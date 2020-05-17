@@ -232,7 +232,7 @@ function catMaybes(iterable $maybes): Listt
  * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(TValue=, TKey=):Maybe<X> $predicate
- * @phpstan-param callable(TValue):Maybe<X> $predicate
+ * @phpstan-param callable(TValue, TKey|mixed):Maybe<X> $predicate
  *
  * @psalm-pure
  *

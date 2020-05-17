@@ -427,7 +427,7 @@ function nth(iterable $list, int $n)
  * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(TValue=, TKey=):bool $predicate
- * @phpstan-param callable(TValue):bool $predicate
+ * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
  *
  * @psalm-pure
  *
@@ -547,7 +547,7 @@ function tap(iterable $list, callable $predicate): Listt
  * @phpstan-template X
  *
  * @psalm-param callable(TValue=, TKey=):X $predicate
- * @phpstan-param callable(TValue):X $predicate
+ * @phpstan-param callable(TValue, TKey|mixed):X $predicate
  *
  * @psalm-pure
  *
@@ -560,6 +560,45 @@ function tap(iterable $list, callable $predicate): Listt
 function map(iterable $list, callable $predicate): Listt
 {
 	return Listt::fromIter($list)->map($predicate);
+}
+
+/**
+ * Creates a new list populated with the results of calling
+ *    a provided function on every element in the calling list.
+ *
+ * This is lazy function,
+ *     will be applied only when you are reading data from list.
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-template XKey
+ * @phpstan-template XKey
+ *
+ * @psalm-template XValue
+ * @phpstan-template XValue
+ *
+ * @psalm-param callable(TValue, TKey=):\Generator<XKey, XValue> $predicate
+ * @phpstan-param callable(TValue, TKey|mixed):\Generator<XKey, XValue> $predicate
+ *
+ * @psalm-pure
+ *
+ * @psalm-return Listt<XKey, XValue>
+ * @phpstan-return Listt<XKey, XValue>
+ *
+ * @complexity O(N) Lazy.
+ */
+function mapYield(
+	iterable $list,
+	callable $predicate
+): Listt {
+	return Listt::fromIter($list)->mapYield($predicate);
 }
 
 /**
@@ -869,7 +908,7 @@ function sum(iterable $list)
  * @phpstan-template XValue
  *
  * @psalm-param callable(TValue, TKey=):iterable<XKey, XValue> $predicate
- * @phpstan-param callable(TValue):iterable<XKey, XValue> $predicate
+ * @phpstan-param callable(TValue, TKey|mixed):iterable<XKey, XValue> $predicate
  *
  * @psalm-pure
  *

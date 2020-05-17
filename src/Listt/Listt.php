@@ -876,7 +876,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @phpstan-template X
 	 *
 	 * @psalm-param callable(TValue, TKey=):X $predicate
-	 * @phpstan-param callable(TValue):X $predicate
+	 * @phpstan-param callable(TValue, TKey|mixed):X $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -903,6 +903,45 @@ class Listt implements \Iterator, \Countable, \Serializable
 	}
 
 	/**
+	 * Creates a new list populated with the results of calling
+	 *    a provided function on every element in the calling list.
+	 *
+	 * This is lazy function,
+	 *     will be applied only when you are reading data from list.
+	 *
+	 * @psalm-template XKey
+	 * @phpstan-template XKey
+	 *
+	 * @psalm-template XValue
+	 * @phpstan-template XValue
+	 *
+	 * @psalm-param callable(TValue, TKey=):\Generator<XKey, XValue> $predicate
+	 * @phpstan-param callable(TValue, TKey|mixed):\Generator<XKey, XValue> $predicate
+	 *
+	 * @psalm-pure
+	 *
+	 * @psalm-return Listt<XKey, XValue>
+	 * @phpstan-return Listt<XKey, XValue>
+	 *
+	 * @complexity O(N) Lazy.
+	 */
+	public function mapYield(callable $predicate): self
+	{
+		/**
+		 * @phpstan-var callable():\Generator<XKey, XValue>
+		 */
+		$makeGeneratorFn = function () use ($predicate): \Generator {
+			foreach ($this->toGenerator() as $k => $v) {
+				yield from \call_user_func_array($predicate, [$v, $k]);
+			}
+		};
+
+		return self::fromGenerator(
+			$makeGeneratorFn
+		);
+	}
+
+	/**
 	 * This is a version of map which can throw out elements.
 	 *
 	 * In particular, the functional argument returns something of type `Maybe b`.
@@ -918,7 +957,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @phpstan-template X
 	 *
 	 * @psalm-param callable(TValue, TKey=):Maybe<X> $predicate
-	 * @phpstan-param callable(TValue):Maybe<X> $predicate
+	 * @phpstan-param callable(TValue, TKey|mixed):Maybe<X> $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -1212,7 +1251,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @phpstan-template XValue
 	 *
 	 * @psalm-param callable(TValue, TKey=):iterable<XKey, XValue> $predicate
-	 * @phpstan-param callable(TValue):iterable<XKey, XValue> $predicate
+	 * @phpstan-param callable(TValue, TKey|mixed):iterable<XKey, XValue> $predicate
 	 *
 	 * @psalm-pure
 	 *

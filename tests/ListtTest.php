@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace TDS\Tests;
 
 use PHPUnit\Framework\TestCase;
+use function TDS\Listt\any;
 use function TDS\Listt\concat;
 use function TDS\Listt\concatMap;
+use function TDS\Listt\contains;
+use function TDS\Listt\containsKey;
 use TDS\Listt\EmptyListException;
 use function TDS\Listt\foldl;
 use function TDS\Listt\foldl1;
@@ -748,6 +751,90 @@ final class ListtTest extends TestCase
 		self::assertList(
 			$listB,
 			concatMap($listA, static fn (iterable $list): iterable => $list)
+		);
+	}
+
+	public function test_any(): void
+	{
+		/** @var string[] */
+		$listA = ['a'];
+
+		static::assertTrue(
+			fromIter($listA)->any(static fn (string $it) => 'a' === $it)
+		);
+
+		static::assertFalse(
+			fromIter($listA)->any(static fn (string $it) => 'z' === $it)
+		);
+
+		static::assertTrue(
+			any($listA, static fn (string $it) => 'a' === $it)
+		);
+
+		static::assertFalse(
+			any($listA, static fn (string $it) => 'z' === $it)
+		);
+	}
+
+	public function test_contains(): void
+	{
+		/** @var string[] */
+		$listA = ['a'];
+
+		static::assertTrue(
+			fromIter($listA)->contains('a')
+		);
+
+		static::assertFalse(
+			fromIter($listA)->contains('z')
+		);
+
+		static::assertTrue(
+			contains($listA, 'a')
+		);
+
+		static::assertFalse(
+			contains($listA, 'z')
+		);
+	}
+
+	public function test_contains_key(): void
+	{
+		/** @var string[] */
+		$listA = ['a'];
+		/** @var string[] */
+		$listB = ['a' => true];
+
+		static::assertTrue(
+			fromIter($listA)->containsKey(0)
+		);
+
+		static::assertFalse(
+			fromIter($listA)->containsKey(99)
+		);
+
+		static::assertTrue(
+			fromIter($listB)->containsKey('a')
+		);
+
+		static::assertFalse(
+			fromIter($listB)->containsKey('z')
+		);
+
+		static::assertTrue(
+			containsKey($listA, 0)
+		);
+
+		static::assertFalse(
+			containsKey($listA, 99)
+		);
+
+		static::assertTrue(
+			containsKey($listB, 'a')
+		);
+
+		static::assertFalse(
+			containsKey($listB, 'z')
 		);
 	}
 

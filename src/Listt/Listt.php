@@ -718,7 +718,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-param callable(TValue, TKey=):bool $predicate
-	 * @phpstan-param callable(TValue):bool $predicate
+	 * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -1340,6 +1340,69 @@ class Listt implements \Iterator, \Countable, \Serializable
 		return self::fromGenerator(
 			$makeGeneratorFn
 		);
+	}
+
+	/**
+	 * Determines whether any element of the structure satisfies the predicate.
+	 *
+	 * @psalm-param callable(TValue, TKey=):bool $predicate
+	 * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
+	 *
+	 * @psalm-pure
+	 *
+	 * @complexity O(N).
+	 */
+	public function any(
+		callable $predicate
+	): bool {
+		return !$this->select($predicate)->isEmpty();
+	}
+
+	/**
+	 * Determines whether any element of the structure satisfies the passed element.
+	 *
+	 * @psalm-param TValue $element
+	 * @phpstan-param TValue $element
+	 *
+	 * @psalm-pure
+	 *
+	 * @complexity O(N).
+	 *
+	 * @param mixed $element
+	 */
+	public function contains(
+		$element
+	): bool {
+		return !$this->select(
+			/**
+			 * @psalm-param TValue $value
+			 */
+			static fn ($value) => $value === $element
+		)->isEmpty();
+	}
+
+	/**
+	 * Determines whether any key of the structure satisfies the passed key.
+	 *
+	 * @psalm-param TKey $key
+	 * @phpstan-param TKey $key
+	 *
+	 * @psalm-pure
+	 *
+	 * @complexity O(N).
+	 *
+	 * @param mixed $key
+	 */
+	public function containsKey(
+		$key
+	): bool {
+		return !$this->select(
+			/**
+			 * @psalm-param TValue $value
+			 * @psalm-param TKey $key_
+			 */
+			static fn ($value, $key_) => $key_ === $key
+		)->isEmpty();
 	}
 
 	/**

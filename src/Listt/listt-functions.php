@@ -887,6 +887,88 @@ function concatMap(
 }
 
 /**
+ * Determines whether any element of the structure satisfies the predicate.
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param callable(TValue, TKey=):bool $predicate
+ * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
+ *
+ * @psalm-pure
+ *
+ * @complexity O(N).
+ */
+function any(
+	iterable $list,
+	callable $predicate
+): bool {
+	return Listt::fromIter($list)->any($predicate);
+}
+
+/**
+ * Determines whether any element of the structure satisfies the passed element.
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param TValue $element
+ * @phpstan-param TValue $element
+ *
+ * @psalm-pure
+ *
+ * @complexity O(N).
+ *
+ * @param mixed $element
+ */
+function contains(
+	iterable $list,
+	$element
+): bool {
+	return Listt::fromIter($list)->contains($element);
+}
+
+/**
+ * Determines whether any key of the structure satisfies the passed key.
+ *
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
+ * @psalm-template TValue
+ * @phpstan-template TValue
+ *
+ * @psalm-param iterable<TKey, TValue> $list
+ * @phpstan-param iterable<TKey, TValue> $list
+ *
+ * @psalm-param TKey $key
+ * @phpstan-param TKey $key
+ *
+ * @psalm-pure
+ *
+ * @complexity O(N).
+ *
+ * @param mixed $key
+ */
+function containsKey(
+	iterable $list,
+	$key
+): bool {
+	return Listt::fromIter($list)->containsKey($key);
+}
+
+/**
  * Take n, applied to a list xs,
  *     returns the prefix of xs of length n, or xs itself if n > length xs:.
  *

@@ -33,7 +33,7 @@ final class Just extends Maybe
 
 		parent::__construct(
 			static fn () => static::yieldFromIter([$value]),
-			0
+			1
 		);
 	}
 

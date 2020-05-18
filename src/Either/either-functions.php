@@ -179,17 +179,20 @@ function fromRight(Either $either, $defaultValue)
 }
 
 /**
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
  * @psalm-template L
  * @phpstan-template L
  *
  * @psalm-template R
  * @phpstan-template R
  *
- * @psalm-param iterable<int, Either<L, R>> $eithers
- * @phpstan-param iterable<int, Either<L, R>> $eithers
+ * @psalm-param iterable<TKey, Either<L, R>> $eithers
+ * @phpstan-param iterable<TKey, Either<L, R>> $eithers
  *
- * @psalm-return Listt<int, L>
- * @phpstan-return Listt<int, L>
+ * @psalm-return Listt<TKey, L>
+ * @phpstan-return Listt<TKey, L>
  */
 function lefts(iterable $eithers): Listt
 {
@@ -207,17 +210,20 @@ function lefts(iterable $eithers): Listt
 }
 
 /**
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
  * @psalm-template L
  * @phpstan-template L
  *
  * @psalm-template R
  * @phpstan-template R
  *
- * @psalm-param iterable<int, Either<L, R>> $eithers
- * @phpstan-param iterable<int, Either<L, R>> $eithers
+ * @psalm-param iterable<TKey, Either<L, R>> $eithers
+ * @phpstan-param iterable<TKey, Either<L, R>> $eithers
  *
- * @psalm-return Listt<int, R>
- * @phpstan-return Listt<int, R>
+ * @psalm-return Listt<TKey, R>
+ * @phpstan-return Listt<TKey, R>
  */
 function rights(iterable $eithers): Listt
 {
@@ -235,17 +241,20 @@ function rights(iterable $eithers): Listt
 }
 
 /**
+ * @psalm-template TKey
+ * @phpstan-template TKey
+ *
  * @psalm-template L
  * @phpstan-template L
  *
  * @psalm-template R
  * @phpstan-template R
  *
- * @psalm-param iterable<int, Either<L, R>> $eithers
- * @phpstan-param iterable<int, Either<L, R>> $eithers
+ * @psalm-param iterable<TKey, Either<L, R>> $eithers
+ * @phpstan-param iterable<TKey, Either<L, R>> $eithers
  *
- * @psalm-return array{Listt<int, L>, Listt<int, R>}
- * @phpstan-return array{Listt<int, L>, Listt<int, R>}
+ * @psalm-return array{Listt<TKey, L>, Listt<TKey, R>}
+ * @phpstan-return array{Listt<TKey, L>, Listt<TKey, R>}
  */
 function partitionEithers(iterable $eithers): array
 {

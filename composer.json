@@ -2,7 +2,7 @@
     "name": "0x450x6c/tds",
     "type": "library",
     "description": "Typed data structures.",
-    "license": "LGPL",
+    "license": "LGPL-3.0-or-later",
     "require": {
     },
     "require-dev": {

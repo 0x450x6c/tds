@@ -716,12 +716,12 @@ final class ListtTest extends TestCase
 
 		static::assertSame(
 			'_edcba',
-			fromIter($listA)->foldr(static fn (string $x, string $y) => $x.$y, '_')
+			fromIter($listA)->foldr(static fn (string $y, string $x) => $x.$y, '_')
 		);
 
 		static::assertSame(
 			'_edcba',
-			foldr($listA, static fn (string $x, string $y) => $x.$y, '_')
+			foldr($listA, static fn (string $y, string $x) => $x.$y, '_')
 		);
 	}
 
@@ -732,12 +732,12 @@ final class ListtTest extends TestCase
 
 		static::assertSame(
 			'edcba',
-			fromIter($listA)->foldr1(static fn (string $x, string $y) => $x.$y)
+			fromIter($listA)->foldr1(static fn (string $y, string $x) => $x.$y)
 		);
 
 		static::assertSame(
 			'edcba',
-			foldr1($listA, static fn (string $x, string $y) => $x.$y)
+			foldr1($listA, static fn (string $y, string $x) => $x.$y)
 		);
 	}
 

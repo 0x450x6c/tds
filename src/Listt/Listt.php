@@ -1071,7 +1071,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template A
 	 *
-	 * @psalm-param callable(A, TValue, TKey=):A $predicate
+	 * @psalm-param callable(TValue, A, TKey=):A $predicate
 	 *
 	 * @psalm-param A $initialValue
 	 *
@@ -1091,7 +1091,7 @@ class Listt implements \Iterator, \Countable, \Serializable
 		foreach ($this->reverse($preserveNumericKeys) as $k => $v) {
 			$initialValue = \call_user_func_array(
 				$predicate,
-				[$initialValue, $v, $k]
+				[$v, $initialValue, $k]
 			);
 		}
 

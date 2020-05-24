@@ -669,7 +669,7 @@ function foldl1(iterable $list, callable $predicate)
  *
  * @psalm-param iterable<TKey, TValue> $list
  *
- * @psalm-param callable(A, TValue, TKey=):A $predicate
+ * @psalm-param callable(TValue, A, TKey=):A $predicate
  *
  * @psalm-param A $initialValue
  *

@@ -14,25 +14,18 @@ use function TDS\Maybe\nothing;
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-template XKey
- * @phpstan-template XKey
  *
  * @psalm-template XValue
- * @phpstan-template XValue
  *
  * @psalm-param iterable<TKey, TValue> $listA
- * @phpstan-param iterable<TKey, TValue> $listA
  *
  * @psalm-param iterable<XKey, XValue> $listB
- * @phpstan-param iterable<XKey, XValue> $listB
  *
  * @psalm-return Listt<TKey|XKey, TValue|XValue>
- * @phpstan-return Listt<TKey|XKey, TValue|XValue>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -49,19 +42,15 @@ function concat(
  * Extract the first element of a list, which must be non-empty.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @throws EmptyListException
  *
  * @psalm-pure
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -75,24 +64,18 @@ function head(iterable $list)
  * Extract the first element of a list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-template X
- * @phpstan-template X
  *
  * @psalm-param X $defaultValue
- * @phpstan-param X $defaultValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return TValue|X
- * @phpstan-return TValue|X
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -108,20 +91,16 @@ function headOr(iterable $list, $defaultValue)
  * Extract the last element of a list, which must be finite and non-empty.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @throws EmptyListException
  *
  * @psalm-pure
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -135,18 +114,14 @@ function last(iterable $list)
  * Extract the last element of a list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return Maybe<TValue>
- * @phpstan-return Maybe<TValue>
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -162,16 +137,12 @@ function lastMaybe(iterable $list)
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -186,18 +157,14 @@ function tail(iterable $list, bool $preserveNumericKeys = false): Listt
  * The list must be non-empty.
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -216,16 +183,12 @@ function init(iterable $list): Listt
  *     where `x` is the head of the list and `xs` its tail.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Maybe<array{TValue, Listt<TKey, TValue>}>
- * @phpstan-return Maybe<array{0: TValue, 1:Listt<TKey, TValue>}>
  */
 function uncons(iterable $list): Maybe
 {
@@ -238,11 +201,7 @@ function uncons(iterable $list): Maybe
  * @psalm-template TKey
  * @psalm-template TValue
  *
- * @phpstan-template TKey
- * @phpstan-template TValue
- *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
@@ -260,23 +219,17 @@ function length(iterable $list): int
  * Creates a list from function that returns a generator.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param callable():\Generator<TKey, TValue> $makeGeneratorFn
  * @psalm-param null|int|callable():int $count
- *
- * @phpstan-param callable():\Generator<TKey, TValue> $makeGeneratorFn
- * @phpstan-param null|int|callable():int $count
  *
  * @param null|callable|int $count
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(1) just creates a list, but not iterates by.
  * @IgnoreAnnotation("complexity")
@@ -290,15 +243,12 @@ function fromGenerator(callable $makeGeneratorFn, $count = null): Listt
  * Creates a list from single element.
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param TValue $value
- * @phpstan-param TValue $value
  *
  * @psalm-pure
  *
  * @psalm-return Listt<int, TValue>
- * @phpstan-return Listt<int, TValue>
  *
  * @param mixed $value
  *
@@ -314,23 +264,17 @@ function from($value): Listt
  * Creates a list from any iterable except generators.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @param null|callable|int $count
  *
  * @psalm-param iterable<TKey, TValue> $value
  * @psalm-param null|int|callable():int $count
  *
- * @phpstan-param iterable<TKey, TValue> $value
- * @phpstan-param null|int|callable():int $count
- *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(N) just creates a list, but not iterates by.
  * @IgnoreAnnotation("complexity")
@@ -348,7 +292,6 @@ function fromIter(iterable $value, $count = null): Listt
  * @psalm-pure
  *
  * @psalm-return Listt<int, int>
- * @phpstan-return Listt<int, int>
  *
  * @complexity O(N).
  */
@@ -369,7 +312,6 @@ function fromRange(
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -388,20 +330,16 @@ function emptyList(): Listt
  * Get the Nth element out of a list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @throws IndexTooLargeException
  *
  * @psalm-pure
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(N) where N = $n.
  * @IgnoreAnnotation("complexity")
@@ -418,21 +356,16 @@ function nth(iterable $list, int $n)
  *     will be applied only when you are reading data from list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(TValue=, TKey=):bool $predicate
- * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -446,20 +379,16 @@ function select(iterable $list, callable $predicate): Listt
  * Find the lowest element of a list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @throws EmptyListException
  *
  * @psalm-pure
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -473,20 +402,16 @@ function minimum(iterable $list)
  * Find the higest element of a list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @throws EmptyListException
  *
  * @psalm-pure
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -500,24 +425,19 @@ function maximum(iterable $list)
  * Applies passed function to each element of list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * This is lazy function,
  *     will be applied only when you are reading data from list.
  *
  * @psalm-param callable(TValue=, TKey=) $predicate
- * @phpstan-param callable(TValue=, TKey=):(void|mixed) $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -535,24 +455,18 @@ function tap(iterable $list, callable $predicate): Listt
  *     will be applied only when you are reading data from list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-template X
- * @phpstan-template X
  *
  * @psalm-param callable(TValue=, TKey=):X $predicate
- * @phpstan-param callable(TValue, TKey|mixed):X $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, X>
- * @phpstan-return Listt<TKey, X>
  *
  * @complexity O(N) Lazy.
  * @IgnoreAnnotation("complexity")
@@ -570,27 +484,20 @@ function map(iterable $list, callable $predicate): Listt
  *     will be applied only when you are reading data from list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-template XKey
- * @phpstan-template XKey
  *
  * @psalm-template XValue
- * @phpstan-template XValue
  *
  * @psalm-param callable(TValue, TKey=):\Generator<XKey, XValue> $predicate
- * @phpstan-param callable(TValue, TKey|mixed):\Generator<XKey, XValue> $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<XKey, XValue>
- * @phpstan-return Listt<XKey, XValue>
  *
  * @complexity O(N) Lazy.
  */
@@ -607,11 +514,7 @@ function mapYield(
  * @psalm-template TKey
  * @psalm-template TValue
  *
- * @phpstan-template TKey
- * @phpstan-template TValue
- *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -627,11 +530,7 @@ function null(iterable $list): bool
  * @psalm-template TKey
  * @psalm-template TValue
  *
- * @phpstan-template TKey
- * @phpstan-template TValue
- *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -650,16 +549,12 @@ function isEmpty(iterable $list): bool
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @complexity O(2N) Creates one array, and reverse iterate.
  * @IgnoreAnnotation("complexity")
@@ -680,28 +575,20 @@ function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
  * @psalm-pure
  *
  * @psalm-template XValue
- * @phpstan-template XValue
  *
  * @psalm-template XKey
- * @phpstan-template XKey
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param XValue $value
- * @phpstan-param XValue $value
  *
  * @psalm-param XKey|null $key
- * @phpstan-param XKey|null $key
  *
  * @psalm-return Listt<TKey|XKey, TValue|XValue>
- * @phpstan-return Listt<TKey|XKey, TValue|XValue>
  *
  * @complexity O(N).
  *
@@ -716,7 +603,6 @@ function intersperse(
 ): Listt {
 	/**
 	 * @psalm-var Listt<TKey|XKey, TValue|XValue>
-	 * @phpstan-var Listt<TKey|XKey, TValue|XValue>
 	 */
 	return Listt::fromIter($list)->intersperse($value, $key, $preserveNumericKeys);
 }
@@ -725,27 +611,20 @@ function intersperse(
  * Left-associative fold of a structure.
  *
  * @psalm-template A
- * @phpstan-template A
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(A, TValue, TKey=):A $predicate
- * @phpstan-param callable(A, TValue):A $predicate
  *
  * @psalm-param A $initialValue
- * @phpstan-param A $initialValue
  *
  * @psalm-pure
  *
  * @psalm-return A
- * @phpstan-return A
  *
  * @complexity O(N).
  *
@@ -760,25 +639,17 @@ function foldl(iterable $list, callable $predicate, $initialValue)
  * A variant of foldl that has no base case,
  *   and thus may only be applied to non-empty structures.
  *
- * @psalm-template A of TValue
- * @phpstan-template A
- *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
- * @phpstan-param callable(A|TValue, TValue):A $predicate
+ * @psalm-param callable(TValue, TValue, TKey=):TValue $predicate
  *
  * @psalm-pure
  *
- * @psalm-return A|TValue
- * @phpstan-return A|TValue
+ * @psalm-return TValue
  *
  * @complexity O(N).
  */
@@ -791,26 +662,20 @@ function foldl1(iterable $list, callable $predicate)
  * Right-associative fold of a structure.
  *
  * @psalm-template A
- * @phpstan-template A
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(A, TValue, TKey=):A $predicate
  *
  * @psalm-param A $initialValue
- * @phpstan-param A $initialValue
  *
  * @psalm-pure
  *
  * @psalm-return A
- * @phpstan-return A
  *
  * @complexity O(N).
  *
@@ -833,24 +698,17 @@ function foldr(
  * A variant of foldr that has no base case,
  *   and thus may only be applied to non-empty structures.
  *
- * @psalm-template A of TValue
- * @phpstan-template A
+ * @psalm-template TValue
  *
  * @psalm-template TKey
- * @phpstan-template TKey
- *
- * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
- * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
+ * @psalm-param callable(TValue, TValue, TKey=):TValue $predicate
  *
  * @psalm-pure
  *
- * @psalm-return A|TValue
- * @phpstan-return A|TValue
+ * @psalm-return TValue
  *
  * @complexity O(N).
  */
@@ -865,16 +723,12 @@ function foldr1(iterable $list, callable $predicate)
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue of int|float
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(N).
  */
@@ -892,16 +746,12 @@ function sum(iterable $list)
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue of int|float
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return TValue
- * @phpstan-return TValue
  *
  * @complexity O(N).
  */
@@ -920,27 +770,20 @@ function product(iterable $list)
  *     will be applied only when you are reading data from list.
  *
  * @psalm-template XKey
- * @phpstan-template XKey
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-template XValue
- * @phpstan-template XValue
  *
  * @psalm-param callable(TValue, TKey=):iterable<XKey, XValue> $predicate
- * @phpstan-param callable(TValue, TKey|mixed):iterable<XKey, XValue> $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<XKey, XValue>
- * @phpstan-return Listt<XKey, XValue>
  *
  * @complexity O(N) Lazy.
  */
@@ -956,16 +799,12 @@ function concatMap(
  * Determines whether any element of the structure satisfies the predicate.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(TValue, TKey=):bool $predicate
- * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
  *
  * @psalm-pure
  *
@@ -982,16 +821,12 @@ function any(
  * Determines whether any element of the structure satisfies the passed element.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param TValue $element
- * @phpstan-param TValue $element
  *
  * @psalm-pure
  *
@@ -1010,16 +845,12 @@ function contains(
  * Determines whether any key of the structure satisfies the passed key.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param TKey $key
- * @phpstan-param TKey $key
  *
  * @psalm-pure
  *
@@ -1041,16 +872,12 @@ function containsKey(
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @IgnoreAnnotation("complexity")
  *
@@ -1065,16 +892,12 @@ function take(iterable $list, int $n, bool $preserveNumericKeys = false): Listt
  * @psalm-pure
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return \Generator<TKey, TValue>
- * @phpstan-return \Generator<TKey, TValue>
  *
  * @complexity O(1)
  * @IgnoreAnnotation("complexity")
@@ -1086,18 +909,14 @@ function toGenerator(iterable $list): \Generator
 
 /**
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-pure
  *
  * @psalm-return array<array-key, TValue>
- * @phpstan-return array<array-key, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")
@@ -1113,14 +932,9 @@ function toArray(iterable $list): array
  * @psalm-template TKey
  * @psalm-template TValue
  *
- * @phpstan-template TKey
- * @phpstan-template TValue
- *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param null|callable(TValue=, TKey=) $predicate
- * @phpstan-param null|callable(TValue=, TKey=):(void|mixed) $predicate
  *
  * @psalm-pure
  *
@@ -1136,16 +950,12 @@ function apply(iterable $list, ?callable $predicate = null): void
  * Selects not null items of list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue|null> $list
- * @phpstan-param iterable<TKey, TValue|null> $list
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  *
  * @psalm-pure
  */

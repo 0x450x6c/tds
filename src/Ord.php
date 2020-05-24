@@ -4,7 +4,6 @@ namespace TDS;
 
 /**
  * @psalm-template T
- * @phpstan-template T
  */
 interface Ord
 {
@@ -15,10 +14,8 @@ interface Ord
 	/**
 	 * @param Ord $target
 	 * @psalm-param T $target
-	 * @phpstan-param T $target
 	 *
 	 * @psalm-return self::EQ|self::LT|self::GT
-	 * @phpstan-return int(1)|int(0)|int(-1)
 	 *
 	 * @return int
 	 */

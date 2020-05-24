@@ -144,7 +144,6 @@ final class MaybeTest extends TestCase
 			listToMaybe(['a', 'b'])->fromJust()
 		);
 
-		/** @phpstan-var mixed[] */
 		$emptyList = [];
 
 		static::assertInstanceOf(

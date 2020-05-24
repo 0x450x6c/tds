@@ -14,10 +14,8 @@ use TDS\Ord;
  * Clone of https://hackage.haskell.org/package/base-4.12.0.0/docs/Data-List.html.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @template-implements \Iterator<TKey, TValue>
  * @psalm-immutable
@@ -28,7 +26,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 {
 	/**
 	 * @psalm-var callable():\Generator<TKey, TValue>
-	 * @phpstan-var callable():\Generator<TKey, TValue>
 	 *
 	 * @psalm-allow-private-mutation
 	 */
@@ -36,7 +33,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-var null|\Generator<TKey, TValue>
-	 * @phpstan-var null|\Generator<TKey, TValue>
 	 *
 	 * @psalm-allow-private-mutation
 	 */
@@ -44,7 +40,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-var null|\Generator<TKey, TValue>
-	 * @phpstan-var null|\Generator<TKey, TValue>
 	 *
 	 * @psalm-allow-private-mutation
 	 */
@@ -62,17 +57,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-var null|callable():int
-	 * @phpstan-var null|callable():int
 	 * @psalm-allow-private-mutation
 	 */
 	private $countFn;
 
 	/**
 	 * @psalm-param callable():\Generator<TKey, TValue> $makeGeneratorFn
-	 * @phpstan-param callable():\Generator<TKey, TValue> $makeGeneratorFn
 	 *
 	 * @psalm-param null|int|callable():int $count
-	 * @phpstan-param null|int|callable():int $count
 	 *
 	 * @param null|callable|int $count
 	 *
@@ -102,7 +94,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Same as Listt::apply().
 	 *
 	 * @psalm-param null|callable(TValue=, TKey=) $predicate
-	 * @phpstan-param null|callable(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -121,16 +112,12 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-param iterable<XKey, XValue> $list
-	 * @phpstan-param iterable<XKey, XValue> $list
 	 *
 	 * @psalm-return Listt<TKey|XKey, TValue|XValue>
-	 * @phpstan-return Listt<TKey|XKey, TValue|XValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -145,9 +132,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 			$list = self::fromIter($list);
 		}
 
-		/**
-		 * @phpstan-var callable():\Generator<TKey|XKey, TValue|XValue>
-		 */
 		$makeGeneratorFn = function () use (
 			$preserveNumericKeys,
 			$list
@@ -187,7 +171,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(1)
 	 */
@@ -209,13 +192,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param X $defaultValue
-	 * @phpstan-param X $defaultValue
 	 *
 	 * @psalm-return TValue|X
-	 * @phpstan-return TValue|X
 	 *
 	 * @complexity O(1)
 	 *
@@ -238,7 +218,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N)
 	 */
@@ -269,7 +248,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Maybe<TValue>
-	 * @phpstan-return Maybe<TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -288,7 +266,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 * @phpstan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -298,9 +275,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 			throw new EmptyListException();
 		}
 
-		/**
-		 * @phpstan-var callable():\Generator<TKey, TValue>
-		 */
 		$makeGeneratorFn = function () use ($preserveNumericKeys): \Generator {
 			$generator = $this->toGenerator();
 			/** @psalm-suppress ImpureMethodCall */
@@ -335,7 +309,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 * @phpstan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -345,9 +318,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 			throw new EmptyListException();
 		}
 
-		/**
-		 * @phpstan-var callable():\Generator<TKey, TValue>
-		 */
 		$makeGeneratorFn = function (): \Generator {
 			$generator = $this->toGenerator();
 			/** @psalm-suppress ImpureMethodCall */
@@ -378,7 +348,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     where `x` is the head of the list and `xs` its tail.
 	 *
 	 * @psalm-return Maybe<array{TValue, Listt<TKey, TValue>}>
-	 * @phpstan-return Maybe<array{0: TValue, 1:Listt<TKey, TValue>}>
 	 */
 	public function uncons(): Maybe
 	{
@@ -386,9 +355,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 			return nothing();
 		}
 
-		/**
-		 * @phpstan-var Maybe<array{0: TValue, 1:Listt<TKey, TValue>}>
-		 */
 		return just([$this->head(), $this->tail()]);
 	}
 
@@ -447,7 +413,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-return Maybe<TValue>
-	 * @phpstan-return Maybe<TValue>
 	 *
 	 * @psalm-pure
 	 */
@@ -464,22 +429,18 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Creates an empty list.
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 * @phpstan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(1)
 	 */
 	public static function emptyList(): self
 	{
 		/**
-		 * @phpstan-var iterable<XKey, XValue>
 		 * @psalm-var iterable<XKey, XValue>
 		 */
 		$emptyList = [];
@@ -491,23 +452,18 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Creates a list from function that returns a generator.
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-param callable():\Generator<XKey, XValue> $makeGeneratorFn
-	 * @phpstan-param callable():\Generator<XKey, XValue> $makeGeneratorFn
 	 *
 	 * @psalm-param null|int|callable():int $count
-	 * @phpstan-param null|int|callable():int $count
 	 *
 	 * @param null|callable|int $count
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 * @phpstan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
@@ -522,15 +478,12 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Creates a list from single element.
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-param XValue $value
-	 * @phpstan-param XValue $value
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<int, XValue>
-	 * @phpstan-return Listt<int, XValue>
 	 *
 	 * @param mixed $value
 	 *
@@ -545,23 +498,17 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Creates a list from any iterable except generators.
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @param null|callable|int $count
 	 *
 	 * @psalm-param iterable<XKey, XValue> $value
 	 * @psalm-param null|int|callable():int $count
 	 *
-	 * @phpstan-param iterable<XKey, XValue> $value
-	 * @phpstan-param null|int|callable():int $count
-	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 * @phpstan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
@@ -596,7 +543,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<int, int>
-	 * @phpstan-return Listt<int, int>
 	 *
 	 * @complexity O(N).
 	 */
@@ -629,7 +575,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Iterates over list applying predicate (if specified).
 	 *
 	 * @psalm-param null|callable(TValue=, TKey=) $predicate
-	 * @phpstan-param null|callable(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -676,7 +621,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N) where N = $n.
 	 */
@@ -718,12 +662,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-param callable(TValue, TKey=):bool $predicate
-	 * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 * @phpstan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -731,9 +673,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 		callable $predicate,
 		bool $preserveNumericKeys = false
 	): self {
-		/**
-		 * @phpstan-var callable():\Generator<TKey, TValue>
-		 */
 		$generator = function () use (
 			$predicate,
 			$preserveNumericKeys
@@ -766,7 +705,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N)
 	 */
@@ -802,7 +740,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N)
 	 */
@@ -837,20 +774,15 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-param callable(TValue=, TKey=) $predicate
-	 * @phpstan-param callable(TValue=, TKey=):(void|mixed) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 * @phpstan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
 	public function tap(callable $predicate): self
 	{
-		/**
-		 * @phpstan-var callable():\Generator<TKey, TValue>
-		 */
 		$generator = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
 				$predicate($v, $k);
@@ -873,23 +805,17 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param callable(TValue, TKey=):X $predicate
-	 * @phpstan-param callable(TValue, TKey|mixed):X $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, X>
-	 * @phpstan-return Listt<TKey, X>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
 	public function map(callable $predicate): self
 	{
-		/**
-		 * @phpstan-var callable():\Generator<TKey, X>
-		 */
 		$makeGeneratorFn = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
 				yield $k => \call_user_func_array($predicate, [$v, $k]);
@@ -910,26 +836,19 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-param callable(TValue, TKey=):\Generator<XKey, XValue> $predicate
-	 * @phpstan-param callable(TValue, TKey|mixed):\Generator<XKey, XValue> $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 * @phpstan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
 	public function mapYield(callable $predicate): self
 	{
-		/**
-		 * @phpstan-var callable():\Generator<XKey, XValue>
-		 */
 		$makeGeneratorFn = function () use ($predicate): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
 				yield from \call_user_func_array($predicate, [$v, $k]);
@@ -954,15 +873,12 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param callable(TValue, TKey=):Maybe<X> $predicate
-	 * @phpstan-param callable(TValue, TKey|mixed):Maybe<X> $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, X>
-	 * @phpstan-return Listt<TKey, X>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -982,7 +898,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 * @phpstan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(2N).
 	 */
@@ -1031,19 +946,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-param XValue $value
-	 * @phpstan-param XValue $value
 	 *
 	 * @psalm-param XKey|null $key
-	 * @phpstan-param XKey|null $key
 	 *
 	 * @psalm-return Listt<TKey|XKey, TValue|XValue>
-	 * @phpstan-return Listt<TKey|XKey, TValue|XValue>
 	 *
 	 * @complexity O(N).
 	 *
@@ -1105,18 +1015,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Left-associative fold of a structure.
 	 *
 	 * @psalm-template A
-	 * @phpstan-template A
 	 *
 	 * @psalm-param callable(A, TValue, TKey=):A $predicate
-	 * @phpstan-param callable(A, TValue):A $predicate
 	 *
 	 * @psalm-param A $initialValue
-	 * @phpstan-param A $initialValue
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return A
-	 * @phpstan-return A
 	 *
 	 * @complexity O(N).
 	 *
@@ -1138,16 +1044,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * A variant of foldl that has no base case,
 	 *   and thus may only be applied to non-empty structures.
 	 *
-	 * @psalm-template A of TValue
-	 * @phpstan-template A
-	 *
-	 * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
-	 * @phpstan-param callable(A|TValue, TValue):A $predicate
+	 * @psalm-param callable(TValue, TValue, TKey=):TValue $predicate
 	 *
 	 * @psalm-pure
 	 *
-	 * @psalm-return A|TValue
-	 * @phpstan-return A|TValue
+	 * @psalm-return TValue
 	 *
 	 * @complexity O(N).
 	 */
@@ -1169,17 +1070,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Right-associative fold of a structure.
 	 *
 	 * @psalm-template A
-	 * @phpstan-template A
 	 *
 	 * @psalm-param callable(A, TValue, TKey=):A $predicate
 	 *
 	 * @psalm-param A $initialValue
-	 * @phpstan-param A $initialValue
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return A
-	 * @phpstan-return A
 	 *
 	 * @complexity O(N).
 	 *
@@ -1208,11 +1106,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-return (
 	 *     TValue is int ? int : (
 	 *         TValue is float ? float : (
-	 *             TValue is numeric ? float : null
+	 *             TValue is numeric ? float : never-returns
 	 *         )
 	 *     )
 	 * )
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N).
 	 */
@@ -1221,21 +1118,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 		if ($this->isEmpty()) {
 			/**
 			 * @psalm-var int
-			 * @phpstan-var TValue
 			 */
 			return 0;
 		}
 
-		if (self::assertNumericList($this)) {
-			/**
-			 * @phpstan-var Listt<TKey, int|float> $this
-			 */
-			return $this->foldl1([self::class, '_add']);
-		}
-
-		throw new \RuntimeException(
-			'Only numeric lists can be summarized.'
-		);
+		return $this->foldl1([self::class, '_add']);
 	}
 
 	/**
@@ -1246,11 +1133,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-return (
 	 *     TValue is int ? int : (
 	 *         TValue is float ? float : (
-	 *             TValue is numeric ? float : null
+	 *             TValue is numeric ? float : never-returns
 	 *         )
 	 *     )
 	 * )
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(N).
 	 */
@@ -1259,21 +1145,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 		if ($this->isEmpty()) {
 			/**
 			 * @psalm-var int
-			 * @phpstan-var TValue
 			 */
 			return 0;
 		}
 
-		if (self::assertNumericList($this)) {
-			/**
-			 * @phpstan-var Listt<TKey, int|float> $this
-			 */
-			return $this->foldl1([self::class, '_multiply']);
-		}
-
-		throw new \RuntimeException(
-			'The product function can be applied only for list of numbers.'
-		);
+		return $this->foldl1([self::class, '_multiply']);
 	}
 
 	/**
@@ -1283,18 +1159,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *     will be applied only when you are reading data from list.
 	 *
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-param callable(TValue, TKey=):iterable<XKey, XValue> $predicate
-	 * @phpstan-param callable(TValue, TKey|mixed):iterable<XKey, XValue> $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 * @phpstan-return Listt<XKey, XValue>
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -1302,9 +1174,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 		callable $predicate,
 		bool $preserveNumericKeys = false
 	): self {
-		/**
-		 * @phpstan-var callable():\Generator<XKey, XValue>
-		 */
 		$makeGeneratorFn = function () use (
 			$predicate,
 			$preserveNumericKeys
@@ -1336,15 +1205,11 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * This is lazy function,
 	 *     will be applied only when you are reading data from list.
 	 *
-	 * @psalm-template A of TValue
-	 * @phpstan-template A
-	 *
-	 * @psalm-param callable(A|TValue, TValue, TKey=):A $predicate
+	 * @psalm-param callable(TValue, TValue, TKey=):TValue $predicate
 	 *
 	 * @psalm-pure
 	 *
-	 * @psalm-return A|TValue
-	 * @phpstan-return A|TValue
+	 * @psalm-return TValue
 	 *
 	 * @complexity O(N) Lazy.
 	 */
@@ -1369,7 +1234,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 * @phpstan-return Listt<TKey, TValue>
 	 *
 	 * @complexity O(N).
 	 */
@@ -1378,7 +1242,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 		if ($n <= 0) {
 			/**
 			 * @psalm-var iterable<TKey, TValue>
-			 * @phpstan-var iterable<TKey, TValue>
 			 */
 			$emptyList = [];
 
@@ -1423,7 +1286,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Determines whether any element of the structure satisfies the predicate.
 	 *
 	 * @psalm-param callable(TValue, TKey=):bool $predicate
-	 * @phpstan-param callable(TValue, TKey|mixed):bool $predicate
 	 *
 	 * @psalm-pure
 	 *
@@ -1439,7 +1301,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Determines whether any element of the structure satisfies the passed element.
 	 *
 	 * @psalm-param TValue $element
-	 * @phpstan-param TValue $element
 	 *
 	 * @psalm-pure
 	 *
@@ -1462,7 +1323,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Determines whether any key of the structure satisfies the passed key.
 	 *
 	 * @psalm-param TKey $key
-	 * @phpstan-param TKey $key
 	 *
 	 * @psalm-pure
 	 *
@@ -1485,7 +1345,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
-	 * @phpstan-return \Generator<TKey, TValue>
 	 *
 	 * @complexity O(1)
 	 */
@@ -1504,7 +1363,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return array<array-key, TValue>
-	 * @phpstan-return array<array-key, TValue>
 	 *
 	 * @complexity O(N)
 	 */
@@ -1564,7 +1422,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-return TKey
-	 * @phpstan-return TKey
 	 *
 	 * @complexity O(1)
 	 */
@@ -1586,7 +1443,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return TValue
-	 * @phpstan-return TValue
 	 *
 	 * @complexity O(1)
 	 */
@@ -1611,7 +1467,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	{
 		/**
 		 * @psalm-var array<TKey, TValue>
-		 * @phpstan-var array<TKey, TValue>
 		 */
 		$data = unserialize($serialized);
 		/**
@@ -1627,18 +1482,14 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-template XKey
-	 * @phpstan-template XKey
 	 *
 	 * @psalm-template XValue
-	 * @phpstan-template XValue
 	 *
 	 * @psalm-param iterable<XKey, XValue> $value
-	 * @phpstan-param iterable<XKey, XValue> $value
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return \Generator<XKey, XValue>
-	 * @phpstan-return \Generator<XKey, XValue>
 	 */
 	protected static function yieldFromIter(iterable $value): \Generator
 	{
@@ -1649,17 +1500,13 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param X $a
-	 * @phpstan-param X $a
 	 * @psalm-param X $a
 	 *
 	 * @psalm-param X $b
-	 * @phpstan-param X $b
 	 *
 	 * @psalm-return Ord::EQ|Ord::GT|Ord::LT
-	 * @phpstan-return int(0)|int(1)|int(-1)
 	 *
 	 * @param mixed $a
 	 * @param mixed $b
@@ -1764,7 +1611,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
-	 * @phpstan-return \Generator<TKey, TValue>
 	 */
 	private function getGenerator(): \Generator
 	{
@@ -1780,7 +1626,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
-	 * @phpstan-return \Generator<TKey, TValue>
 	 */
 	private function getGeneratorForIterator(): \Generator
 	{

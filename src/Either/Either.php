@@ -10,10 +10,8 @@ use TDS\Maybe\Maybe;
  * The Either type, and associated operations.
  *
  * @psalm-template L
- * @phpstan-template L
  *
  * @psalm-template R
- * @phpstan-template R
  *
  * @psalm-immutable
  */
@@ -26,19 +24,14 @@ interface Either extends \Serializable
 	 *   if it is Right b, apply the second function to b.
 	 *
 	 * @psalm-template LReturn
-	 * @phpstan-template LReturn
 	 *
 	 * @psalm-template RReturn
-	 * @phpstan-template RReturn
 	 *
 	 * @psalm-param callable(L):LReturn $leftPredicate
-	 * @phpstan-param callable(L):LReturn $leftPredicate
 	 *
 	 * @psalm-param callable(R):RReturn $rightPredicate
-	 * @phpstan-param callable(R):RReturn $rightPredicate
 	 *
 	 * @psalm-return LReturn|RReturn
-	 * @phpstan-return LReturn|RReturn
 	 *
 	 * @psalm-pure
 	 */
@@ -56,13 +49,10 @@ interface Either extends \Serializable
 
 	/**
 	 * @psalm-template D
-	 * @phpstan-template D
 	 *
 	 * @psalm-param D $defaultValue
-	 * @phpstan-param D $defaultValue
 	 *
 	 * @psalm-return L|D
-	 * @phpstan-return L|D
 	 *
 	 * @psalm-pure
 	 *
@@ -72,13 +62,10 @@ interface Either extends \Serializable
 
 	/**
 	 * @psalm-template D
-	 * @phpstan-template D
 	 *
 	 * @psalm-param D $defaultValue
-	 * @phpstan-param D $defaultValue
 	 *
 	 * @psalm-return R|D
-	 * @phpstan-return R|D
 	 *
 	 * @psalm-pure
 	 *
@@ -88,7 +75,6 @@ interface Either extends \Serializable
 
 	/**
 	 * @psalm-return Maybe<L>
-	 * @phpstan-return Maybe<L>
 	 *
 	 * @psalm-pure
 	 */
@@ -96,7 +82,6 @@ interface Either extends \Serializable
 
 	/**
 	 * @psalm-return Maybe<R>
-	 * @phpstan-return Maybe<R>
 	 *
 	 * @psalm-pure
 	 */

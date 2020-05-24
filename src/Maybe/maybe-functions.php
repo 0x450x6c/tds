@@ -14,13 +14,10 @@ function nothing(): Nothing
 
 /**
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-param T $value
- * @phpstan-param T $value
  *
  * @psalm-return Just<T>
- * @phpstan-return Just<T>
  *
  * @psalm-pure
  *
@@ -40,25 +37,18 @@ function just($value): Just
  *    to the value inside the Just and returns the result.
  *
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-template X
- * @phpstan-template X
  *
  * @psalm-template Y
- * @phpstan-template Y
  *
  * @psalm-param Maybe<T> $maybe
- * @phpstan-param Maybe<T> $maybe
  *
  * @psalm-param X $defaultValue
- * @phpstan-param X $defaultValue
  *
  * @psalm-param callable(T):Y $predicate
- * @phpstan-param callable(T):Y $predicate
  *
  * @psalm-return X|Y
- * @phpstan-return X|Y
  *
  * @psalm-pure
  *
@@ -71,7 +61,6 @@ function maybe(Maybe $maybe, $defaultValue, callable $predicate)
 
 /**
  * @psalm-template T
- * @phpstan-template T
  *
  * @param Maybe<T> $maybe
  * @psalm-assert-if-true Just<T> $maybe
@@ -86,7 +75,6 @@ function isJust(Maybe $maybe): bool
 
 /**
  * @psalm-template T
- * @phpstan-template T
  *
  * @param Maybe<T> $maybe
  * @psalm-assert-if-true Nothing<T> $maybe
@@ -101,13 +89,10 @@ function isNothing(Maybe $maybe): bool
 
 /**
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-param Maybe<T> $maybe
- * @phpstan-param Maybe<T> $maybe
  *
  * @psalm-return T
- * @phpstan-return T
  *
  * @psalm-pure
  *
@@ -120,19 +105,14 @@ function fromJust(Maybe $maybe)
 
 /**
  * @psalm-template X
- * @phpstan-template X
  *
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-param Maybe<T> $maybe
- * @phpstan-param Maybe<T> $maybe
  *
  * @psalm-param X $defaultValue
- * @phpstan-param X $defaultValue
  *
  * @psalm-return T|X
- * @phpstan-return T|X
  *
  * @psalm-pure
  *
@@ -145,16 +125,12 @@ function fromMaybe(Maybe $maybe, $defaultValue)
 
 /**
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-return Maybe<TValue>
- * @phpstan-return Maybe<TValue>
  *
  * @psalm-pure
  */
@@ -171,18 +147,14 @@ function listToMaybe(iterable $list): Maybe
  *     will be applied only when you are reading data from list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-param iterable<TKey, Maybe<TValue>> $maybes
- * @phpstan-param iterable<TKey, Maybe<TValue>> $maybes
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- * @phpstan-return Listt<TKey, TValue>
  */
 function catMaybes(iterable $maybes): Listt
 {
@@ -205,24 +177,18 @@ function catMaybes(iterable $maybes): Listt
  *     will be applied only when you are reading data from list.
  *
  * @psalm-template TKey
- * @phpstan-template TKey
  *
  * @psalm-template TValue
- * @phpstan-template TValue
  *
  * @psalm-template X
- * @phpstan-template X
  *
  * @psalm-param iterable<TKey, TValue> $list
- * @phpstan-param iterable<TKey, TValue> $list
  *
  * @psalm-param callable(TValue=, TKey=):Maybe<X> $predicate
- * @phpstan-param callable(TValue, TKey|mixed):Maybe<X> $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, X>
- * @phpstan-return Listt<TKey, X>
  *
  * @complexity O(N) Lazy.
  *
@@ -235,13 +201,10 @@ function mapMaybe(iterable $list, callable $predicate): Listt
 
 /**
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-param Maybe<T> $maybe
- * @phpstan-param Maybe<T> $maybe
  *
  * @psalm-return Listt<int, T>
- * @phpstan-return Listt<int, T>
  */
 function maybeToList(Maybe $maybe): Listt
 {
@@ -252,13 +215,10 @@ function maybeToList(Maybe $maybe): Listt
  * Convert `Just null` to `Nothing`.
  *
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-param Maybe<T|null> $maybe
- * @phpstan-param Maybe<T|null> $maybe
  *
  * @psalm-return Maybe<T>
- * @phpstan-return Maybe<T>
  *
  * @psalm-pure
  */
@@ -268,9 +228,6 @@ function maybeSelectNotNull(Maybe $maybe): Maybe
 		return nothing();
 	}
 
-	/**
-	 * @phpstan-var Maybe<T>
-	 */
 	return $maybe;
 }
 
@@ -278,13 +235,10 @@ function maybeSelectNotNull(Maybe $maybe): Maybe
  * Convert nullable value to `Maybe`.
  *
  * @psalm-template T
- * @phpstan-template T
  *
  * @psalm-param T|null $value
- * @phpstan-param T|null $value
  *
  * @psalm-return Maybe<T>
- * @phpstan-return Maybe<T>
  *
  * @psalm-pure
  *

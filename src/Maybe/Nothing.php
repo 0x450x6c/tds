@@ -23,7 +23,6 @@ final class Nothing extends Maybe
 	{
 		/**
 		 * @psalm-var iterable<int, mixed>
-		 * @phpstan-var iterable<int, mixed>
 		 */
 		$list = [];
 		parent::__construct(
@@ -55,16 +54,12 @@ final class Nothing extends Maybe
 	 *    to the value inside the Just and returns the result.
 	 *
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param X $defaultValue
-	 * @phpstan-param X $defaultValue
 	 *
 	 * @psalm-param callable $predicate
-	 * @phpstan-param callable $predicate
 	 *
 	 * @psalm-return X
-	 * @phpstan-return X
 	 *
 	 * @psalm-pure
 	 *
@@ -103,13 +98,10 @@ final class Nothing extends Maybe
 
 	/**
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param X $defaultValue
-	 * @phpstan-param X $defaultValue
 	 *
 	 * @psalm-return X
-	 * @phpstan-return X
 	 *
 	 * @psalm-pure
 	 *
@@ -145,13 +137,11 @@ final class Nothing extends Maybe
 
 	/**
 	 * @psalm-return Listt<int, mixed>
-	 * @phpstan-return Listt<int, mixed>
 	 */
 	public function toList(): Listt
 	{
 		/**
 		 * @psalm-var iterable<int, mixed>
-		 * @phpstan-var iterable<int, mixed>
 		 */
 		$list = [];
 

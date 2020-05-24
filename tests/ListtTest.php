@@ -267,7 +267,6 @@ final class ListtTest extends TestCase
 			fromIter([1, 2, 3])
 		);
 
-		/** @phpstan-var mixed[] */
 		$emptyList = [];
 		static::assertCount(
 			0,
@@ -283,7 +282,6 @@ final class ListtTest extends TestCase
 			$maybe->fromJust()
 		);
 
-		/** @phpstan-var mixed[] */
 		$emptyList = [];
 
 		static::assertInstanceOf(
@@ -307,7 +305,6 @@ final class ListtTest extends TestCase
 	public function test_create_from_iterable(): void
 	{
 		$list1 = [1, 2, 3];
-		/** @phpstan-var Listt<int, mixed> */
 		$emptyList = [];
 		static::assertSame($list1, Listt::fromIter($list1)->toArray());
 		static::assertSame(
@@ -330,9 +327,7 @@ final class ListtTest extends TestCase
 	public function test_create_from_generator(): void
 	{
 		$list1 = [1, 2, 3];
-		/**
-		 * @phpstan-var callable():\Generator<int, int>
-		 */
+
 		$generator = static fn (): \Generator => yield from $list1;
 
 		static::assertSame(
@@ -384,9 +379,6 @@ final class ListtTest extends TestCase
 		$listA = [1, 2, 3];
 		$listB = ['key-0' => 'test-1', 'key-1' => 'test-2', 'key-2' => 'test-3'];
 
-		/**
-		 * @phpstan-var callable(int, int):\Generator<string, string>
-		 */
 		$fn = static function (int $item, int $key): \Generator {
 			yield 'key-'.(string) $key => 'test-'.(string) $item;
 		};
@@ -528,7 +520,6 @@ final class ListtTest extends TestCase
 	 *     string,
 	 *     array{Listt<int, mixed>, int, class-string<T>|null, mixed|null}
 	 * >
-	 * @phpstan-return iterable<string, array<mixed>>
 	 * @psalm-suppress all
 	 */
 	public function ntxProvider(): iterable
@@ -627,7 +618,6 @@ final class ListtTest extends TestCase
 		$listA = ['a', 'b', 'c'];
 		/**
 		 * @psalm-var Listt<int, string>
-		 * @phpstan-var Listt<int, string>
 		 */
 		$listB = unserialize(serialize(fromIter($listA)));
 
@@ -706,6 +696,7 @@ final class ListtTest extends TestCase
 
 	public function test_foldl1(): void
 	{
+		/** @var string[] */
 		$listA = ['a', 'b', 'c', 'd', 'e'];
 
 		static::assertSame(
@@ -736,6 +727,7 @@ final class ListtTest extends TestCase
 
 	public function test_foldr1(): void
 	{
+		/** @var string[] */
 		$listA = ['a', 'b', 'c', 'd', 'e'];
 
 		static::assertSame(
@@ -879,10 +871,6 @@ final class ListtTest extends TestCase
 		);
 	}
 
-	/**
-	 * @phpstan-param array<mixed> $expected
-	 * @phpstan-param Listt<mixed, mixed> $actual
-	 */
 	private static function assertList(array $expected, Listt $actual): void
 	{
 		static::assertSame($expected, $actual->toArray());
@@ -905,7 +893,6 @@ class _Orderable implements Ord
 	 * @param _Orderable $target
 	 *
 	 * @psalm-return self::EQ|self::LT|self::GT
-	 * @phpstan-return int(1)|int(0)|int(-1)
 	 *
 	 * @return int
 	 */

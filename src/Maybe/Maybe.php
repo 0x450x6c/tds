@@ -16,7 +16,6 @@ use TDS\Listt\Listt;
  *     without resorting to drastic measures such as error.
  *
  * @psalm-template T
- * @phpstan-template T
  *
  * @template-extends Listt<int, T>
  *
@@ -33,19 +32,14 @@ abstract class Maybe extends Listt
 	 *    to the value inside the Just and returns the result.
 	 *
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-template Y
-	 * @phpstan-template Y
 	 *
 	 * @psalm-param X $defaultValue
-	 * @phpstan-param X $defaultValue
 	 *
 	 * @psalm-param callable(T):Y $predicate
-	 * @phpstan-param callable(T):Y $predicate
 	 *
 	 * @psalm-return X|Y
-	 * @phpstan-return X|Y
 	 *
 	 * @psalm-pure
 	 *
@@ -65,7 +59,6 @@ abstract class Maybe extends Listt
 
 	/**
 	 * @psalm-return T
-	 * @phpstan-return T
 	 *
 	 * @psalm-pure
 	 *
@@ -75,13 +68,10 @@ abstract class Maybe extends Listt
 
 	/**
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param X $defaultValue
-	 * @phpstan-param X $defaultValue
 	 *
 	 * @psalm-return T|X
-	 * @phpstan-return T|X
 	 *
 	 * @psalm-pure
 	 *
@@ -91,7 +81,6 @@ abstract class Maybe extends Listt
 
 	/**
 	 * @psalm-return Listt<int, T>
-	 * @phpstan-return Listt<int, T>
 	 *
 	 * @psalm-pure
 	 */

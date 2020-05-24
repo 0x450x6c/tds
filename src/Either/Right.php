@@ -9,7 +9,6 @@ use function TDS\Maybe\nothing;
 
 /**
  * @psalm-template R
- * @phpstan-template R
  *
  * @template-implements Either<mixed, R>
  *
@@ -19,13 +18,11 @@ class Right implements Either
 {
 	/**
 	 * @psalm-var R
-	 * @phpstan-var R
 	 */
 	private $value;
 
 	/**
 	 * @psalm-param R $value
-	 * @phpstan-param R $value
 	 *
 	 * @param mixed $value
 	 */
@@ -37,13 +34,10 @@ class Right implements Either
 
 	/**
 	 * @psalm-template X
-	 * @phpstan-template X
 	 *
 	 * @psalm-param X $value
-	 * @phpstan-param X $value
 	 *
 	 * @psalm-return self<X>
-	 * @phpstan-return self<X>
 	 *
 	 * @param mixed $value
 	 */
@@ -62,16 +56,12 @@ class Right implements Either
 	 *   if it is Right b, apply the second function to b.
 	 *
 	 * @psalm-template RReturn
-	 * @phpstan-template RReturn
 	 *
 	 * @psalm-param callable $leftPredicate
-	 * @phpstan-param callable $leftPredicate
 	 *
 	 * @psalm-param callable(R):RReturn $rightPredicate
-	 * @phpstan-param callable(R):RReturn $rightPredicate
 	 *
 	 * @psalm-return RReturn
-	 * @phpstan-return RReturn
 	 *
 	 * @psalm-pure
 	 */
@@ -98,13 +88,10 @@ class Right implements Either
 
 	/**
 	 * @psalm-template D
-	 * @phpstan-template D
 	 *
 	 * @psalm-param D $defaultValue
-	 * @phpstan-param D $defaultValue
 	 *
 	 * @psalm-return D
-	 * @phpstan-return D
 	 *
 	 * @psalm-pure
 	 *
@@ -117,13 +104,10 @@ class Right implements Either
 
 	/**
 	 * @psalm-template D
-	 * @phpstan-template D
 	 *
 	 * @psalm-param D $defaultValue
-	 * @phpstan-param D $defaultValue
 	 *
 	 * @psalm-return R
-	 * @phpstan-return R
 	 *
 	 * @psalm-pure
 	 *
@@ -136,7 +120,6 @@ class Right implements Either
 
 	/**
 	 * @psalm-return Nothing
-	 * @phpstan-return Nothing
 	 *
 	 * @psalm-pure
 	 */
@@ -147,7 +130,6 @@ class Right implements Either
 
 	/**
 	 * @psalm-return Just<R>
-	 * @phpstan-return Just<R>
 	 *
 	 * @psalm-pure
 	 */
@@ -171,7 +153,6 @@ class Right implements Either
 	{
 		/**
 		 * @psalm-var R
-		 * @phpstan-var R
 		 */
 		$data = unserialize($serialized);
 

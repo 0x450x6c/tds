@@ -912,11 +912,13 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 			for (end($list); null !== ($key = key($list)); prev($list)) {
 				if (!$preserveNumericKeys && \is_int($key)) {
+					/** @psalm-suppress InvalidArrayAccess */
 					yield $list[$key];
 
 					continue;
 				}
 
+				/** @psalm-suppress InvalidArrayAccess */
 				yield $key => $list[$key];
 			}
 		};
@@ -1362,13 +1364,13 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-pure
-	 * @psalm-return array<array-key, TValue>
+	 * @psalm-return (TKey is array-key ? array<TKey, TValue> : array<array-key, TValue>)
+	 * @psalm-suppress MismatchingDocblockReturnType
 	 *
 	 * @complexity O(N)
 	 */
 	public function toArray(): array
 	{
-		/** @psalm-var array<array-key, TValue> */
 		return iterator_to_array(
 			$this->toGenerator()
 		);

@@ -908,7 +908,7 @@ function toGenerator(iterable $list): \Generator
 }
 
 /**
- * @psalm-template TKey
+ * @psalm-template TKey of array-key
  *
  * @psalm-template TValue
  *
@@ -916,7 +916,7 @@ function toGenerator(iterable $list): \Generator
  *
  * @psalm-pure
  *
- * @psalm-return array<array-key, TValue>
+ * @psalm-return array<TKey, TValue>
  *
  * @complexity O(N)
  * @IgnoreAnnotation("complexity")

@@ -285,4 +285,16 @@ final class MaybeTest extends TestCase
 			maybeToList(nothing())->toArray()
 		);
 	}
+
+	public function test_to_string(): void
+	{
+		static::assertSame(
+			'1',
+			(string) toMaybe(1)->__toString()
+		);
+		static::assertSame(
+			'',
+			(string) nothing()->__toString()
+		);
+	}
 }

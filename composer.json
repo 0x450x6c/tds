@@ -4,6 +4,7 @@
     "description": "Typed data structures.",
     "license": "LGPL-3.0-or-later",
     "require": {
+        "symfony/polyfill-php80": "*"
     },
     "require-dev": {
         "ext-ast": "*",

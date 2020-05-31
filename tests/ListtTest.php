@@ -878,6 +878,14 @@ final class ListtTest extends TestCase
 		);
 	}
 
+	public function test_to_string(): void
+	{
+		static::assertSame(
+			'123',
+			(string) Listt::fromIter([1, 2, 3])
+		);
+	}
+
 	private static function assertList(array $expected, Listt $actual): void
 	{
 		static::assertSame($expected, $actual->toArray());

@@ -21,7 +21,7 @@ use TDS\Ord;
  * @template-implements \Iterator<TKey, TValue>
  * @psalm-immutable
  */
-class Listt implements \Iterator, \Countable, \Serializable
+class Listt implements \Iterator, \Countable, \Serializable, \Stringable
 {
 	/**
 	 * @psalm-var callable():\Generator<TKey, TValue>
@@ -99,6 +99,24 @@ class Listt implements \Iterator, \Countable, \Serializable
 	public function __invoke(?callable $predicate = null): void
 	{
 		$this->apply($predicate);
+	}
+
+	/**
+	 * @return (TValue is empty|scalar|\Stringable ? string : no-return)
+	 */
+	public function __toString(): string
+	{
+		return $this->foldl(
+			/**
+			 * @psalm-param TValue $x
+			 *
+			 * @param mixed $x
+			 */
+			static function (string $acc, $x) {
+				return $acc.(string) $x;
+			},
+			''
+		);
 	}
 
 	/**

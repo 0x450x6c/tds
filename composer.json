@@ -18,7 +18,7 @@
         "ext-mbstring": "*",
         "ext-xmlwriter": "*",
         "phpunit/phpunit": ">=9.1",
-        "vimeo/psalm": ">=3.10",
+        "vimeo/psalm": "dev-master",
         "friendsofphp/php-cs-fixer": ">=2.16",
         "psalm/plugin-phpunit": "dev-master",
         "brainmaestro/composer-git-hooks": ">=2.8"

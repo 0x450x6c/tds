@@ -4,9 +4,10 @@ declare(strict_types=1);
 
 namespace TDS\Listt;
 
-use function TDS\Maybe\catMaybes;
 use function TDS\Maybe\just;
+use TDS\Maybe\Just;
 use TDS\Maybe\Maybe;
+use TDS\Maybe\Nothing;
 use function TDS\Maybe\nothing;
 use TDS\Ord;
 
@@ -19,8 +20,6 @@ use TDS\Ord;
  *
  * @template-implements \Iterator<TKey, TValue>
  * @psalm-immutable
- *
- * @IgnoreAnnotation("complexity")
  */
 class Listt implements \Iterator, \Countable, \Serializable
 {
@@ -96,8 +95,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-param null|callable(TValue=, TKey=) $predicate
 	 *
 	 * @psalm-pure
-	 *
-	 * @complexity O(N)
 	 */
 	public function __invoke(?callable $predicate = null): void
 	{
@@ -118,8 +115,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-param iterable<XKey, XValue> $list
 	 *
 	 * @psalm-return Listt<TKey|XKey, TValue|XValue>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
 	public function concat(
 		iterable $list,
@@ -171,8 +166,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(1)
 	 */
 	public function head()
 	{
@@ -197,8 +190,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return TValue|X
 	 *
-	 * @complexity O(1)
-	 *
 	 * @param mixed $defaultValue
 	 */
 	public function headOr($defaultValue)
@@ -218,8 +209,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(N)
 	 */
 	public function last()
 	{
@@ -248,8 +237,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Maybe<TValue>
-	 *
-	 * @complexity O(N)
 	 */
 	public function lastMaybe(): Maybe
 	{
@@ -266,8 +253,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 *
-	 * @complexity O(N)
 	 */
 	public function tail(bool $preserveNumericKeys = false): self
 	{
@@ -309,8 +294,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 *
-	 * @complexity O(N)
 	 */
 	public function init(): self
 	{
@@ -360,8 +343,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-pure
-	 *
-	 * @complexity O(1)
 	 */
 	public function null(): bool
 	{
@@ -389,8 +370,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * Alias for Listt::null().
 	 *
 	 * @psalm-pure
-	 *
-	 * @complexity O(1)
 	 */
 	public function isEmpty(): bool
 	{
@@ -402,7 +381,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 *
-	 * @complexity when source is array
 	 *     or count is specified while creating a list,
 	 *     then O(1), otherwise O(N).
 	 */
@@ -435,8 +413,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 *
-	 * @complexity O(1)
 	 */
 	public static function emptyList(): self
 	{
@@ -464,8 +440,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 *
-	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
 	public static function fromGenerator(
 		callable $makeGeneratorFn,
@@ -486,8 +460,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-return Listt<int, XValue>
 	 *
 	 * @param mixed $value
-	 *
-	 * @complexity O(1)
 	 */
 	public static function from($value): self
 	{
@@ -509,8 +481,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 *
-	 * @complexity O(1) just creates a list, but not iterates by.
 	 */
 	public static function fromIter(
 		iterable $value,
@@ -543,8 +513,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<int, int>
-	 *
-	 * @complexity O(N).
 	 */
 	public static function fromRange(
 		int $start,
@@ -577,8 +545,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-param null|callable(TValue=, TKey=) $predicate
 	 *
 	 * @psalm-pure
-	 *
-	 * @complexity O(N)
 	 */
 	public function apply(?callable $predicate = null): void
 	{
@@ -621,8 +587,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(N) where N = $n.
 	 */
 	public function nth(int $n)
 	{
@@ -666,8 +630,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
 	public function select(
 		callable $predicate,
@@ -705,8 +667,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(N)
 	 */
 	public function minimum()
 	{
@@ -740,8 +700,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(N)
 	 */
 	public function maximum()
 	{
@@ -778,8 +736,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
 	public function tap(callable $predicate): self
 	{
@@ -811,8 +767,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, X>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
 	public function map(callable $predicate): self
 	{
@@ -844,14 +798,19 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
-	public function mapYield(callable $predicate): self
+	public function mapYield(callable $predicate, bool $preserveNumericKeys = false): self
 	{
-		$makeGeneratorFn = function () use ($predicate): \Generator {
+		$makeGeneratorFn = function () use ($predicate, $preserveNumericKeys): \Generator {
 			foreach ($this->toGenerator() as $k => $v) {
-				yield from \call_user_func_array($predicate, [$v, $k]);
+				$items = \call_user_func_array($predicate, [$v, $k]);
+				foreach ($items as $key => $value) {
+					if (!$preserveNumericKeys && \is_int($key)) {
+						yield $value;
+					} else {
+						yield $key => $value;
+					}
+				}
 			}
 		};
 
@@ -874,18 +833,41 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-template X
 	 *
-	 * @psalm-param callable(TValue, TKey=):Maybe<X> $predicate
+	 * @psalm-param callable(TValue, TKey=):(Maybe<X>|X|null) $predicate
 	 *
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, X>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
-	public function mapMaybe(callable $predicate): self
+	public function mapMaybe(callable $predicate, bool $preserveNumericKeys = false): self
 	{
-		return catMaybes(
-			$this->map($predicate)
+		return $this->mapYield(
+			/**
+			 * @psalm-param TValue $v
+			 * @psalm-param TKey $k
+			 * @psalm-return \Generator<TKey, X>
+			 *
+			 * @param mixed $v
+			 * @param mixed $k
+			 */
+			static function ($v, $k) use ($predicate): \Generator {
+				/**
+				 * @psalm-var Nothing|Just<X>|X|null
+				 */
+				$result = \call_user_func_array($predicate, [$v, $k]);
+				if (null === $result || $result instanceof Nothing) {
+					return;
+				}
+
+				if ($result instanceof Just) {
+					yield $k => $result->fromJust();
+
+					return;
+				}
+
+				yield $k => $result;
+			},
+			$preserveNumericKeys
 		);
 	}
 
@@ -898,8 +880,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 *
-	 * @complexity O(2N).
 	 */
 	public function reverse(bool $preserveNumericKeys = false): self
 	{
@@ -956,8 +936,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-param XKey|null $key
 	 *
 	 * @psalm-return Listt<TKey|XKey, TValue|XValue>
-	 *
-	 * @complexity O(N).
 	 *
 	 * @param mixed      $value
 	 * @param null|mixed $key
@@ -1026,8 +1004,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return A
 	 *
-	 * @complexity O(N).
-	 *
 	 * @param mixed $initialValue
 	 */
 	public function foldl(callable $predicate, $initialValue)
@@ -1051,8 +1027,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(N).
 	 */
 	public function foldl1(callable $predicate)
 	{
@@ -1081,8 +1055,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-return A
 	 *
-	 * @complexity O(N).
-	 *
 	 * @param mixed $initialValue
 	 */
 	public function foldr(
@@ -1108,12 +1080,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-return (
 	 *     TValue is int ? int : (
 	 *         TValue is float ? float : (
-	 *             TValue is numeric ? float : never-returns
+	 *             TValue is numeric ? float : no-return
 	 *         )
 	 *     )
 	 * )
-	 *
-	 * @complexity O(N).
 	 */
 	public function sum()
 	{
@@ -1124,7 +1094,19 @@ class Listt implements \Iterator, \Countable, \Serializable
 			return 0;
 		}
 
-		return $this->foldl1([self::class, '_add']);
+		/**
+		 * @psalm-suppress all
+		 * @psalm-var (
+		 *     TValue is int ? int : (
+		 *         TValue is float ? float : (
+		 *             TValue is numeric ? float : no-return
+		 *         )
+		 *     )
+		 * )
+		 */
+		return $this->foldl1(
+			static fn ($a, $b) => $a + $b
+		);
 	}
 
 	/**
@@ -1135,12 +1117,10 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-return (
 	 *     TValue is int ? int : (
 	 *         TValue is float ? float : (
-	 *             TValue is numeric ? float : never-returns
+	 *             TValue is numeric ? float : no-return
 	 *         )
 	 *     )
 	 * )
-	 *
-	 * @complexity O(N).
 	 */
 	public function product()
 	{
@@ -1151,7 +1131,17 @@ class Listt implements \Iterator, \Countable, \Serializable
 			return 0;
 		}
 
-		return $this->foldl1([self::class, '_multiply']);
+		/**
+		 * @psalm-suppress all
+		 * @psalm-var (
+		 *     TValue is int ? int : (
+		 *         TValue is float ? float : (
+		 *             TValue is numeric ? float : no-return
+		 *         )
+		 *     )
+		 * )
+		 */
+		return $this->foldl1(static fn ($a, $b) => $a * $b);
 	}
 
 	/**
@@ -1169,8 +1159,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<XKey, XValue>
-	 *
-	 * @complexity O(N) Lazy.
 	 */
 	public function concatMap(
 		callable $predicate,
@@ -1212,8 +1200,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(N) Lazy.
 	 */
 	public function foldr1(callable $predicate)
 	{
@@ -1236,8 +1222,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 *
 	 * @psalm-return Listt<TKey, TValue>
-	 *
-	 * @complexity O(N).
 	 */
 	public function take(int $n, bool $preserveNumericKeys = false): self
 	{
@@ -1290,8 +1274,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-param callable(TValue, TKey=):bool $predicate
 	 *
 	 * @psalm-pure
-	 *
-	 * @complexity O(N).
 	 */
 	public function any(
 		callable $predicate
@@ -1305,8 +1287,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-param TValue $element
 	 *
 	 * @psalm-pure
-	 *
-	 * @complexity O(N).
 	 *
 	 * @param mixed $element
 	 */
@@ -1328,8 +1308,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 *
 	 * @psalm-pure
 	 *
-	 * @complexity O(N).
-	 *
 	 * @param mixed $key
 	 */
 	public function containsKey(
@@ -1347,8 +1325,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return \Generator<TKey, TValue>
-	 *
-	 * @complexity O(1)
 	 */
 	public function toGenerator(): \Generator
 	{
@@ -1366,8 +1342,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-pure
 	 * @psalm-return (TKey is array-key ? array<TKey, TValue> : array<array-key, TValue>)
 	 * @psalm-suppress MismatchingDocblockReturnType
-	 *
-	 * @complexity O(N)
 	 */
 	public function toArray(): array
 	{
@@ -1379,7 +1353,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 *
-	 * @complexity when source is array
 	 *     or count is specified while creating a list,
 	 *     then O(1), otherwise O(N).
 	 */
@@ -1404,18 +1377,12 @@ class Listt implements \Iterator, \Countable, \Serializable
 		return $this->count;
 	}
 
-	/**
-	 * @complexity O(1)
-	 */
 	public function rewind(): void
 	{
 		/** @psalm-suppress ImpurePropertyAssignment */
 		$this->generatorForIterator = $this->toGenerator();
 	}
 
-	/**
-	 * @complexity O(1)
-	 */
 	public function valid(): bool
 	{
 		/** @psalm-suppress ImpureMethodCall */
@@ -1424,8 +1391,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 
 	/**
 	 * @psalm-return TKey
-	 *
-	 * @complexity O(1)
 	 */
 	public function key()
 	{
@@ -1433,9 +1398,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 		return $this->getGeneratorForIterator()->key();
 	}
 
-	/**
-	 * @complexity O(1)
-	 */
 	public function next(): void
 	{
 		/** @psalm-suppress ImpureMethodCall */
@@ -1445,8 +1407,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 	/**
 	 * @psalm-pure
 	 * @psalm-return TValue
-	 *
-	 * @complexity O(1)
 	 */
 	public function current()
 	{
@@ -1504,16 +1464,15 @@ class Listt implements \Iterator, \Countable, \Serializable
 	 * @psalm-template X
 	 *
 	 * @psalm-param X $a
-	 * @psalm-param X $a
 	 *
 	 * @psalm-param X $b
 	 *
 	 * @psalm-return Ord::EQ|Ord::GT|Ord::LT
 	 *
+	 * @psalm-pure
+	 *
 	 * @param mixed $a
 	 * @param mixed $b
-	 *
-	 * @psalm-pure
 	 */
 	protected static function compare($a, $b)
 	{
@@ -1541,73 +1500,6 @@ class Listt implements \Iterator, \Countable, \Serializable
 		}
 
 		return Ord::EQ;
-	}
-
-	/**
-	 * @param float|int $a
-	 * @param float|int $b
-	 *
-	 * @return float|int
-	 */
-	private static function _add($a, $b)
-	{
-		return $a + $b;
-	}
-
-	/**
-	 * @param float|int $a
-	 * @param float|int $b
-	 *
-	 * @return float|int
-	 */
-	private static function _multiply($a, $b)
-	{
-		return $a * $b;
-	}
-
-	/**
-	 * @psalm-pure
-	 *
-	 * @psalm-template XKey
-	 * @psalm-template XValue
-	 *
-	 * @psalm-param Listt<XKey, XValue> $list
-	 *
-	 * @psalm-assert-if-true Listt<XKey, int> $list
-	 */
-	private static function assertIntList(self $list): bool
-	{
-		return !$list->null() && \is_int($list->head());
-	}
-
-	/**
-	 * @psalm-pure
-	 *
-	 * @psalm-template XKey
-	 * @psalm-template XValue
-	 *
-	 * @psalm-param Listt<XKey, XValue> $list
-	 *
-	 * @psalm-assert-if-true Listt<XKey, float> $list
-	 */
-	private static function assertFloatList(self $list): bool
-	{
-		return !$list->null() && \is_float($list->head());
-	}
-
-	/**
-	 * @psalm-pure
-	 *
-	 * @psalm-template XKey
-	 * @psalm-template XValue
-	 *
-	 * @psalm-param Listt<XKey, XValue> $list
-	 *
-	 * @psalm-assert-if-true Listt<XKey, numeric> $list
-	 */
-	private static function assertNumericList(self $list): bool
-	{
-		return !$list->null() && is_numeric($list->head());
 	}
 
 	/**

@@ -183,6 +183,17 @@ final class MaybeTest extends TestCase
 			)
 				->toArray()
 		);
+
+		static::assertSame(
+			$listB,
+			mapMaybe(
+				$listA,
+				static fn (int $item) => (
+					0 === $item % 2 ? null : "test-{$item}"
+				)
+			)
+				->toArray()
+		);
 	}
 
 	public function test_using_as_iterator(): void

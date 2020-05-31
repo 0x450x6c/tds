@@ -184,15 +184,11 @@ function catMaybes(iterable $maybes): Listt
  *
  * @psalm-param iterable<TKey, TValue> $list
  *
- * @psalm-param callable(TValue=, TKey=):Maybe<X> $predicate
+ * @psalm-param callable(TValue=, TKey=):(Maybe<X>|X|null) $predicate
  *
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, X>
- *
- * @complexity O(N) Lazy.
- *
- * @IgnoreAnnotation("complexity")
  */
 function mapMaybe(iterable $list, callable $predicate): Listt
 {

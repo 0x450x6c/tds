@@ -2,10 +2,11 @@
 
 namespace TDS\Maybe;
 
+use function TDS\Listt\emptyList;
 use TDS\Listt\Listt;
 
 /**
- * @template-extends Maybe<mixed>
+ * @template-extends Maybe<empty>
  *
  * @psalm-immutable
  */
@@ -22,7 +23,7 @@ final class Nothing extends Maybe
 	private function __construct()
 	{
 		/**
-		 * @psalm-var iterable<int, mixed>
+		 * @psalm-var iterable<int, empty>
 		 */
 		$list = [];
 		parent::__construct(
@@ -90,6 +91,8 @@ final class Nothing extends Maybe
 	 * @psalm-pure
 	 *
 	 * @throws UsingFromJustOnNothingException
+	 *
+	 * @return no-return
 	 */
 	public function fromJust(): void
 	{
@@ -136,15 +139,10 @@ final class Nothing extends Maybe
 	}
 
 	/**
-	 * @psalm-return Listt<int, mixed>
+	 * @psalm-return Listt<int, empty>
 	 */
 	public function toList(): Listt
 	{
-		/**
-		 * @psalm-var iterable<int, mixed>
-		 */
-		$list = [];
-
-		return Listt::fromIter($list);
+		return emptyList();
 	}
 }

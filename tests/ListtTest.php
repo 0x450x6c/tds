@@ -369,7 +369,7 @@ final class ListtTest extends TestCase
 		static::assertSame(
 			$listB,
 			Listt::fromIter($listA)
-				->map(static fn (int $item) => 'test-'.($item + 1))
+				->map(static fn (int $item) => 'test-'.(string) ($item + 1))
 				->toArray()
 		);
 	}
@@ -404,6 +404,13 @@ final class ListtTest extends TestCase
 			$listB,
 			Listt::fromIter($listA)
 				->mapMaybe(static fn (int $item) => (0 === $item % 2 ? nothing() : just("test-{$item}")))
+				->toArray()
+		);
+
+		static::assertSame(
+			$listB,
+			Listt::fromIter($listA)
+				->mapMaybe(static fn (int $item) => (0 === $item % 2 ? null : "test-{$item}"))
 				->toArray()
 		);
 	}

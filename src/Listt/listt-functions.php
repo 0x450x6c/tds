@@ -26,9 +26,6 @@ use function TDS\Maybe\nothing;
  * @psalm-param iterable<XKey, XValue> $listB
  *
  * @psalm-return Listt<TKey|XKey, TValue|XValue>
- *
- * @complexity O(N) Lazy.
- * @IgnoreAnnotation("complexity")
  */
 function concat(
 	iterable $listA,
@@ -51,9 +48,6 @@ function concat(
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function head(iterable $list)
 {
@@ -77,9 +71,6 @@ function head(iterable $list)
  *
  * @psalm-return TValue|X
  *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
- *
  * @param mixed $defaultValue
  */
 function headOr(iterable $list, $defaultValue)
@@ -101,9 +92,6 @@ function headOr(iterable $list, $defaultValue)
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function last(iterable $list)
 {
@@ -122,9 +110,6 @@ function last(iterable $list)
  * @psalm-pure
  *
  * @psalm-return Maybe<TValue>
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function lastMaybe(iterable $list)
 {
@@ -143,9 +128,6 @@ function lastMaybe(iterable $list)
  * @psalm-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(N)
- * @IgnoreAnnotation("complexity")
  */
 function tail(iterable $list, bool $preserveNumericKeys = false): Listt
 {
@@ -165,9 +147,6 @@ function tail(iterable $list, bool $preserveNumericKeys = false): Listt
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(N)
- * @IgnoreAnnotation("complexity")
  */
 function init(iterable $list): Listt
 {
@@ -205,10 +184,8 @@ function uncons(iterable $list): Maybe
  *
  * @psalm-pure
  *
- * @complexity when source is array
  *     or count is specified while creating a list,
  *     then O(1), otherwise O(N).
- * @IgnoreAnnotation("complexity")
  */
 function length(iterable $list): int
 {
@@ -230,9 +207,6 @@ function length(iterable $list): int
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(1) just creates a list, but not iterates by.
- * @IgnoreAnnotation("complexity")
  */
 function fromGenerator(callable $makeGeneratorFn, $count = null): Listt
 {
@@ -251,9 +225,6 @@ function fromGenerator(callable $makeGeneratorFn, $count = null): Listt
  * @psalm-return Listt<int, TValue>
  *
  * @param mixed $value
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function from($value): Listt
 {
@@ -275,9 +246,6 @@ function from($value): Listt
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(N) just creates a list, but not iterates by.
- * @IgnoreAnnotation("complexity")
  */
 function fromIter(iterable $value, $count = null): Listt
 {
@@ -292,8 +260,6 @@ function fromIter(iterable $value, $count = null): Listt
  * @psalm-pure
  *
  * @psalm-return Listt<int, int>
- *
- * @complexity O(N).
  */
 function fromRange(
 	int $start,
@@ -306,20 +272,14 @@ function fromRange(
 /**
  * Creates an empty list.
  *
- * @psalm-template TKey
- * @psalm-template TValue
- *
  * @psalm-pure
  *
- * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
+ * @psalm-return Listt<empty, empty>
  */
 function emptyList(): Listt
 {
 	/**
-	 * @psalm-var iterable<TKey, TValue>
+	 * @psalm-var iterable<empty, empty>
 	 */
 	$emptyList = [];
 
@@ -340,9 +300,6 @@ function emptyList(): Listt
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(N) where N = $n.
- * @IgnoreAnnotation("complexity")
  */
 function nth(iterable $list, int $n)
 {
@@ -366,9 +323,6 @@ function nth(iterable $list, int $n)
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(N) Lazy.
- * @IgnoreAnnotation("complexity")
  */
 function select(iterable $list, callable $predicate): Listt
 {
@@ -389,9 +343,6 @@ function select(iterable $list, callable $predicate): Listt
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(N)
- * @IgnoreAnnotation("complexity")
  */
 function minimum(iterable $list)
 {
@@ -412,9 +363,6 @@ function minimum(iterable $list)
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(N)
- * @IgnoreAnnotation("complexity")
  */
 function maximum(iterable $list)
 {
@@ -438,9 +386,6 @@ function maximum(iterable $list)
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(N) Lazy.
- * @IgnoreAnnotation("complexity")
  */
 function tap(iterable $list, callable $predicate): Listt
 {
@@ -467,9 +412,6 @@ function tap(iterable $list, callable $predicate): Listt
  * @psalm-pure
  *
  * @psalm-return Listt<TKey, X>
- *
- * @complexity O(N) Lazy.
- * @IgnoreAnnotation("complexity")
  */
 function map(iterable $list, callable $predicate): Listt
 {
@@ -498,8 +440,6 @@ function map(iterable $list, callable $predicate): Listt
  * @psalm-pure
  *
  * @psalm-return Listt<XKey, XValue>
- *
- * @complexity O(N) Lazy.
  */
 function mapYield(
 	iterable $list,
@@ -515,9 +455,6 @@ function mapYield(
  * @psalm-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function null(iterable $list): bool
 {
@@ -531,9 +468,6 @@ function null(iterable $list): bool
  * @psalm-template TValue
  *
  * @psalm-param iterable<TKey, TValue> $list
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function isEmpty(iterable $list): bool
 {
@@ -555,9 +489,6 @@ function isEmpty(iterable $list): bool
  * @psalm-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @complexity O(2N) Creates one array, and reverse iterate.
- * @IgnoreAnnotation("complexity")
  */
 function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
 {
@@ -589,8 +520,6 @@ function reverse(iterable $list, bool $preserveNumericKeys = false): Listt
  * @psalm-param XKey|null $key
  *
  * @psalm-return Listt<TKey|XKey, TValue|XValue>
- *
- * @complexity O(N).
  *
  * @param mixed      $value
  * @param null|mixed $key
@@ -626,8 +555,6 @@ function intersperse(
  *
  * @psalm-return A
  *
- * @complexity O(N).
- *
  * @param mixed $initialValue
  */
 function foldl(iterable $list, callable $predicate, $initialValue)
@@ -650,8 +577,6 @@ function foldl(iterable $list, callable $predicate, $initialValue)
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(N).
  */
 function foldl1(iterable $list, callable $predicate)
 {
@@ -676,8 +601,6 @@ function foldl1(iterable $list, callable $predicate)
  * @psalm-pure
  *
  * @psalm-return A
- *
- * @complexity O(N).
  *
  * @param mixed $initialValue
  */
@@ -709,8 +632,6 @@ function foldr(
  * @psalm-pure
  *
  * @psalm-return TValue
- *
- * @complexity O(N).
  */
 function foldr1(iterable $list, callable $predicate)
 {
@@ -729,8 +650,6 @@ function foldr1(iterable $list, callable $predicate)
  * @psalm-param iterable<TKey, TValue> $list
  *
  * @psalm-return TValue
- *
- * @complexity O(N).
  */
 function sum(iterable $list)
 {
@@ -752,8 +671,6 @@ function sum(iterable $list)
  * @psalm-param iterable<TKey, TValue> $list
  *
  * @psalm-return TValue
- *
- * @complexity O(N).
  */
 function product(iterable $list)
 {
@@ -784,8 +701,6 @@ function product(iterable $list)
  * @psalm-pure
  *
  * @psalm-return Listt<XKey, XValue>
- *
- * @complexity O(N) Lazy.
  */
 function concatMap(
 	iterable $list,
@@ -807,8 +722,6 @@ function concatMap(
  * @psalm-param callable(TValue, TKey=):bool $predicate
  *
  * @psalm-pure
- *
- * @complexity O(N).
  */
 function any(
 	iterable $list,
@@ -829,8 +742,6 @@ function any(
  * @psalm-param TValue $element
  *
  * @psalm-pure
- *
- * @complexity O(N).
  *
  * @param mixed $element
  */
@@ -854,8 +765,6 @@ function contains(
  *
  * @psalm-pure
  *
- * @complexity O(N).
- *
  * @param mixed $key
  */
 function containsKey(
@@ -878,10 +787,6 @@ function containsKey(
  * @psalm-param iterable<TKey, TValue> $list
  *
  * @psalm-return Listt<TKey, TValue>
- *
- * @IgnoreAnnotation("complexity")
- *
- * @complexity O(N).
  */
 function take(iterable $list, int $n, bool $preserveNumericKeys = false): Listt
 {
@@ -898,9 +803,6 @@ function take(iterable $list, int $n, bool $preserveNumericKeys = false): Listt
  * @psalm-param iterable<TKey, TValue> $list
  *
  * @psalm-return \Generator<TKey, TValue>
- *
- * @complexity O(1)
- * @IgnoreAnnotation("complexity")
  */
 function toGenerator(iterable $list): \Generator
 {
@@ -917,9 +819,6 @@ function toGenerator(iterable $list): \Generator
  * @psalm-pure
  *
  * @psalm-return array<TKey, TValue>
- *
- * @complexity O(N)
- * @IgnoreAnnotation("complexity")
  */
 function toArray(iterable $list): array
 {
@@ -937,9 +836,6 @@ function toArray(iterable $list): array
  * @psalm-param null|callable(TValue=, TKey=) $predicate
  *
  * @psalm-pure
- *
- * @complexity O(N)
- * @IgnoreAnnotation("complexity")
  */
 function apply(iterable $list, ?callable $predicate = null): void
 {

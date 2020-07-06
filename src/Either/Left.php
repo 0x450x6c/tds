@@ -10,7 +10,7 @@ use function TDS\Maybe\nothing;
 /**
  * @psalm-template L
  *
- * @template-implements Either<L, mixed>
+ * @template-implements Either<L, empty>
  *
  * @psalm-immutable
  */

@@ -22,7 +22,7 @@ mkShell {
 
 	projectRoot = builtins.toString ./.;
 
-	php = php74base;
+	php = php74.unwrapped;
 
 	shellHook = ''
 		export PATH="$projectRoot/tools/bin:$PATH:$projectRoot/vendor/bin"
